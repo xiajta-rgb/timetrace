@@ -1,0 +1,1921 @@
+<!doctype html>
+<html lang="zh-CN" data-page-node-id="pEEXMJEf0HQgLV9nAUaBZB">
+<head data-page-node-id="QsCQHIiGGuEaMP0gt0R4x9">
+<meta charset="utf-8" data-page-node-id="wsBxHDTuEnk8gTPa9BjrEK" />
+<meta name="viewport" content="width=device-width,initial-scale=1" data-page-node-id="byLCST2jGNVOUlFWNFMzup" />
+<meta name="color-scheme" content="light" data-page-node-id="EXD8bifSIq3ruGfElLGZOj" />
+<title>时痕 TimeTrace · 因子指标体系白皮书</title>
+<meta name="description" content="D-S-T × 9 维 × 56 因子 · 每个因子的定义、情绪切点、典型表达、关键词云、反面信号、引导话术" data-page-node-id="8fUkdaylR558eKWElvrpJB" />
+<link rel="preconnect" href="https://fonts.googleapis.com" data-page-node-id="CdDd8vYQ8AlZyou01xNhWm" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-page-node-id="YMnawNaYBn7lqT5tTBmVJb" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;450;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" data-page-node-id="R4WbE8ArI2KmB0zZQxxDOe" />
+<style>
+  :root{
+    --paper:oklch(98% 0.010 85); --bg:oklch(95.5% 0.013 85); --bg-soft:oklch(94% 0.014 85);
+    --ink:oklch(22% 0.018 235); --ink-soft:oklch(42% 0.012 235); --ink-faint:oklch(60% 0.010 235);
+    --ink-ghost:oklch(76% 0.008 235);
+    --line:oklch(89% 0.012 85); --line-soft:oklch(93% 0.008 85);
+    --accent:oklch(44% 0.072 168); --accent-soft:oklch(94% 0.022 168); --accent-deep:oklch(30% 0.070 168);
+    --gold:oklch(70% 0.105 75); --gold-soft:oklch(94% 0.030 80);
+    --warm:oklch(60% 0.140 45); --warm-soft:oklch(94% 0.030 50);
+    --serif:"Noto Serif SC","Cormorant Garamond",serif;
+    --sans:"Inter","Noto Serif SC",-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
+    --mono:"JetBrains Mono",ui-monospace,monospace;
+    --ease-out:cubic-bezier(.22, .61, .36, 1);
+    --dur-1:.2s; --dur-2:.45s; --dur-3:.8s;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    background-image:
+      radial-gradient(1100px 540px at 78% -8%, oklch(44% 0.072 168 / .07), transparent 60%),
+      radial-gradient(820px 440px at -8% 28%, oklch(70% 0.105 75 / .06), transparent 60%);
+    background-attachment:fixed;
+  }
+  a{color:inherit;text-decoration:none;color:var(--accent-deep)}
+  a:hover{text-decoration:underline}
+  ::selection{background:var(--accent);color:var(--paper)}
+
+  /* Header / Hero */
+  .doc-head{padding:80px 0 48px;border-bottom:1px solid var(--line);background:oklch(97% 0.010 85 / .5)}
+  .doc-head .container{max-width:1240px;margin:0 auto;padding:0 32px}
+  .doc-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:2.5px;color:var(--accent);text-transform:uppercase;margin-bottom:14px}
+  .doc-title{font-family:var(--serif);font-size:clamp(40px, 5vw, 64px);font-weight:600;line-height:1.1;margin:0 0 16px;letter-spacing:-1px}
+  .doc-sub{font-size:18px;color:var(--ink-soft);max-width:780px;line-height:1.75}
+  .doc-meta{margin-top:24px;display:flex;gap:24px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:1px;text-transform:uppercase}
+  .doc-meta span b{color:var(--ink);font-weight:600;margin-right:4px}
+
+  .container{max-width:1240px;margin:0 auto;padding:0 32px}
+
+  /* TOC */
+  .toc{padding:48px 0;border-bottom:1px solid var(--line-soft);background:var(--bg-soft)}
+  .toc h2{font-family:var(--serif);font-size:24px;font-weight:600;margin:0 0 20px}
+  .toc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+  .toc-card{
+    display:block;padding:16px 18px;background:var(--paper);border:1px solid var(--line);
+    border-radius:12px;transition:all var(--dur-1) var(--ease-out);
+  }
+  .toc-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px -12px oklch(22% 0.018 235 / .2)}
+  .toc-card .cat{font-family:var(--mono);font-size:10px;letter-spacing:1.6px;color:var(--accent);margin-bottom:4px}
+  .toc-card .name{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--ink);margin-bottom:4px}
+  .toc-card .desc{font-size:12.5px;color:var(--ink-faint);line-height:1.5}
+  .toc-card .count{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:8px}
+
+  /* Filters */
+  .filters{padding:24px 0;background:var(--paper);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:20;backdrop-filter:blur(12px);background:oklch(98% 0.010 85 / .92)}
+  .filters .container{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .filters input[type="search"]{flex:1;min-width:240px;max-width:480px;padding:9px 14px;border:1px solid var(--line);border-radius:999px;background:var(--bg);font-size:13px;font-family:var(--sans);color:var(--ink)}
+  .filters input[type="search"]:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px oklch(44% 0.072 168 / .15)}
+  .filter-pill{
+    padding:6px 14px;border-radius:999px;border:1px solid var(--line);background:var(--paper);
+    font-size:12px;font-family:var(--mono);color:var(--ink-soft);cursor:pointer;
+    transition:all var(--dur-1) var(--ease-out);
+  }
+  .filter-pill:hover{border-color:var(--accent);color:var(--ink)}
+  .filter-pill.active{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  .filter-pill.D.active{background:var(--accent)}
+  .filter-pill.S.active{background:oklch(70% 0.105 75);border-color:oklch(70% 0.105 75)}
+  .filter-pill.T.active{background:oklch(50% 0.080 280);border-color:oklch(50% 0.080 280)}
+  .filter-pill .ct{font-family:var(--mono);font-size:10px;margin-left:6px;opacity:.7}
+
+  /* Section header */
+  .dim-section{padding:64px 0 48px;border-bottom:1px solid var(--line-soft)}
+  .dim-section:last-child{border-bottom:none}
+  .dim-section .anchor{scroll-margin-top:120px}
+  .dim-head{display:flex;align-items:flex-end;gap:24px;margin-bottom:36px;flex-wrap:wrap}
+  .dim-head .badge-d{font-family:var(--mono);font-size:13px;letter-spacing:2px;font-weight:600;padding:6px 12px;border-radius:8px;color:var(--paper)}
+  .dim-head .badge-d.D{background:var(--accent)}
+  .dim-head .badge-d.S{background:oklch(70% 0.105 75)}
+  .dim-head .badge-d.T{background:oklch(50% 0.080 280)}
+  .dim-head h2{font-family:var(--serif);font-size:36px;font-weight:600;margin:0;letter-spacing:-.5px}
+  .dim-head .q{font-family:var(--serif);font-size:16px;color:var(--ink-soft);font-style:italic;margin:6px 0 0}
+  .dim-head .meta{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:1px;text-align:right}
+  .dim-head .meta b{color:var(--ink)}
+
+  /* Factor cards */
+  .factors{display:grid;grid-template-columns:repeat(auto-fill, minmax(380px, 1fr));gap:18px}
+  .factor{
+    background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:20px 22px;
+    transition:all var(--dur-2) var(--ease-out);
+    display:flex;flex-direction:column;gap:10px;
+  }
+  .factor:hover{transform:translateY(-2px);box-shadow:0 12px 30px -16px oklch(22% 0.018 235 / .25);border-color:var(--accent-soft)}
+  .factor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+  .factor-head .left{flex:1}
+  .factor-id{font-family:var(--mono);font-size:10.5px;letter-spacing:1px;color:var(--ink-faint);margin-bottom:4px}
+  .factor-name{font-family:var(--serif);font-size:18px;font-weight:600;color:var(--ink);line-height:1.3}
+  .factor-meta{display:flex;align-items:center;gap:6px;flex-shrink:0}
+  .weight-badge{font-family:var(--mono);font-size:10px;padding:3px 8px;border-radius:999px;background:var(--accent-soft);color:var(--accent-deep);letter-spacing:.5px}
+  .weight-badge.hot{background:oklch(94% 0.025 168);color:var(--accent-deep)}
+  .weight-badge.mid{background:oklch(94% 0.018 280);color:oklch(38% 0.080 280)}
+  .weight-badge.low{background:oklch(96% 0.010 85);color:var(--ink-faint)}
+
+  .factor-desc{font-size:13.5px;color:var(--ink-soft);line-height:1.7}
+  .factor-desc b{color:var(--ink);font-weight:600}
+
+  .factor-section{padding-top:8px;border-top:1px dashed var(--line-soft);margin-top:4px}
+  .factor-section .label{font-family:var(--mono);font-size:10px;letter-spacing:1.4px;color:var(--accent);text-transform:uppercase;margin-bottom:4px;margin-top:8px;font-weight:600}
+  .factor-section .body{font-size:13px;color:var(--ink-soft);line-height:1.7}
+  .factor-section .body em{font-style:italic;color:oklch(38% 0.08 50)}
+
+  .keywords{display:flex;flex-wrap:wrap;gap:4px;margin-top:4px}
+  .kw{font-family:var(--mono);font-size:10.5px;padding:3px 7px;border-radius:6px;background:var(--bg-soft);color:var(--ink-soft);border:1px solid var(--line)}
+
+  .counter-signal{background:oklch(94% 0.030 50);border-left:2px solid var(--warm);padding:8px 12px;border-radius:0 8px 8px 0;font-size:12.5px;color:oklch(40% 0.080 50);line-height:1.6;margin-top:4px}
+  .prompt-text{background:var(--accent-soft);border-left:2px solid var(--accent);padding:10px 12px;border-radius:0 8px 8px 0;font-size:12.5px;color:var(--accent-deep);line-height:1.6;margin-top:4px;font-style:italic}
+
+  /* Print styles */
+  @media print{
+    body{background:#fff}
+    .filters,.doc-meta,.toc{display:none}
+    .factor{break-inside:avoid;box-shadow:none;border:1px solid #ddd}
+    .dim-section{break-before:page}
+  }
+
+  /* Responsive */
+  @media (max-width:1020px){
+    .toc-grid{grid-template-columns:1fr 1fr}
+    .factors{grid-template-columns:1fr}
+  }
+  @media (max-width:620px){
+    .doc-head{padding:48px 0 32px}
+    .toc-grid{grid-template-columns:1fr}
+    .dim-head h2{font-size:28px}
+  }
+</style>
+</head>
+<body data-page-node-id="QS2eXu9mm4nmVdcFUDPCrp">
+
+<!-- ================== HERO ================== -->
+<header class="doc-head" data-page-node-id="xqnUAtbyJQg1VCNaPudCiz">
+  <div class="container" data-page-node-id="3BRmYzqTMQAad7swNHGARw">
+    <div class="doc-eyebrow" data-page-node-id="Lja7YuQpIFIQvFOasTAzcK">时痕 TIMETRACE · 因子指标体系白皮书</div>
+    <h1 class="doc-title" data-page-node-id="PcuqVAc0HW6jBVXU1wy33D">9 维 × 56 因子<br data-page-node-id="rfaQX4BG84lQzZ7M058IB5"/>D-S-T 时间体验解构全图</h1>
+    <p class="doc-sub" data-page-node-id="FqamruhRcyrD7OC341oZ7e">
+      这是一份给产品设计者、心理研究者与深度用户的<em style="color:var(--ink);font-style:normal;border-bottom:1px dashed var(--ink-ghost)" data-page-node-id="cTerw8UbgoVcp9PRlRcD3q">因子指标解构指南</em>。
+      每一个因子不只是技术上的"关键词集合"，而是<em style="color:var(--ink);font-style:normal" data-page-node-id="kbv3Mpn97pTEkLm4hh1oCu">关于人如何经历时间的一种具体提问</em>。
+      我们希望它能成为一份独立的思考工具——帮助你识别自己日常被忽视的细节。
+    </p>
+    <div class="doc-meta" data-page-node-id="ixyk5XUwCWvg9XlBwkJIjI">
+      <span data-page-node-id="ukdEhEo54N2kfHiBsTgS8V"><b data-page-node-id="MOOy1Bc1XmCKi9DZhUBb2M">v1.0</b> 2026-09-18</span>
+      <span data-page-node-id="SxgfMrVmsUZOeBc6nXYIQR"><b data-page-node-id="nVvTogzGeRw40wGUtRUyZD">9</b> 维度</span>
+      <span data-page-node-id="eFh9Lh917957JeXqsZFtjk"><b data-page-node-id="LVM9n9OCMaHdkLkEA8EIVx">56</b> 因子</span>
+      <span data-page-node-id="9vpK8uWx28GRSixJcc1B1U"><b data-page-node-id="UDgOyMZb81UOmakkZoa5Cq">336+</b> 关键词</span>
+      <span data-page-node-id="tsfUke2smVEP0BlPPOIQM9"><b data-page-node-id="piHuERO6QlqzAanq6zZo0b">168</b> 用户引导话术</span>
+    </div>
+  </div>
+</header>
+
+<!-- ================== TOC ================== -->
+<section class="toc" data-page-node-id="vyeky4zRy45s3RVeOdP3td">
+  <div class="container" data-page-node-id="vt3QsiHYr80sz5hLbB2Pvc">
+    <h2 data-page-node-id="JobjwZFh79ffVvALcAjThK">9 维度索引</h2>
+    <div class="toc-grid" data-page-node-id="9RkeHToWA5kbmLGogYypXe">
+      <a href="#D1" class="toc-card" data-page-node-id="VTC3OvUAFTKRpGJHWjoiob">
+        <div class="cat" data-page-node-id="ZogEUrQYhWGFOUbxN7fNVC">D · DURATION</div>
+        <div class="name" data-page-node-id="XYVufSjOnGkGgGGNFCmiBg">D1 · 时间投入</div>
+        <div class="desc" data-page-node-id="cKfHX0E5M93hx0qjCNfo7Y">我的时间去了哪里？流向 9 大类生活场景。</div>
+        <div class="count" data-page-node-id="xRJPpCF0hpscazsWeADI3e">9 因子</div>
+      </a>
+      <a href="#D2" class="toc-card" data-page-node-id="Mt4t0Ta3kYI4cWeWJKvacr">
+        <div class="cat" data-page-node-id="IRndS3DJ2RyrjYIEYKaPjG">D · DURATION</div>
+        <div class="name" data-page-node-id="3dLWaeu3HKjKmwknfnAkiL">D2 · 时间重复</div>
+        <div class="desc" data-page-node-id="ObpspcFCLNemjiknCkfXNb">多少日子是相似的？重复度如何？</div>
+        <div class="count" data-page-node-id="yeADpAKGOB1IADhFScNvOE">6 因子</div>
+      </a>
+      <a href="#D3" class="toc-card" data-page-node-id="MXGlLMYDGJSOJZjywiSfFH">
+        <div class="cat" data-page-node-id="4BFzdoOyHigrVv7NHdO0xN">D · DURATION</div>
+        <div class="name" data-page-node-id="BxtidmQsQdTtCWpxgqHrXd">D3 · 时间事件</div>
+        <div class="desc" data-page-node-id="pB53WpNsEZGc5q3LpMJM7f">出现了多少区分度的事件？新地点/人物/体验/认知变化。</div>
+        <div class="count" data-page-node-id="EHAFIFKRc7bg7PqjHFX0oV">8 因子</div>
+      </a>
+      <a href="#S1" class="toc-card" data-page-node-id="PSRsEbnppfWlbF3qYR828R">
+        <div class="cat" data-page-node-id="ShqJCDyrmYb2DOiT4x56RB">S · STATE</div>
+        <div class="name" data-page-node-id="Cg9d4QrKbhBD9B0E0KbnTo">S1 · 未来导向</div>
+        <div class="desc" data-page-node-id="bnH3o5n5Iz5nwWGBXAsbfL">我的意识有多少在围绕未来？计划/目标/焦虑。</div>
+        <div class="count" data-page-node-id="YcqVY7I8anQM3yADPN2RyF">7 因子</div>
+      </a>
+      <a href="#S2" class="toc-card" data-page-node-id="ter9YMGQHxEjw7H5DwG9Zk">
+        <div class="cat" data-page-node-id="pcs6RxBcPfaHZBxxMl0kAH">S · STATE</div>
+        <div class="name" data-page-node-id="jiv5xtIAqi8YgVAAqmYVMG">S2 · 结果导向</div>
+        <div class="desc" data-page-node-id="p1kGBr4VmsMzRTD2NG4p8R">我是否只在结果里找意义？KPI/截止/产出。</div>
+        <div class="count" data-page-node-id="KCDx067QmAzyK9CWak2yLP">6 因子</div>
+      </a>
+      <a href="#S3" class="toc-card" data-page-node-id="AJapw6ytUhkDwFzTZhvwNq">
+        <div class="cat" data-page-node-id="oR8GyHsB96nfxmOaluJ59T">S · STATE</div>
+        <div class="name" data-page-node-id="YfE4HItIHRfchSxDkYXVWS">S3 · 主体参与</div>
+        <div class="desc" data-page-node-id="UfFbPNO0gZ35cwzPyjfqH3">是我在生活，还是事情带着我走？主动 vs 被动。</div>
+        <div class="count" data-page-node-id="QZl0XaqzIfk0uTv0DlMoxo">7 因子</div>
+      </a>
+      <a href="#T1" class="toc-card" data-page-node-id="utNspH3CjgJ44UYaMgn1j6">
+        <div class="cat" data-page-node-id="tJR9R2GSpv557iSGtJdAAL">T · TRACE</div>
+        <div class="name" data-page-node-id="BjgcL7AFvaTwAOhb0m45Gg">T1 · 体验痕迹</div>
+        <div class="desc" data-page-node-id="crvwRIGXF8BsAITbTrk0YL">是否形成可回忆的具体节点？感官/场景/情绪峰值。</div>
+        <div class="count" data-page-node-id="zhW8bqriplNyecAL1Tp7Fz">5 因子</div>
+      </a>
+      <a href="#T2" class="toc-card" data-page-node-id="L6ny1AZ9ZEE1uVZKW9lT9E">
+        <div class="cat" data-page-node-id="u9ZcvpTRPpWirXolOFNGKs">T · TRACE</div>
+        <div class="name" data-page-node-id="gN8ZEGBoB6f85o5FKaF4hH">T2 · 认知变化</div>
+        <div class="desc" data-page-node-id="FFX5GFjzv2xxdvzzDY9trE">我有没有变得不一样？新发现/旧观点推翻。</div>
+        <div class="count" data-page-node-id="qFbQW4y0nFHV8oYA7N003n">6 因子</div>
+      </a>
+      <a href="#T3" class="toc-card" data-page-node-id="mO3hhvMdcp4BZTwsEQNyaZ">
+        <div class="cat" data-page-node-id="bVFF8yp9ivNPBRMi17zgZy">T · TRACE</div>
+        <div class="name" data-page-node-id="CDKjDbM801DSGUtVN07jGW">T3 · 关系连接</div>
+        <div class="desc" data-page-node-id="tDK7XWhPCkscNvb9mWeBJi">人与人之间是否留下了痕迹？深度交流/关系变化。</div>
+        <div class="count" data-page-node-id="PzRq7SjwdsG22BOw9Log2G">7 因子</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ================== FILTERS ================== -->
+<div class="filters" id="filters" data-page-node-id="ZJ528EbXC8Nqy8Jgv4VH85">
+  <div class="container" data-page-node-id="73DEVAWVAHSZLMN09Y4gIl">
+    <input type="search" id="searchInput" placeholder="搜索因子名 / 关键词 / 描述…" data-page-node-id="nTqinEhLIT1TCP1FWu5Akr" />
+    <button class="filter-pill active" data-filter="all" data-page-node-id="VIIp9d2HIGKAF4scnkhgwN">全部</button>
+    <button class="filter-pill D" data-filter="D" data-page-node-id="BwEliabiSP6EVYSkeMwGBs">D · 发生<span class="ct" data-page-node-id="L9NIQbSEHDqz2TAMiEivct">3</span></button>
+    <button class="filter-pill S" data-filter="S" data-page-node-id="ogujtwhUACujLkURe9xctd">S · 结构<span class="ct" data-page-node-id="22r70Cfmn8pZZGLJRk28L0">3</span></button>
+    <button class="filter-pill T" data-filter="T" data-page-node-id="FyLdESaJSK58k7NWVwd2jV">T · 留痕<span class="ct" data-page-node-id="vGNQutOKEx96BwFQnrxMnQ">3</span></button>
+    <button class="filter-pill" data-filter="hot" data-page-node-id="4Ihkx0FEGBlZ9UWPBv2Y37">高权重</button>
+  </div>
+</div>
+
+<!-- ================== D1 ================== -->
+<section class="dim-section" id="D1" data-page-node-id="d70cwJlsAbMWSeNK4wEDQy">
+  <div class="container anchor" data-page-node-id="2kBPxyD8P8gXSIsLjvdFMN">
+    <div class="dim-head" data-page-node-id="93lrodfU0OMLX9TBKX3O6h">
+      <div data-page-node-id="dyN9nWkaMdjlNKGLzoMkHy">
+        <span class="badge-d D" data-page-node-id="8vUvvpJABc2JpKDBQ86nwB">D · DURATION 01</span>
+        <h2 data-page-node-id="EeaWMaFoqTOBlLatDg14BY">D1 · 时间投入</h2>
+        <div class="q" data-page-node-id="Q3424HPYk1YoBxaPUqLBC7">"我的时间去了哪里？" —— 回答这个问题的最小切面。</div>
+      </div>
+      <div class="meta" data-page-node-id="5SsIksPkIIvHrxeJeQMiAU">9 因子<br data-page-node-id="J3m8oYbKurSlIkSNCFXxLg"/><b data-page-node-id="v3Hhqj8j3gkunEun05ex4U">权重</b> 1.00</div>
+    </div>
+    <div class="factors" data-page-node-id="VoqECU5vvhihHX6AV6evST">
+
+      <div class="factor" data-cat="D" data-weight="1.00" data-page-node-id="0qERxAzkBCrTtnZoqBAEml">
+        <div class="factor-head" data-page-node-id="GkMlxHuAb1TSYqkES57D3Y">
+          <div class="left" data-page-node-id="zFd7tKrE1XEMiUz2aFJbB6">
+            <div class="factor-id" data-page-node-id="DfYvUoM9zAyitGInzYATfa">D1-W</div>
+            <div class="factor-name" data-page-node-id="cbTG0iT1RwxRAtZEzUtec2">工作</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="TA5rdiVcU75gshiGwWaZfJ">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="HjGJBkHrrKJNjRUOGjO0Zn"><b data-page-node-id="K5cATnHZE6E0mlYBIngF1d">职业投入的总量与质量。</b>不是问"你勤不勤奋"，而是问"这段时间里你把自己交给了什么"。工作不是负担，是<b data-page-node-id="9yKJIz2e7S1fHA6Qr1FOJq">身份表达</b>。</p>
+        <div class="factor-section" data-page-node-id="UWOYTcGHdIrlbxua3MgmDt">
+          <div class="label" data-page-node-id="TZ5R9yXHnknY40ZzaR7g4o">典型表达</div>
+          <div class="body" data-page-node-id="i5FB7yyMAXYIBjHWyHjZxN">"今天处理了一堆流程" · "开了三小时的会" · "把项目推进了一截" · "汇报终于交上去了"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="sZntYdOGH2F9dAJzlNGErH">
+          <div class="label" data-page-node-id="hWSpuwZk8fWM7Bbnvq8gyP">关键词</div>
+          <div class="keywords" data-page-node-id="ausPj5UZg0ThNIvxhfgbfg"><span class="kw" data-page-node-id="eWIchaLemdnf2PjUfBPOOr">工作</span><span class="kw" data-page-node-id="pWDWajMSjrSVQy6IPmlfvf">开会</span><span class="kw" data-page-node-id="gEU4qzWL6N1sX9u8xovqBD">加班</span><span class="kw" data-page-node-id="hGo54X2tmyrPnppQT97ZsJ">项目</span><span class="kw" data-page-node-id="j5zdjL5feJaxnBQbaAuUvB">汇报</span><span class="kw" data-page-node-id="DdMlXO21MPG05d4Bv648Op">同步</span><span class="kw" data-page-node-id="WIUU7iovPmOB8K170q3Tfh">OKR</span><span class="kw" data-page-node-id="HD6cfbsGkAJEYPQmgsG8SN">日报</span><span class="kw" data-page-node-id="JvsQs1Y2BwGcwDn8dKtk7v">周会</span><span class="kw" data-page-node-id="PdTHYqbkNoeQLfD6e4oQnF">deadline</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="Vtk4HGzskdpGyhkGWvVVkD">
+          <div class="label" data-page-node-id="ERkbDhx4WgAFRceoiQaxrG">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="AmFA6ZnQonkAZJyTD6pGuj">一周没有任何工作记录，可能正在经历「身份失重」——不知道自己是谁、价值感流失。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="v2yo6om2XWCkW3PS9HD6WH">
+          <div class="label" data-page-node-id="6sfwUKfVuU4bHWiOoxHXpP">引导话术</div>
+          <div class="prompt-text" data-page-node-id="LjFCsuDgUM02V7GjKqIxdL">"过去这周你做了什么让自己有一点点成就感的事？哪怕很小。"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.70" data-page-node-id="O7qb9K0CvDECQlIp8ztjAF">
+        <div class="factor-head" data-page-node-id="jUu9hnk63To7Cl5zdRSgVf">
+          <div class="left" data-page-node-id="qRWuddD8bSpa1cBWLLC7lU">
+            <div class="factor-id" data-page-node-id="9nHrECRSFnoWbsjGBEdxVN">D1-L</div>
+            <div class="factor-name" data-page-node-id="0rpVU6rhMKeC6J45XQKvxh">学习</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="v3WIgPwAB4ewsYOG6NzaJv">权重 0.70</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="VtILhh6WmSQpjwJ1R79rO6"><b data-page-node-id="jCqwK3RcoIG3dMXMiE4YLt">主动增长的时间投入。</b>衡量一个人是否在为自己投资未来——不是为了产出，而是为了<b data-page-node-id="Ntm9gnNXhR9D38m3v89w19">让自己不同</b>。</p>
+        <div class="factor-section" data-page-node-id="DgQ3UCAOBVqNzYC80Ynn9S">
+          <div class="label" data-page-node-id="tlLgfsTy1e36foXfT01Nr4">典型表达</div>
+          <div class="body" data-page-node-id="TgJMxi2ElWLsW9o92YG5QM">"今天读了半本书" · "上了一个在线课" · "练习了一个新工具" · "研究了一篇论文"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="y44173H1yEdCKo3IJBOs8U">
+          <div class="label" data-page-node-id="vC1UdmXlUYDfGPFXsrnzKN">关键词</div>
+          <div class="keywords" data-page-node-id="Aimh5YLQJXjm8V0Ogs8Dnr"><span class="kw" data-page-node-id="iY6DrnBZkUCaf2byysFQSB">学习</span><span class="kw" data-page-node-id="AoAJodCIJU3gx79uU4CegF">阅读</span><span class="kw" data-page-node-id="ZoQjnxA3oCm8OaBVIDsZWo">读书</span><span class="kw" data-page-node-id="xT9dMViIaH7TxAtKv6mykb">上课</span><span class="kw" data-page-node-id="FDRcr7UvKY4V2sgCEuHNx7">课程</span><span class="kw" data-page-node-id="VRCP5hceynhioiFwoSToZw">培训</span><span class="kw" data-page-node-id="Ay4HcBGJ2bEQs7deSL1Q67">练习</span><span class="kw" data-page-node-id="3Ekhl9l1o7MN93lQSI5C6R">背单词</span><span class="kw" data-page-node-id="0RSvR9HEXohyKqPDb8r7kU">论文</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="xAnk1vV2uW1mAZ2MMOqpDK">
+          <div class="label" data-page-node-id="QYf5QCXXCH2Oibll5mau5z">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="ydGbxYWMbYBLvG973ZyfuM">三个月没有任何学习记录 → "在舒适区里睡着了"，长期会出现能力焦虑与存在感稀释。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="pytDzOHp8CtxL4rI4REEnf">
+          <div class="label" data-page-node-id="Zyn6YeawZF18p1i1iBz0Dh">引导话术</div>
+          <div class="prompt-text" data-page-node-id="pf1DEHXVWsIDnOvnjSU9RJ">"最近有没有哪个 5 分钟的'小学习'，让你觉得自己好像还在往前走？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.90" data-page-node-id="zGd2lCxc4DN2OBDm6zfev8">
+        <div class="factor-head" data-page-node-id="WDurxUEd9IrF5QyCVQNlvH">
+          <div class="left" data-page-node-id="Pxkat3SIbpigRgg3EDV1VX">
+            <div class="factor-id" data-page-node-id="vrZp6KV6Rk74OxPk2Kq3o0">D1-F</div>
+            <div class="factor-name" data-page-node-id="jthwzkW0aecit2oAWuTAUL">家庭</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="cgPrSUxAb2N02t0PBkqdBd">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="eljHPWTjUxVLQehZr4BUOT"><b data-page-node-id="iXaKQM8vdoo7u0AsA1zGy4">与家人共度的时间。</b>不是共处一室，而是真正的<b data-page-node-id="inRYBqS2PpXbXXa9EbRGY2">在场</b>。孩子叫了你几次你没听见——那也是家庭时间的反面。</p>
+        <div class="factor-section" data-page-node-id="blQOA8Buo7SmSMfONForX0">
+          <div class="label" data-page-node-id="0pi343GjKi34mxPvsSoP2C">典型表达</div>
+          <div class="body" data-page-node-id="GfWwkBFusrrdt5ruDcp8FB">"陪孩子读了一本绘本" · "和爸妈吃了一顿饭" · "和爱人散步聊天" · "全家一起做了 XX"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="HbnraillBMX982HobA5cg1">
+          <div class="label" data-page-node-id="rsu1rJ6ziMhxaxvhreGOBe">关键词</div>
+          <div class="keywords" data-page-node-id="YipdchgcDrDRc02sFCsMcd"><span class="kw" data-page-node-id="3p7ILZhKWZcjOKtGVRRUPb">家庭</span><span class="kw" data-page-node-id="SJKHcz9VLLMDDIP3o3rin3">孩子</span><span class="kw" data-page-node-id="I8CCa4HBORC6URKQzVbOjs">陪伴</span><span class="kw" data-page-node-id="BG74Qfh4rCCFxX2lro7LWb">家人</span><span class="kw" data-page-node-id="hhkYPbdtS60048yg3fNlPU">父母</span><span class="kw" data-page-node-id="uV028MpEVYObaOspYe8izb">配偶</span><span class="kw" data-page-node-id="i48Mcodf63zAipDo6Wzlvo">家务</span><span class="kw" data-page-node-id="xZUseKOOOg61w2TvYxOBM3">做饭</span><span class="kw" data-page-node-id="jx4JtjXkfAEhpP8aVVT3Jo">接送</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="0xnxMwaDhoKCeoiMTVyLzY">
+          <div class="label" data-page-node-id="7PZOpCwakGwMRVVXifLfv2">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="UT5uaBtm9OMBHaDxNXneJK">家庭记录长期为零，常伴"陪伴的愧疚感"——一种隐形的、持续的情感负债。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="zoBqqm6L1irvr3N25I4AcQ">
+          <div class="label" data-page-node-id="PlL8hTxy8FiDoLfLDfsxAg">引导话术</div>
+          <div class="prompt-text" data-page-node-id="dxuYjpyzAPGdf4AXsLJGiy">"最近一次让你觉得'这一刻是真的属于这个家'的瞬间是什么？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.70" data-page-node-id="sE8gZdRDDyPqFm5kAP2TW7">
+        <div class="factor-head" data-page-node-id="DtzYDLXxq2Vx1rrZBxl0M7">
+          <div class="left" data-page-node-id="WyI72gtYjAlwkZ42e6Qp54">
+            <div class="factor-id" data-page-node-id="hicf8WGNuGT3nhgJzXAQhy">D1-S</div>
+            <div class="factor-name" data-page-node-id="GtGDH28G8FsNqko1UmxpWU">社交</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="GKPEpswtKHGtkI9fIXOqcj">权重 0.70</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="wjK92JODeF9C48u3fZtBaH"><b data-page-node-id="jcd7PwNCVuPPEAF3iyIVhw">朋友聚会、应酬、主动维系关系的时间。</b>不是"我在群里回了消息"，而是"我留出了完整的一段时间给人"。</p>
+        <div class="factor-section" data-page-node-id="5XIZFXwXxfDWNDNZlsueCm">
+          <div class="label" data-page-node-id="kE2U93tYbH5j1xshEepxpE">典型表达</div>
+          <div class="body" data-page-node-id="tLvkWmUGpSbCt4uQtzxhF5">"和朋友吃了顿饭" · "去参加了同学聚会" · "约了老朋友叙旧" · "团建活动挺有意思"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="TkImNqGhIxlIzilNAjNjQB">
+          <div class="label" data-page-node-id="CrBL0rBV0i2oGk2ddFyGcf">关键词</div>
+          <div class="keywords" data-page-node-id="Q3stEDlKxnl1nE8G2rCzqs"><span class="kw" data-page-node-id="atmZ1BxBWbOT7WUKAaAqCV">社交</span><span class="kw" data-page-node-id="GycgBsmrvcifrACnn6vN1w">朋友</span><span class="kw" data-page-node-id="tF16f2CTBgGgAfDLx8T9Xo">聚会</span><span class="kw" data-page-node-id="PwbkG5YkL2JPP0IDHmFBCQ">饭局</span><span class="kw" data-page-node-id="uaIncogLiHRcNzuONbu2R4">应酬</span><span class="kw" data-page-node-id="s2p3P4RGcWZ5pFTKWyAK3I">团建</span><span class="kw" data-page-node-id="4queHDpxF2GSc7W9kxRgd3">约会</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="mco8WvyCOz3aJfx4RDGxP1">
+          <div class="label" data-page-node-id="lDuvddLy8TelkfLCNcDSxR">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="9fndfkjuhFWhFExcaFmLih">社交记录长期为零，可能正处于"原子化"状态——独自完成所有事的疲惫感会在某天集中爆发。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="JoNS4qMENKiex6tb68cnMQ">
+          <div class="label" data-page-node-id="aRGqgFb4k0NpP5ERBLicUb">引导话术</div>
+          <div class="prompt-text" data-page-node-id="KYY6DWb9rX74vbwERsF1EE">"你身边有哪个人，是'你希望他过得好'的？最近一次想到他是什么时候？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.80" data-page-node-id="XZe8ZRgf7dGLgDcva1jiCD">
+        <div class="factor-head" data-page-node-id="0CGBVNyNvvOTznnnHprBKJ">
+          <div class="left" data-page-node-id="YXO3mN2FrA6SRwhraJcWbm">
+            <div class="factor-id" data-page-node-id="vMH5lReQs5rHMtG4eLI8RE">D1-A</div>
+            <div class="factor-name" data-page-node-id="WBPF6EJmWCYH1pGodmDDio">独处</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="ho0B4NFRkti7jMpebEf7GS">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="JRPjI8oxdd1k1DUZL5TDdN"><b data-page-node-id="Xe8zMh3xdDvWibtbBiKutk">一个人安静地待着的时间。</b>不是"没人打扰"，而是主动选择的<b data-page-node-id="ZFDdaLHxDDePShrBH5w0iO">与自己相处</b>。独处是创造力的温床，也是自我整合的空间。</p>
+        <div class="factor-section" data-page-node-id="sb1gDCqt8DD72BZtsBpKG5">
+          <div class="label" data-page-node-id="GNdUw6ipBXQnFmbsWdvzxS">典型表达</div>
+          <div class="body" data-page-node-id="mgs6Y2HBa3l8Z6cz7tHhgZ">"一个人去公园走了走" · "发了会儿呆" · "安静地看了会儿书" · "一个人喝了杯咖啡"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="o8W2GlrY4Dz5hNdaZJCLVx">
+          <div class="label" data-page-node-id="uW5oKOuOmqLCORRIJWxG8B">关键词</div>
+          <div class="keywords" data-page-node-id="Nfx4vQP3iLvKBgm6ljn6Nz"><span class="kw" data-page-node-id="x587m3TKbgbgCw7F84cyGZ">独处</span><span class="kw" data-page-node-id="9Z2rmfhbTF2BpgByhUqVMP">发呆</span><span class="kw" data-page-node-id="1dX3JTQKe1HMW9Vo5fF36X">一个人</span><span class="kw" data-page-node-id="gZ78uwgsgJco3lkgCAOWrP">独自</span><span class="kw" data-page-node-id="P8fvH6jwyENdBUpWgIWYp9">静坐</span><span class="kw" data-page-node-id="VJXhGqfJG8McjkauUbWZxw">冥想</span><span class="kw" data-page-node-id="WkGu9PsfyPCJI2OK5LNWtF">散步</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="virplh5dfmBtGUA0mok9EB">
+          <div class="label" data-page-node-id="l5zWPblDvEBVyXtefbCIXb">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="nrehxYveL14aO2dEhBQX5K">长期无独处记录的人，会发现自己"不知道自己想做什么"——因为从未给自己听自己的时间。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="CvBr1u4r7FFYt2YAlULBsF">
+          <div class="label" data-page-node-id="XifKdxHYOvmY8fSpQGyxKp">引导话术</div>
+          <div class="prompt-text" data-page-node-id="pB4baIRXi71BxD3JoKtdTT">"最近有没有一段时间，是你完全属于自己的，没人找你、没人在等你？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.60" data-page-node-id="62mOAeiPgCU2gKCptxWVnA">
+        <div class="factor-head" data-page-node-id="wKZNDYaxGCrGhX4PfDHEvu">
+          <div class="left" data-page-node-id="mFjS1F83s2ON2Qj11iKwJh">
+            <div class="factor-id" data-page-node-id="n0SpwPUd9lclYcy2KT3VVC">D1-Z</div>
+            <div class="factor-name" data-page-node-id="lNrLpurHTwlSAOevOxoUKe">睡眠</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="I7CNuYl0SR2PU9Be6QMyrG">权重 0.60</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="BgcT2xUEKZ1ZPPjPjRprkw"><b data-page-node-id="KcrGXaKgZC4ZsfvwaeU0MI">睡眠与休息的时间。</b>衡量一个人是否在"给自己充电"，还是持续透支。</p>
+        <div class="factor-section" data-page-node-id="AVoyaJbfqbyRnkCwrHRKTA">
+          <div class="label" data-page-node-id="Aq6cXYQROIAehHX0I8lgjB">典型表达</div>
+          <div class="body" data-page-node-id="sFivhqpOgv2uuUV81gEolU">"睡到自然醒" · "今天早睡了" · "难得午睡了一会儿" · "整晚没睡好"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="wQh69M7UHJvUVfqMiEHwfK">
+          <div class="label" data-page-node-id="ODX78AKrV4AuOEDjAsNMpo">关键词</div>
+          <div class="keywords" data-page-node-id="BmN0xzro8cuGGz41VKkNmZ"><span class="kw" data-page-node-id="Q7Ki6e7ksGQR18ciCZ4x2B">睡眠</span><span class="kw" data-page-node-id="5RSCJgEL54WIinqXsxxLDm">睡觉</span><span class="kw" data-page-node-id="krvEjD1DHZ9hycjxhEbAJ6">午睡</span><span class="kw" data-page-node-id="dUCOATMDwpEFNFBxvhLtvO">休息</span><span class="kw" data-page-node-id="sSUNYcWUU484vd0G2MDup8">赖床</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="KGWcxGFo7niTCJSCPpgGH8">
+          <div class="label" data-page-node-id="7MZftzKFHvWw2haznck9Yp">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="YyyAuFAWMfBt2lL4oUcgwV">睡眠记录为零但其他活动密集 → 高概率存在慢性透支，身体会用别的方式发出警报。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="Oi5o69dX7yVGfyhExpbVd9">
+          <div class="label" data-page-node-id="BN1Pb7QBfYtm7f55FEXy47">引导话术</div>
+          <div class="prompt-text" data-page-node-id="HGGEnW5nlwFuiRNsE7MCgR">"你最近睡得够吗？不是时长，是醒来那一刻的感觉。"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.50" data-page-node-id="BngdQfuOOdyuP2sxn0Wd6A">
+        <div class="factor-head" data-page-node-id="y9l60mwZ5FrhcLix4PkDbD">
+          <div class="left" data-page-node-id="CgESK94LCrOlp3mHPdd62N">
+            <div class="factor-id" data-page-node-id="k2QTiPx0JkgYO5Y4gnptiH">D1-T</div>
+            <div class="factor-name" data-page-node-id="bLpuPoaPnlipHkhpXSKnfO">通勤</div>
+          </div>
+          <span class="weight-badge low" data-page-node-id="3JxpEDbVurnC0XwpB7m4GA">权重 0.50</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="K01WHaC3HzuLDyPpu9DhgI"><b data-page-node-id="KJZXSdXuBIbYl7HWqrZIqg">上下班路上的时间。</b>通勤是"被迫时间"——既不属于工作也不属于生活。统计它是为了看见"被偷走的时间"。</p>
+        <div class="factor-section" data-page-node-id="Z1V0zZeT1eyUOqWvven7MO">
+          <div class="label" data-page-node-id="Dz0WMI3UOaFgvFdeDNfJIi">典型表达</div>
+          <div class="body" data-page-node-id="VLzSNnHayoFkWHBXTc5nma">"今天路上特别堵" · "地铁上刷了一路手机" · "开车听了会儿播客"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="xRketkHOnBpfEiHENuXpVz">
+          <div class="label" data-page-node-id="Rh3nBAF5PhWxogR47uy0HT">关键词</div>
+          <div class="keywords" data-page-node-id="tA1ii5VgtLV9AyKUnEHiFz"><span class="kw" data-page-node-id="yaxzEzL5sZTl5Nm7QAInAp">通勤</span><span class="kw" data-page-node-id="ET7eQHT4GTR3Id9Ud0bmDZ">路上</span><span class="kw" data-page-node-id="b49hvB1BkB6wPCWCVtBpW1">地铁</span><span class="kw" data-page-node-id="HT8QE5pot36H008MkgWU0A">公交</span><span class="kw" data-page-node-id="4bq7hausFdHMCEwdnK29cT">开车</span><span class="kw" data-page-node-id="0EAWmXfVBngcApvfl13oJd">打车</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="b7zEMvhYudsvU9cMe4h4or">
+          <div class="label" data-page-node-id="nZKVqTR6zvxT1FvFmr1Tpl">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="4Db7UdAVznGJYFWZBojBGc">通勤占比超过 30%，意味着"个人自由时间被结构性挤压"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="X7ufHFHMAG59tshht5yCLe">
+          <div class="label" data-page-node-id="kxwVWl4rXlNLoFSSBvqgXI">引导话术</div>
+          <div class="prompt-text" data-page-node-id="fTG5RYEGchmf9pGPvZiwvD">"通勤路上你最常做的三件事是什么？它们让你更累还是更平静？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.40" data-page-node-id="xtf4WblYvkfMtzSbE2ierD">
+        <div class="factor-head" data-page-node-id="jlJvse6o2MMfmqWCXuG0RR">
+          <div class="left" data-page-node-id="Ibz7xM145eBhrX43KgJsqT">
+            <div class="factor-id" data-page-node-id="bCYoJxSElXUBeL4sOx9r4k">D1-H</div>
+            <div class="factor-name" data-page-node-id="jDP0GSln4G5iSQHaTyusNE">杂务</div>
+          </div>
+          <span class="weight-badge low" data-page-node-id="UqRV8NPy3OMMQWHyplUxlW">权重 0.40</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="OIx6VhQzP5mtPSn02p3N9e"><b data-page-node-id="X6PLgbBqJHCYcOdwjtKUex">琐碎事务、家务、跑腿。</b>维持生活运转的"暗物质"时间。统计它不是为了批评它，而是为了把它<b data-page-node-id="JLkgACUvQ7vwy435xduSLT">显性化</b>。</p>
+        <div class="factor-section" data-page-node-id="4uPCT3hAc9cK02e0MsTdrd">
+          <div class="label" data-page-node-id="Ix141hplv9e5KtnGye7bAc">典型表达</div>
+          <div class="body" data-page-node-id="taoon1ISMDWLdfRZbDQCuI">"今天去买菜做饭" · "收拾了一下屋子" · "去银行办了个事" · "取了快递"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="8F3bc7DNEXlP5mNvxVYv3M">
+          <div class="label" data-page-node-id="QUmAN5SCmbJnsrA3dEMpOR">关键词</div>
+          <div class="keywords" data-page-node-id="gL1pwpqeXPrc11wZqGGaCk"><span class="kw" data-page-node-id="dP3zthzjoryXuFB5OTYG9a">杂务</span><span class="kw" data-page-node-id="PEtk2WXRb6Nq3k4QJlQhls">家务</span><span class="kw" data-page-node-id="Api5408515xR1XpHgF5Xsy">购物</span><span class="kw" data-page-node-id="BhumeHeDPJYjTRDEDEHd1l">取快递</span><span class="kw" data-page-node-id="0CqHvEcrouXEUKu3zhJQ8i">修理</span><span class="kw" data-page-node-id="R4OUbNrWovNAkN4wjNSTAb">清洁</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="VgdFeaO2lh7wqwidkhqNgi">
+          <div class="label" data-page-node-id="qADJ2izbvxsghUt2fao2KH">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="38WJkuZdUFoUQRmWGCJf9q">杂务长期为零但其他记录满——大概率有人在帮你承担看不见的劳动。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="3ZLC6lftXKINmYHqRjOFly">
+          <div class="label" data-page-node-id="KEeH6MATt9sXtSyO2TjMDG">引导话术</div>
+          <div class="prompt-text" data-page-node-id="2R88Fa0CvdGyhtbmhzB4Rj">"你家里或生活里，有哪些'每天都要做的小事'正在悄悄消耗你？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.30" data-page-node-id="RvxHWFBXrsYn5LvQ021xTB">
+        <div class="factor-head" data-page-node-id="wpknfe353OsP16AFPuJx2g">
+          <div class="left" data-page-node-id="Fq1uafvHEB4n92fyDYv27C">
+            <div class="factor-id" data-page-node-id="d0kiYvpvXNWkiuBLSW57nI">D1-X</div>
+            <div class="factor-name" data-page-node-id="M8vL868YnRQmH40XZ0Dvok">其他</div>
+          </div>
+          <span class="weight-badge low" data-page-node-id="X6l2urced7zKMbAJFWUTTV">权重 0.30</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="oa8FNzZ7V1Z34wE3Fy6AkP"><b data-page-node-id="h7yrUVCuKDVZNudzKWxKoD">未被分类的时间。</b>留一个"出口"，避免用户觉得"我的时间怎么都不属于上面任何一类"。</p>
+        <div class="factor-section" data-page-node-id="dQBBGiNhtyZfkyuDY7iNJQ">
+          <div class="label" data-page-node-id="fN04YbeZdqkGxMmZEHHzuT">引导话术</div>
+          <div class="prompt-text" data-page-node-id="LpOM8eFuKIrNEql7Z4BsbV">"如果上面都不太合适，挑一个你觉得最像的就好。不必精确。"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== D2 ================== -->
+<section class="dim-section" id="D2" data-page-node-id="twCNu8iEoHO4C38gYU1BPG">
+  <div class="container anchor" data-page-node-id="IoiaQsONGWQab7l0b732lw">
+    <div class="dim-head" data-page-node-id="EMW1CWn8fVGoZJSd3a7EXa">
+      <div data-page-node-id="c6IIb2aLbwTF0DxEYvBIOq">
+        <span class="badge-d D" data-page-node-id="yijOoDNdgcM3ITSKFHGOvJ">D · DURATION 02</span>
+        <h2 data-page-node-id="GAQ108CgxwyJ1967AD0G1N">D2 · 时间重复</h2>
+        <div class="q" data-page-node-id="ZllUQ94kMXePNdkFWRw2oz">"多少日子是相似的？" —— 这是对"时间过得快"最直接的解构。</div>
+      </div>
+      <div class="meta" data-page-node-id="EDfBHyPJFduHMk7oPBqSOz">6 因子<br data-page-node-id="813Riu9Yhpz2CqtGVuTXAE"/><b data-page-node-id="fwAAPntJccS1sAUAuA3nS5">权重</b> 0.80</div>
+    </div>
+    <div class="factors" data-page-node-id="qhXHpHGMAqnCLwPC7C7fuo">
+
+      <div class="factor" data-cat="D" data-weight="0.80" data-page-node-id="eSFNgCe2qZM1p78r1cQ2Bg">
+        <div class="factor-head" data-page-node-id="ldjHdCIlhdyIDlBuB4znnP">
+          <div class="left" data-page-node-id="kIcbVYSEBMuYJntaytirOJ">
+            <div class="factor-id" data-page-node-id="hGdHnkvNVh1V9MO2THDyjk">D2-SIM</div>
+            <div class="factor-name" data-page-node-id="NkZbR79VB4bY7mGX55bOnd">相似日占比</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="RR2YI3Fc7hs5FzIqMvqaD0">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="MW2OrScCqEHqlA8s6b3d9k"><b data-page-node-id="hvVLwLIBUWoPX9oFsXuMER">重复度高的日子占总天数的比例。</b>这是一个<b data-page-node-id="nT0F9OHPIfEEnfGxQ9fiGu">元认知指标</b>——它不是坏事，但需要被看见。高相似日 ≠ 不幸福，但需要主动询问"我想要这样的相似吗"。</p>
+        <div class="factor-section" data-page-node-id="4aJ1YqywdQQkCjXTY3oJT5">
+          <div class="label" data-page-node-id="YmZQLC0crMfgNTXvn2NxPh">典型表达</div>
+          <div class="body" data-page-node-id="HLuwl6uJea7hWOu29oKlEZ">"又是差不多的一天" · "好像每天都一样" · "日子没什么区别" · "老样子"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="Ng4SS6CTtSwATR0hsBMLOR">
+          <div class="label" data-page-node-id="4O3Hec3plHzNdgLmeW5lsz">关键词</div>
+          <div class="keywords" data-page-node-id="KNdWg1cDno992xDGXGGuGS"><span class="kw" data-page-node-id="IjRm2B0pQuxBQFCKQKE0QW">差不多</span><span class="kw" data-page-node-id="jN52hhsfXRXnUkOwiF3VHl">又</span><span class="kw" data-page-node-id="cC3DfAmP6CUUwsIRySav20">还是</span><span class="kw" data-page-node-id="ruSBpQkGIQaOkT7HNQHXW9">日常</span><span class="kw" data-page-node-id="Luf8rwXSX2CPjQFCJFlunu">老样子</span><span class="kw" data-page-node-id="HTiWVHz4LdYDWIY4EnP8PJ">重复</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="cV4PTaCQUe0ZnRU2mZqc1B">
+          <div class="label" data-page-node-id="fmVRSYyJ40mZ8l0uRjkp8v">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="m6FgecdD8q1hhNRI5IDRqc">突然每天都不一样 → 可能处于"应激模式"，高刺激但缺乏稳定性。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="rU6S5rCOvybjLMkQUrUU91">
+          <div class="label" data-page-node-id="2DpXDGg3JIUoLRBdB5Ddkr">引导话术</div>
+          <div class="prompt-text" data-page-node-id="B99OhRTtrICj51nltYI6bQ">"这周和上周比，哪三天你觉得'好像在重复'？哪三天是新鲜的？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.70" data-page-node-id="GBpNGqTnyJ03LiDqyETh2D">
+        <div class="factor-head" data-page-node-id="N1sTCi9kaOUw88C157grdA">
+          <div class="left" data-page-node-id="dSwxhHgWhcINmEnZSanLrm">
+            <div class="factor-id" data-page-node-id="y9cW0T0UA3UYrZ3MRDfBDP">D2-ACT</div>
+            <div class="factor-name" data-page-node-id="wPN3bXDBDylVIDw9WrAcXB">重复活动</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="IBbDXWoPDgvZexN3PBHFz4">权重 0.70</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="LCrcKkK5YXZFJo5QUUUkCc"><b data-page-node-id="xJPnLbrm8UeJ1aFIYgE4XM">反复做同一件事。</b>可能是稳定的习惯，也可能是<b data-page-node-id="GZH1TSrI26SKpZhlP1Sbt9">无聊的循环</b>。需要结合 T2 认知变化一起看。</p>
+        <div class="factor-section" data-page-node-id="MWVsG8VoIBmUW1ZatuQALM">
+          <div class="label" data-page-node-id="7gHKqSN63HAd7JfEUp7IxH">典型表达</div>
+          <div class="body" data-page-node-id="H3gK8R9JCVK3H3gPeWADlQ">"又是这个流程" · "又在做同样的事" · "重复了一次又一次"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="DAsOgQ0Ye186lFNUAaAtL1">
+          <div class="label" data-page-node-id="RrCpFWURrhJDVFZRcFj6k3">关键词</div>
+          <div class="keywords" data-page-node-id="i9kswja04jcKXsyRuQ1cRe"><span class="kw" data-page-node-id="W6kgNu6TL7iFx5dzEwsJVG">重复</span><span class="kw" data-page-node-id="Sen0gfvv9PqjIEiTo8MaX8">又做</span><span class="kw" data-page-node-id="WISLfrBVOwdr9z8sOu2wGN">再做</span><span class="kw" data-page-node-id="v8K7u7DgewXHC8fORrjZE5">还是做</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="qQnmcfJskfBw1rWK8EN86I">
+          <div class="label" data-page-node-id="NlX6q8fNZXgLrKSPpeDY88">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="SA7F0DqlLm4ehASeQrVBGZ">完全没有重复活动 → 长期处于"新刺激"中，可能出现"无法专注深入某件事"的漂流感。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="HCdFhB9KxKaXWrANpTKl4E">
+          <div class="label" data-page-node-id="iDgeh0w9kaMuEFRayQEd5B">引导话术</div>
+          <div class="prompt-text" data-page-node-id="ukRcWnio2JQafvZLj6n4Ai">"有没有哪件'重复的小事'，其实是你刻意坚持的？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.60" data-page-node-id="WGzGuUPO74GqaqFzsAtAJH">
+        <div class="factor-head" data-page-node-id="pk7iQVEM19TZccXZgB6DS6">
+          <div class="left" data-page-node-id="xiEZUGXjrbNhQJGoIFh8aE">
+            <div class="factor-id" data-page-node-id="Bji1RYrZQkpcRL3ApFPLJ0">D2-RT</div>
+            <div class="factor-name" data-page-node-id="g5TPIp7BqXC90wLlJsjxJo">重复路径</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="ZiFmJUA2HERF2BgM29WUGK">权重 0.60</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="1CNImSrKz4kQPkLTse3FgI"><b data-page-node-id="cpmJOwVYxF1GGCRANBuulU">每天走同样的路、去同样的地方。</b>这条路径的「熟悉度」是安全感的来源，也是<b data-page-node-id="8piR7YVyOAGZsQD697rkxV">麻木</b>的来源。</p>
+        <div class="factor-section" data-page-node-id="XI6CCO5M6BqX4aQJ75XAK6">
+          <div class="label" data-page-node-id="BpqrMmcjGA3PdT165YQ44c">典型表达</div>
+          <div class="body" data-page-node-id="5RCqTgASOislRctwqc5APs">"老地方" · "老路" · "同一家店" · "又是这家咖啡馆"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="aHv4iORbDw4onKVt7NLzU0">
+          <div class="label" data-page-node-id="pmh6Mvorh0HNHt1wdtojdr">关键词</div>
+          <div class="keywords" data-page-node-id="p1Lk9v1UdqtnMMQawUPjGN"><span class="kw" data-page-node-id="aE4m2GypTbZHlg9O7gjAnX">老地方</span><span class="kw" data-page-node-id="ealciMNEI6bp26dhbB3ptr">老路</span><span class="kw" data-page-node-id="GVKFku9flhlLge5PzM7sAg">老店</span><span class="kw" data-page-node-id="7TQHzzbff92nVmMvaaH26j">同一家</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="Rl6nD6DzLbwazFaYIEIF6d">
+          <div class="label" data-page-node-id="GrBsxoLpmOXVrDJ60yIInl">引导话术</div>
+          <div class="prompt-text" data-page-node-id="AxWqEOCXXX7PVv8glJXqGZ">"你每天走的路上，有哪一处风景你已经很久没认真看了？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.60" data-page-node-id="UbywKOmNpEaXBZ9uhhWIiv">
+        <div class="factor-head" data-page-node-id="bYjVs4QGg39P1Z2A2giLeK">
+          <div class="left" data-page-node-id="qvUFcGBDH4l0KLPEEIDMto">
+            <div class="factor-id" data-page-node-id="Y4RbfhCOhWsxLH98rVPGMQ">D2-RP</div>
+            <div class="factor-name" data-page-node-id="uQkZQHbmaZnHt2rqLEE8g3">重复社交</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="HL3AQYgLPzl2hVlKUwpPEY">权重 0.60</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="9XzjbpvXSA4gnnFbEgZeDz"><b data-page-node-id="AlvRUzAoeQqhmMlbKaCbU6">反复见同一批人。</b>熟人圈层稳定是好事，但长期只与固定几人会面 → <b data-page-node-id="GxQwYVDKIbiKRPkGTwFC3e">同温层风险</b>。</p>
+        <div class="factor-section" data-page-node-id="M7JPHSpDcWGnxw2RnksWoC">
+          <div class="label" data-page-node-id="NDf8istJ2mU51AgAefKDBX">典型表达</div>
+          <div class="body" data-page-node-id="aSIIeHoxZCGrIOvVV5W3Ve">"还是那几个人" · "老朋友聚会" · "又和同事一起吃饭"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="3BKQBqeTDPGYhm2FJmVtHm">
+          <div class="label" data-page-node-id="eJK6E4oHsRqAm01XekzdLT">关键词</div>
+          <div class="keywords" data-page-node-id="zMgOjL144adp5GNFDubv6q"><span class="kw" data-page-node-id="fefJXb7I3pxOToEEdbla8Y">老朋友</span><span class="kw" data-page-node-id="yGyafoAllIQDq7LbX9QrPO">老同事</span><span class="kw" data-page-node-id="2ceo8bNPmkJbCj1neTZEa7">还是那几个人</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="eUpuYbBFA4ERUwnQmZNS2Z">
+          <div class="label" data-page-node-id="DmGxNJe7XkUIlNyUme6xp1">引导话术</div>
+          <div class="prompt-text" data-page-node-id="sSyDrWC4yKJMXAkBzj1yts">"最近有没有遇到一个'让你觉得世界比你想象的更大一点'的人？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.90" data-page-node-id="IxGWwLe2Am3VcsVUkPD50W">
+        <div class="factor-head" data-page-node-id="EmVJXnZLvBq7xs7Qd6xdZ2">
+          <div class="left" data-page-node-id="OrfrZdSI09VEOxmOrzTfEB">
+            <div class="factor-id" data-page-node-id="hULPh04O3ZjNfelx1AUXHK">D2-RC</div>
+            <div class="factor-name" data-page-node-id="0Fmpwlyjd5JZLyqp9cuM9L">重复内容消费</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="lhZUWtVDSaTXiToZ3BTaUc">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="kcKkzPUf8aUodMfiYptRof"><b data-page-node-id="pm1dY99zQFWtY8LDPdovuG">刷同质化内容。</b>算法推荐会强化这一点。这是指向"时间被吞掉"最直接的指标。</p>
+        <div class="factor-section" data-page-node-id="mi7HOrgoHfRqNjr0Z1yCAW">
+          <div class="label" data-page-node-id="PWJPAfSNTk2Za1XCwx0Jdd">典型表达</div>
+          <div class="body" data-page-node-id="DXS0e3D5hPlNBoCZOUOOD3">"刷了两个小时短视频" · "又刷了一晚上手机" · "追剧到凌晨"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="qOhPR2t08qVPKxfYj4gCB4">
+          <div class="label" data-page-node-id="RiO54glMPKygMauGlsa8v1">关键词</div>
+          <div class="keywords" data-page-node-id="qr065Llb10Mg2AgQ5kG6vN"><span class="kw" data-page-node-id="ZcatqfvsZXrRUz2tV4Hbnq">刷</span><span class="kw" data-page-node-id="PJ4np7JwiTMTRAdXEAAYLh">短视频</span><span class="kw" data-page-node-id="vglKnDcbjg9JYrDzLgFUou">追剧</span><span class="kw" data-page-node-id="z0YaPib0GvZjm5EkfvIKOK">刷手机</span><span class="kw" data-page-node-id="A9pjVhQuQPOwDxGy1ZJSvS">看朋友圈</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="JmSd8QOiLbkrLRGePkwzTG">
+          <div class="label" data-page-node-id="HLisMaPbH8s1mKAAphfFHV">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="lj6vqHGTHa1K0Dq6JKgUEo">完全无内容消费记录 → 可能进入"信息过少"的封闭状态，需要新的输入。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="jjMmccCDSpwQbm6kaKrE6H">
+          <div class="label" data-page-node-id="hXD1a7nPTJXtejt9VlpjDW">引导话术</div>
+          <div class="prompt-text" data-page-node-id="FetZ0r71aC4K7Yj7AsDkYi">"过去 24 小时里，你刷了多少次手机？哪几次是真的愉悦的？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.50" data-page-node-id="vYsyaJzoW6E3rNd5YQ43vF">
+        <div class="factor-head" data-page-node-id="ACqRmdzNbgzhrZecCZmYTl">
+          <div class="left" data-page-node-id="obzhTpOsY7MFNiZEfMHHaA">
+            <div class="factor-id" data-page-node-id="u34P9f9YJNLiAzAixAqTL4">D2-RH</div>
+            <div class="factor-name" data-page-node-id="60Jc4c5iGXTLtftUOuJCL8">重复作息</div>
+          </div>
+          <span class="weight-badge low" data-page-node-id="rqOx0NmLiMDfG8JpjsfH8s">权重 0.50</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="ZaaJYxHmdHmRodKGnZ4TdE"><b data-page-node-id="2rGzuSJrfZGJ9hcEWCg9B1">每天差不多的时间表。</b>作息规律是好事，但<b data-page-node-id="nVGUrlNEfYBHiFeDhrxaqh">完全不可撼动</b>的作息也意味着失去了弹性。</p>
+        <div class="factor-section" data-page-node-id="kxsHxMpG5ZIx711XSa9wUO">
+          <div class="label" data-page-node-id="ow2eQ9f8LSVs6winWJmAg3">典型表达</div>
+          <div class="body" data-page-node-id="9YRzHOa2YV3seHdCQRtNqD">"早起" · "晚睡" · "加班到深夜" · "每天差不多的时间起床"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="0hg1oddeEtlIRp1wEfdkDJ">
+          <div class="label" data-page-node-id="Q7NkIikhVmaHKP7C6lObWX">关键词</div>
+          <div class="keywords" data-page-node-id="VCRmHJfQUZJRzHU2RZpwy6"><span class="kw" data-page-node-id="0lIIim3uLUVTK2fRluWrkp">早起</span><span class="kw" data-page-node-id="G1E8QnuMfnSN6XEzLE6MXs">晚睡</span><span class="kw" data-page-node-id="8cbybcvuh4yf2wTipAlb0O">加班到深夜</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="ST2lecI4fs7XqtScaA10Xw">
+          <div class="label" data-page-node-id="gl2b4PsXcvnhfeIK9YFvW8">引导话术</div>
+          <div class="prompt-text" data-page-node-id="pmEINgovfRo1hsAfED7ipk">"你的作息是'自己选的'还是'被推着走的'？"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== D3 ================== -->
+<section class="dim-section" id="D3" data-page-node-id="RaW6TqeRLjDyaHlDohOxWJ">
+  <div class="container anchor" data-page-node-id="GNCYE8n4FOdaVC8qxCaGMR">
+    <div class="dim-head" data-page-node-id="IPyiLgVbHqJIKk55SyQlC9">
+      <div data-page-node-id="uUi5DtCjSGrtXkmW0ezOdo">
+        <span class="badge-d D" data-page-node-id="m9eBCkraUI0tmzlgkjIH0a">D · DURATION 03</span>
+        <h2 data-page-node-id="sWq6GxZpP67PJpBC5jidQl">D3 · 时间事件</h2>
+        <div class="q" data-page-node-id="ZmO0IhwH0kwq7pzyr77dbR">"出现了多少区分度事件？" —— 这是"时间没被压缩"的核心来源。</div>
+      </div>
+      <div class="meta" data-page-node-id="B7sSz38CHD7O97168Y0cTI">8 因子<br data-page-node-id="t4nTGOtGBbwGWkG6OQ0viD"/><b data-page-node-id="MQyTogEvlcSXI3F6Da2nGs">权重</b> 1.00</div>
+    </div>
+    <div class="factors" data-page-node-id="F7YAHM6B24BHXO7G3lsE7X">
+
+      <div class="factor" data-cat="D" data-weight="0.90" data-page-node-id="NQyzXuasEzegADg1c1bOmX">
+        <div class="factor-head" data-page-node-id="SphVe01BnEGEM6UcOsWQIz">
+          <div class="left" data-page-node-id="n6ubKy19tEvxgCrOra3p6u">
+            <div class="factor-id" data-page-node-id="I1syeKXwFxPO9TkCYeoVwP">D3-NP</div>
+            <div class="factor-name" data-page-node-id="mCAS18PLDQ6c1qSyqb00cd">新地点</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="pKRSo6BHOC382WzPs3f0wi">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="QHff1lx9Q1nNNHEmF1fT1n"><b data-page-node-id="oxiFkbgzqxr7i8r0dUYRKo">第一次去到的地方。</b>空间的位移会强烈触发大脑的"新鲜感回路"。长期不出门会降低这种刺激。</p>
+        <div class="factor-section" data-page-node-id="11mIGAmITxHxr16OoAKf4l">
+          <div class="label" data-page-node-id="VpyRWcfaa0flIguE4KdDDY">典型表达</div>
+          <div class="body" data-page-node-id="D5CBT5zCzUidgmQt0TPcnA">"第一次去这家店" · "没去过这条街" · "新开的咖啡馆" · "第一次到这座城市"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="VwzBf2FmO2mPs4ufgaADy4">
+          <div class="label" data-page-node-id="OlEA9qMzCebMpCxV1J2U0d">关键词</div>
+          <div class="keywords" data-page-node-id="cAkKZGlqD5skBKfu4RgDy5"><span class="kw" data-page-node-id="8fHg4VFYidSJ7jjUhTtDdT">第一次去</span><span class="kw" data-page-node-id="7YoH6e4724VltN0zUXrMQR">没去过</span><span class="kw" data-page-node-id="4vLfhYECikh3WQLMpKO9XH">新开的</span><span class="kw" data-page-node-id="eO2QeeaMqUbvga0mcYlsew">新地方</span><span class="kw" data-page-node-id="PY34D1lB4ad6kZn8EJhpUc">第一次到</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="WXBBTScrzbVK80dBnggXSR">
+          <div class="label" data-page-node-id="N0N6bG4PAeTbImekOLCEkZ">引导话术</div>
+          <div class="prompt-text" data-page-node-id="5Jya2VFfVivDwYMBI5mQBq">"如果让你明天去一个没去过的地方，你会去哪？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.90" data-page-node-id="qDgByJ2ps1ggwu8DVuuIFh">
+        <div class="factor-head" data-page-node-id="kPHltFXPpCxSHtcfyMsX5M">
+          <div class="left" data-page-node-id="txVcJBe7bblSnlUw4GGbNM">
+            <div class="factor-id" data-page-node-id="idSCnaQ9CIyp5SNCA44veC">D3-NB</div>
+            <div class="factor-name" data-page-node-id="QOABsMQsxa1FO9ncQixTWO">新人物</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="EeOQZ2UGOqk24DLBqPTCIT">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="q5ZJtduEpAjAfnliSYlswh"><b data-page-node-id="W6TkcQMFGdEP3Da8hbKWhl">新认识的人。</b>人是最大的"事件源"。一次深度交流可能比 10 个旧聚会有更深的影响。</p>
+        <div class="factor-section" data-page-node-id="6U4dXNVk55aBEBB2uT1C0Q">
+          <div class="label" data-page-node-id="iVjbVGcX67W4QRa1lZKG9w">典型表达</div>
+          <div class="body" data-page-node-id="Mfau88jfFLeHgNDoUoNSWU">"认识了一位新朋友" · "第一次见这位同行" · "偶遇一个有意思的人"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="8fLfpMKIKRwH04gsUMkuJx">
+          <div class="label" data-page-node-id="D2SyuWAdZj5oTtBKD5dNia">关键词</div>
+          <div class="keywords" data-page-node-id="AbviV48lWVHNzB2BlmIImZ"><span class="kw" data-page-node-id="9xFFznzoua0Cj6a6iIPlNV">认识</span><span class="kw" data-page-node-id="aMNc2DMOZW6QtMc7cCLogk">认识了一位</span><span class="kw" data-page-node-id="VfoEMjvMfaO3Yajet2ewwp">新认识的</span><span class="kw" data-page-node-id="PrrMtoHdK930vyp1V0SeHL">第一次见</span><span class="kw" data-page-node-id="Tyh3jkABh69NuyMTGdXaB6">偶遇</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="j8OQfoH5WaK1jGl2lpbJdq">
+          <div class="label" data-page-node-id="O0J8GYCBRDVDGhdOUkRCJ0">引导话术</div>
+          <div class="prompt-text" data-page-node-id="clRe8dmfAFWy07lfrhzVnw">"最近认识的人里，谁让你印象最深？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="1.00" data-page-node-id="uLBDQ7OUlS6wUmAoGIgA3a">
+        <div class="factor-head" data-page-node-id="lcNVC7lmgCwKXMmf4zZoV5">
+          <div class="left" data-page-node-id="8yemyKnyTMkgtUaqmMZQhp">
+            <div class="factor-id" data-page-node-id="WnrCwd6g3DRvQ6jL9YdFaS">D3-NE</div>
+            <div class="factor-name" data-page-node-id="mha3BStTO45ezQAZ2WXlIH">新体验</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="dOrrb1vWVKg9zMoDHxzUtX">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="iFX7UnNonVZ1tTgtp2REPb"><b data-page-node-id="PNEFwwrfjzLbeWb192QH9m">第一次尝试的事物。</b>"第一次"会激活海马体的特殊记忆编码——这就是"难忘"的本质机制。</p>
+        <div class="factor-section" data-page-node-id="XdnuSAvRADzWyaFSBYRMf3">
+          <div class="label" data-page-node-id="2d2bT0G45MvgPVGkKaEVLg">典型表达</div>
+          <div class="body" data-page-node-id="yY9vfkVg4JKPNbsPGDckTX">"第一次做这个" · "第一次尝试" · "第一次吃" · "第一次经历"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="kcma4xb0E7hWDWpmCgakb8">
+          <div class="label" data-page-node-id="bRnM813BlGEpBGHLxOHqqa">关键词</div>
+          <div class="keywords" data-page-node-id="idiNx8zI1kXPKFvg0Ac84f"><span class="kw" data-page-node-id="dwtzlQSUNixcpaCNw665Hm">第一次</span><span class="kw" data-page-node-id="XwdONCbD0OrfjMWozcTWwn">尝试</span><span class="kw" data-page-node-id="Ci9y9pRr6AcYCnVDMt1duN">第一次做</span><span class="kw" data-page-node-id="7FPc9bggkY2oaEaaFqjj4z">第一次吃</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="znvBtpsvKWBvfsD3wCLEmZ">
+          <div class="label" data-page-node-id="JdatX7ESZnrS7JGrK8FcmE">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="WiJlpr5CENRCDlDA8jVKc4">连续几个月无"第一次"记录 → 处于"经验固化"状态，人生开始像复读机。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="2IwccUNsQf5eSXckJG4Cgj">
+          <div class="label" data-page-node-id="CiDAcSe9MWKERIpEo8IRV8">引导话术</div>
+          <div class="prompt-text" data-page-node-id="LcHTcFshZEA3bnrlkhbESJ">"过去一个月，有哪件事是你'以前从没做过'的？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.80" data-page-node-id="mMKkKY7PapjXEFWBxkv7gd">
+        <div class="factor-head" data-page-node-id="2ECCFvt9XlZjD5eEgeRaTK">
+          <div class="left" data-page-node-id="g1VmbZD0hK36Mflb1WoRWm">
+            <div class="factor-id" data-page-node-id="svIpOAqrUHTef9t1jP7aIQ">D3-NA</div>
+            <div class="factor-name" data-page-node-id="pqiDnRXvjIP163FSBlLTgD">新行动</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="bIrJo1eBq4EonAZZKXwSvl">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="70mLgf6P12IAm5O9oxADmv"><b data-page-node-id="oAEBmw6PAKhy22XzZGJilv">做了以前没做过的事。</b>比"新体验"更主动。哪怕只是换一条路回家，都算。</p>
+        <div class="factor-section" data-page-node-id="iBHpyHkwye9rGZzSaWCS2R">
+          <div class="label" data-page-node-id="dd43xrcEok6ygEXg8nvbeZ">典型表达</div>
+          <div class="body" data-page-node-id="WBHmCkWjigqOAye1x7yzTs">"第一次做这个" · "尝试了以前没做过的" · "换了一种方式"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="KCvXtHQEDjJbY1m0l91CeA">
+          <div class="label" data-page-node-id="29Jm8rMl8CgO1ae6omT8zS">关键词</div>
+          <div class="keywords" data-page-node-id="c8JqPsD1iJpizsbcXJvxTk"><span class="kw" data-page-node-id="d3C99ucXhTBfGCUiZhFtc5">第一次做</span><span class="kw" data-page-node-id="4nCqKBtTrIPSz8FmmCQhUJ">第一次去</span><span class="kw" data-page-node-id="rGTRhuU0fL5dUKhunpZarU">第一次尝试</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="i1kTLBqxkBS39og776AbCd">
+          <div class="label" data-page-node-id="3QAvNry2AsbM427ufwiNjh">引导话术</div>
+          <div class="prompt-text" data-page-node-id="Rym0Sv6wNbbaKIBr8JB6aE">"如果你明天做一件'完全反常'的事，会是什么？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="1.00" data-page-node-id="ShHWOvBohbyeRmDyfuQnZ3">
+        <div class="factor-head" data-page-node-id="E9SNz74RFdqiLrAwBo2rpk">
+          <div class="left" data-page-node-id="bZwx6PBd8WBHV3ny60PjOS">
+            <div class="factor-id" data-page-node-id="B01Dno0LKIv80Nl8y1AI1W">D3-UE</div>
+            <div class="factor-name" data-page-node-id="TVYcjF4UEipncPdbz17dPD">意外事件</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="7ZPfJjrHT1FpZO4CyqXo7e">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="b7W61Avam8ve4N0PrpOgQG"><b data-page-node-id="c7ANJnArwl0fdsmC77INuH">计划外的突发状况。</b>惊喜或惊吓都算。意外会<b data-page-node-id="wzNhrnUp3jtW6MSvdbpZM8">打断自动导航</b>，把意识拉回当下。</p>
+        <div class="factor-section" data-page-node-id="HJxmyPjCf8v7UjF9DD111b">
+          <div class="label" data-page-node-id="aMD52lAU0LOCfmvmhqUs64">典型表达</div>
+          <div class="body" data-page-node-id="FE62rl7qHydQPMc84SYq9i">"意外发生了" · "突然遇到" · "居然这样" · "完全没想到"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="1dXi3Xlh7Ixxdt1TMJuh0j">
+          <div class="label" data-page-node-id="dGCs6uTka3jrjL7mOz39r2">关键词</div>
+          <div class="keywords" data-page-node-id="biQdeG4FgyCl7THT1zb9JD"><span class="kw" data-page-node-id="xPqW9eWa5b8KTW2C0fmw0g">意外</span><span class="kw" data-page-node-id="BPPQUFoTWiZUKDx2GpVmWR">突然</span><span class="kw" data-page-node-id="bEDHu2xHCMU1rASwcWTRqO">惊喜</span><span class="kw" data-page-node-id="avRTQ9DsYmw3WGOHuyjOtc">惊</span><span class="kw" data-page-node-id="G4rGYWp9mA31QTikJODm7H">突发</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="OuUPLDAqSCna9ErNlJDD6q">
+          <div class="label" data-page-node-id="7HLtXpOa4A2xixngMgojBA">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="I6UvvVXcoz0YqrQg3LGeLS">长期"什么都不会发生"——日常进入<b data-page-node-id="zCuBmumN6Q9CyvBfMcZGmV">自动驾驶</b>，意识渐渐从生活中撤离。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="0XzlGspmgaksoKlhD8d787">
+          <div class="label" data-page-node-id="k711vQ2YUGwuRHRWLnjT5z">引导话术</div>
+          <div class="prompt-text" data-page-node-id="xOiKEO6uly6A8KNf0NXiOw">"最近一次让你说'哇居然这样'的事是什么？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.90" data-page-node-id="3JJ3cC9XO0zqe3UHDHBAXq">
+        <div class="factor-head" data-page-node-id="iS5U7eB4pmLErPCjZdtEEq">
+          <div class="left" data-page-node-id="jn5ogju9JzKkRvKysER29D">
+            <div class="factor-id" data-page-node-id="pQb2XA8ylUCFrvgaKhHL60">D3-ML</div>
+            <div class="factor-name" data-page-node-id="0jXIGihQ6JMjyPEg6RHOny">完成重要节点</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="wpolC5TB9mcB4Nv5wcedLF">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="LhTSxnCxXbOGf7m2YAdJrs"><b data-page-node-id="7YHTVqvCsOOtKfONMvLclQ">关键里程碑达成。</b>完成一个长期追求的事 → 多巴胺与意义感双重高峰。识别它们能把"零散的日子"串成"一段旅程"。</p>
+        <div class="factor-section" data-page-node-id="vC6i9ZOhhosIsCrop8r912">
+          <div class="label" data-page-node-id="fBRYBUC1zDT3biJ4ueuGP3">典型表达</div>
+          <div class="body" data-page-node-id="JMyIvjsK7EuSyaZolR46Ku">"终于完成了" · "今天上线了" · "考过了" · "入职了" · "签了合同"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="i8MQxBR6yU306NnOmFHiD1">
+          <div class="label" data-page-node-id="TLNYxAbkYuCQ0irRDFi4ZE">关键词</div>
+          <div class="keywords" data-page-node-id="llhAlr8k4GpXhFw7ICMwGZ"><span class="kw" data-page-node-id="5lpSIY2hjM8jpJuW24yET1">完成</span><span class="kw" data-page-node-id="yAvQBUh1NbPspyEaTPDKkk">达成</span><span class="kw" data-page-node-id="3NbQBmcR8WJ3efFA1Ijmme">上线</span><span class="kw" data-page-node-id="fFgDUjLBHLwYK2rcqXMryy">发布</span><span class="kw" data-page-node-id="Q8EeIXJjrl5EGzVlPLN7fE">毕业</span><span class="kw" data-page-node-id="Rkid8X2xtFUmkJ6h1Yt5J5">入职</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="4WmJm3MDhmQBlf78r9UOWf">
+          <div class="label" data-page-node-id="Y2vxGeRvIENive3AMQxXiv">引导话术</div>
+          <div class="prompt-text" data-page-node-id="JesEYdXJrDNkPG7pOl6H4W">"过去半年，有没有一件'你一直在等的'事情终于发生了？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="1.00" data-page-node-id="2xZa4nlcYJSjiBA6fqagSm">
+        <div class="factor-head" data-page-node-id="q3SBFoL4bP1qBUAK85KuVa">
+          <div class="left" data-page-node-id="nlPITvjMHHZBGZJMPbtWJh">
+            <div class="factor-id" data-page-node-id="r946hje7pOuDX2mFwahNwx">D3-CG</div>
+            <div class="factor-name" data-page-node-id="CBp0Q1hUDJnDbrgA5FDK6x">认知变化</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="6Aqy9KEnCGtwe27oPdwVzC">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="iCQ5tvIjjkD5V63zM205th"><b data-page-node-id="hiN8dLakxTMAluMVJyFN2O">产生了新的理解。</b>这是和 T2 重叠的"事件侧"——一个认知跃迁本质上就是一个事件。</p>
+        <div class="factor-section" data-page-node-id="OW9GADvmOzeH5YMdz77TGC">
+          <div class="label" data-page-node-id="w2QADFf1oOvoxTY4QmMkKb">典型表达</div>
+          <div class="body" data-page-node-id="pTbTVyPN2ZrCADmrg9Hfjh">"突然明白了" · "想通了" · "意识到" · "原来如此"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="sJcV3b5KsreG9Go7uz55wx">
+          <div class="label" data-page-node-id="KxNWtB7bC1y5OBqSteElLN">关键词</div>
+          <div class="keywords" data-page-node-id="2Wabvai8cAa7XDB8inlHVf"><span class="kw" data-page-node-id="QGuZqpRmwmIGTJi6cvC7Zg">突然明白</span><span class="kw" data-page-node-id="ciKzsG9BtszHI1mRTjcNH4">想通</span><span class="kw" data-page-node-id="v8Xl29Cl2rH3BW2ULvQfcd">意识到</span><span class="kw" data-page-node-id="PdQrBuWj7E7gbCma9Itnb4">原来</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="Wm17YtdcovWuGpdgCXC6sU">
+          <div class="label" data-page-node-id="sUv0QQXu29JsCzAbDoOfNH">引导话术</div>
+          <div class="prompt-text" data-page-node-id="12GcWPidOGsOcZjZd86Unx">"最近有没有一个'原来是这样'的瞬间？是什么触发了它？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="D" data-weight="0.80" data-page-node-id="KlosSDaDsi0L3U2LR0aSgl">
+        <div class="factor-head" data-page-node-id="K8dd1DhQRNAtBoYyeVohYw">
+          <div class="left" data-page-node-id="aFv0NaaGwlZEYAflRPVjK2">
+            <div class="factor-id" data-page-node-id="KbLFtjDNOseOQgZYFnclb5">D3-EM</div>
+            <div class="factor-name" data-page-node-id="ijTtpmyYoR4GrIeRt4LvwO">情绪明显变化</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="7HV87ADMylqLohoZoikf4F">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="BTNSGVeTgriuOx5XyEdWTh"><b data-page-node-id="r1UG5jGRG46vNr6F9aUALf">强烈的情绪起伏。</b>情绪的剧烈波动本身就是"事件"——它标志着生活中有东西触动了你。</p>
+        <div class="factor-section" data-page-node-id="y9BwEY6fqE9Qh8YpAbrGw5">
+          <div class="label" data-page-node-id="oYgYYexHo0nesm5vTwToSJ">典型表达</div>
+          <div class="body" data-page-node-id="dFTENV5ac5Mx9O87JRYEyz">"今天特别开心" · "崩溃了" · "突然很难过" · "愤怒了一整天"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="cAsR5lSZbt7RCDwWHYP4mq">
+          <div class="label" data-page-node-id="v3FLmNClLEox94Rb6FwAim">关键词</div>
+          <div class="keywords" data-page-node-id="M4KXIeQoxGn9Rao4zHqAG3"><span class="kw" data-page-node-id="Bw7sUqqGs1unXhGA1DVc5c">开心</span><span class="kw" data-page-node-id="ypHmdmBcgrxovrcA9bbXji">难过</span><span class="kw" data-page-node-id="OLhxhraGX6h0Qn2R8IKSKL">哭</span><span class="kw" data-page-node-id="vS4S2ffPh2A3bYdrMWeIk7">笑</span><span class="kw" data-page-node-id="K9DPJI9mV75jI8WsEXUnnn">崩溃</span><span class="kw" data-page-node-id="P8hp7th6oDIUu6BJOQ4FO2">兴奋</span><span class="kw" data-page-node-id="WqeH8KGXIYweoNtEOEEgMN">愤怒</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="RPE6RyoGxnTwlKK0DfeSRq">
+          <div class="label" data-page-node-id="u8KPso8vXAiUTH1b9uURW4">引导话术</div>
+          <div class="prompt-text" data-page-node-id="Z4DHX9W2UyHHaaDgCVDLvJ">"最近一次让你'情绪有强烈起伏'的事是什么？事后你是怎么处理的？"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== S1 ================== -->
+<section class="dim-section" id="S1" data-page-node-id="3UEEwS1ZXTWTyvCjuktaD9">
+  <div class="container anchor" data-page-node-id="04cTtuqImW9tBbJ1trZp3X">
+    <div class="dim-head" data-page-node-id="c6KELzH11xhnXSdWMccStf">
+      <div data-page-node-id="4QLapERbgH6TraGluOSU4e">
+        <span class="badge-d S" data-page-node-id="0hhngHcpyN4CS5ZDm7x66Y">S · STATE 01</span>
+        <h2 data-page-node-id="ClDietzZF6sn5p4KvqeVBy">S1 · 未来导向</h2>
+        <div class="q" data-page-node-id="gFVEUtgKqIHgsELuZKjISR">"我的意识有多少在围绕未来？" —— 这里的高分不等于好，只等于"被未来牵引"。</div>
+      </div>
+      <div class="meta" data-page-node-id="SvoEdiHPEn5C394rc58Lct">7 因子<br data-page-node-id="5nkZIazCxwKJNBwAw1iQCy"/><b data-page-node-id="SOqom7ElzwsisRP513e3RR">权重</b> 0.90</div>
+    </div>
+    <div class="factors" data-page-node-id="6a1FzuATOCppYJCHzPCfEk">
+
+      <div class="factor" data-cat="S" data-weight="0.70" data-page-node-id="tEjsKqXDsgDlGN05sAoLSE">
+        <div class="factor-head" data-page-node-id="dikFNB94yCDLZLwAAdrUPD">
+          <div class="left" data-page-node-id="EAp27zGaEvGH4MSpcU1IC1">
+            <div class="factor-id" data-page-node-id="MeOW7p0lxKdiM2xeXpoEj3">S1-PL</div>
+            <div class="factor-name" data-page-node-id="RHXYCdUV0qY3Inm0hchC7y">计划</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="7uOOJWKTE5QIGOwgKSvkGO">权重 0.70</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="IuBQStUi3s8xHnDd7UC0t8"><b data-page-node-id="vXQiiRKA1AacVAXhCoWbMO">为未来做安排。</b>计划是把模糊的焦虑变成具体行动的<b data-page-node-id="14KfDxYtb9XhWXfXU6hf6F">解毒剂</b>。</p>
+        <div class="factor-section" data-page-node-id="AEoWIHErGwD3AOCDPBAQen">
+          <div class="label" data-page-node-id="BzQudtK9JFgaf8zZcASSqR">典型表达</div>
+          <div class="body" data-page-node-id="aHX3MWhBwRUIh85v1vY8Cq">"我打算下周" · "计划了这个月" · "已经安排好了"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="SNov5fJ9tryljXhna4PIJu">
+          <div class="label" data-page-node-id="ZXixutWJeA05umi9IHJ07H">关键词</div>
+          <div class="keywords" data-page-node-id="GowKtCPdN1PXqZxrb9ITw5"><span class="kw" data-page-node-id="cW3me56KVs28wwaVyzwtqo">计划</span><span class="kw" data-page-node-id="hT8076IhW0fH5EDjOlBvfa">打算</span><span class="kw" data-page-node-id="wOpX5G9se2OlzAow6f05VY">规划</span><span class="kw" data-page-node-id="4NewyYitAfw9iQAeH2gtCn">安排</span><span class="kw" data-page-node-id="sNzPa2LSKGuDhlblAInCvb">预定</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="yxib1bjr52wDl4BSCiqzk8">
+          <div class="label" data-page-node-id="rXLjFwMOsRWxhak99ZEtL9">引导话术</div>
+          <div class="prompt-text" data-page-node-id="YCwu87TudYv3F1OMK5pcG1">"你最近有没有哪件事，已经从'想想'变成了'具体在做了'？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.80" data-page-node-id="pDomf13BeqgEWIoNlYYrwG">
+        <div class="factor-head" data-page-node-id="sBnljgTCXRqJxgiN1sh4tW">
+          <div class="left" data-page-node-id="lN1e3IyBsPKTAy48DWKDkB">
+            <div class="factor-id" data-page-node-id="UUqO0OaUT78bMRtWSZWBkX">S1-GO</div>
+            <div class="factor-name" data-page-node-id="VxRicBnHWLJ5S4gWsV8gQp">目标</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="pJ8K65Ik8JI09vD7A3SKHg">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="nkuvk88Mm4oVIXXcNCJYAe"><b data-page-node-id="msVKyME6hrWLLuX3gegNBY">设定或追求目标。</b>目标是"未来的引力"——它让当下的所有选择有了方向。</p>
+        <div class="factor-section" data-page-node-id="jsA3HGLkkjPry9GEKAKenr">
+          <div class="label" data-page-node-id="clSLvZTAoltrUhJHL19JE9">典型表达</div>
+          <div class="body" data-page-node-id="W1xQ3vWwBXpeELwWE8TPwZ">"我的目标是" · "想成为" · "要做到" · "为了实现"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="67QRMK1dVVsZpthDfIZ5SX">
+          <div class="label" data-page-node-id="bNH9VB0aFiu4yznokbEQRQ">关键词</div>
+          <div class="keywords" data-page-node-id="MtrrtB6umDrj8pVe2rekJy"><span class="kw" data-page-node-id="BCIo1eStT0tv0F4M27PvwL">目标</span><span class="kw" data-page-node-id="TgJCh0KX7nhAEUa8XL6URj">目的</span><span class="kw" data-page-node-id="R4ZdVjzBbag4BlaP48p4Hv">愿景</span><span class="kw" data-page-node-id="MMtrCrOlqLbupPCnrSz6Gx">想成为</span><span class="kw" data-page-node-id="Dsc7kZBg5KwoogPByBVR19">要做到</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="Kr5PuhnOicEW19ZOUgBtVN">
+          <div class="label" data-page-node-id="FKFKyDLEbc2yBHSHY22ZvD">引导话术</div>
+          <div class="prompt-text" data-page-node-id="W9fJ0LfEBB0sJyM2bSSfM4">"如果一年后你达成了某个目标，最可能是哪一个？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.60" data-page-node-id="IqGpFxfXgzi2kfFUgmCGpY">
+        <div class="factor-head" data-page-node-id="4ehKHTt52qTFarjsbZd5qM">
+          <div class="left" data-page-node-id="nxQmDttZYVWrtaemYUz305">
+            <div class="factor-id" data-page-node-id="JABfNRGVzHv0nKKcuQ9OUA">S1-EX</div>
+            <div class="factor-name" data-page-node-id="GLG4Z1qBZeAzUyjXYcVAod">预期</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="Up8qwsmZAYp2fQpdHp7pH9">权重 0.60</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="jAY3Gr9RtU0o01aIsSdwMa"><b data-page-node-id="DMtTIIiAQzU7xWx63Vcbfr">对未来的想象。</b>不是规划，而是<b data-page-node-id="L3Yr7fSa41bhp8AwRMHPOs">想象</b>——一种更柔性的未来接触。</p>
+        <div class="factor-section" data-page-node-id="XfT00hGfAbrEwtinaZ54XH">
+          <div class="label" data-page-node-id="aSNWXR8ERgr0ZLUf6PudRj">典型表达</div>
+          <div class="body" data-page-node-id="obHRcV2VbEeT28lPoBpG4U">"希望" · "期待" · "应该会" · "设想了一下"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="TXMH26SXAxAW3dpdiokJvH">
+          <div class="label" data-page-node-id="DlWpSjTG7EVxu7XXwFN9bu">关键词</div>
+          <div class="keywords" data-page-node-id="yG5D5SKEgHu0KXVALsx4Ow"><span class="kw" data-page-node-id="7kATIET869JkyGRUwxmk6B">期待</span><span class="kw" data-page-node-id="P1vJY0mo3mWZwE3HWNbNbP">希望</span><span class="kw" data-page-node-id="AWY11tzlff5HNqUTTIQXEA">预想</span><span class="kw" data-page-node-id="2XHgTp1AgX0ghWofQp0V0x">预期</span><span class="kw" data-page-node-id="17PltSnlvWXi7D3QhL2s8i">设想</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="buzulC3UnfUtqLvTy3sWsD">
+          <div class="label" data-page-node-id="cot4C6lGoTP1LOAQnSCgUt">引导话术</div>
+          <div class="prompt-text" data-page-node-id="XyhjoOfSC2Uhtg5kUpXkZc">"下周有什么让你暗暗期待的？哪怕很小。"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.80" data-page-node-id="dM7zsNCejkCdsOnDpjtwAY">
+        <div class="factor-head" data-page-node-id="jvvpaEOObh3LKcZ7UXnEx1">
+          <div class="left" data-page-node-id="AZJpanGs4ECvt77CpCGTkH">
+            <div class="factor-id" data-page-node-id="molBYWrpi9Oijih0RiB0M9">S1-WO</div>
+            <div class="factor-name" data-page-node-id="Ug5O8h7Dxl1lB8K5zgzaAf">担忧</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="2sh0kpwBeB0chd4i1U3JFo">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="IBQY2Wwj4AV1hdmY20VIN9"><b data-page-node-id="mYU5nu8fvZTUSfUHxslnWJ">对未来不确定性的焦虑。</b>这是反向的"未来导向"——它是 S1 中最值得关注的因子。</p>
+        <div class="factor-section" data-page-node-id="Pbs41igIZF3i0Dvq6OhOJB">
+          <div class="label" data-page-node-id="Eg5QJpDTqx5d18U6tmVTGn">典型表达</div>
+          <div class="body" data-page-node-id="vzOIFYwdGcjcpQvQwS2A1G">"担心" · "放心不下" · "怕出问题" · "不知道会怎样"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="VRN1yldw7zewQOrDSXRXrD">
+          <div class="label" data-page-node-id="AUj5CcHqWjahuBKiFhX0go">关键词</div>
+          <div class="keywords" data-page-node-id="drPhEk6HLky0SeE1GmO0ps"><span class="kw" data-page-node-id="QG7wxp789eIQsJ6CaYx8N8">担心</span><span class="kw" data-page-node-id="w4j2BftS0xrBaM1G6KSdVX">担忧</span><span class="kw" data-page-node-id="GMRIPKziIi6Rt3LOs5lX2z">忧虑</span><span class="kw" data-page-node-id="2GPEsngWVxDjOso5I1FI8D">放心不下</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="ZHtisvlCrxqnkmQrMzT7ze">
+          <div class="label" data-page-node-id="3GfItBtGyuk7hFADSGzT9O">引导话术</div>
+          <div class="prompt-text" data-page-node-id="b07XyZfuNUmn5438HcOLKQ">"你最近在担心的那件事，最坏的结果是什么？那个结果真的发生，你能承受吗？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.90" data-page-node-id="6ST5lTfp9Sjuijp5rj4iTK">
+        <div class="factor-head" data-page-node-id="UuUfdHCmPXYj0NRS91l80c">
+          <div class="left" data-page-node-id="1ldQvRE75gbUahZ0DHm0YK">
+            <div class="factor-id" data-page-node-id="ndWxzxsbHcCIKo2iPZXfHj">S1-AN</div>
+            <div class="factor-name" data-page-node-id="uW01bwqxER0YNTaK6nGm0z">焦虑</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="KyQg785StCGadtglmdZ0a8">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="AvNXtccG9sWYgKFTgmazRu"><b data-page-node-id="w4WBevEGHkgEU1yAfIrPkJ">紧张与压力。</b>比担忧更浓烈——已经开始影响身体感受（紧张、睡不着、喘不过气）。</p>
+        <div class="factor-section" data-page-node-id="3Ofeu9uL9rOzjSIHHr9SE9">
+          <div class="label" data-page-node-id="SxDhJJZHt8dHL2M832prsm">典型表达</div>
+          <div class="body" data-page-node-id="Xx9cdlek04Xvr57dB7Z7oA">"焦虑" · "紧张" · "压力大" · "喘不过气"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="faT7YaHoKk10AzFZMLQrOk">
+          <div class="label" data-page-node-id="JjXH7SXfmLFjR6zgBkHOjv">关键词</div>
+          <div class="keywords" data-page-node-id="fMUD5KeSSUfEZfcpugPP4E"><span class="kw" data-page-node-id="pn7Lh7FHlR47nTPhq3BJM5">焦虑</span><span class="kw" data-page-node-id="BnxCBt3oRYALCfg14KMXuc">紧张</span><span class="kw" data-page-node-id="vJs6KFREPtKeD0TdGDo3Cm">压力</span><span class="kw" data-page-node-id="vAfNOR129cKjNM9UdSo51j">焦虑感</span><span class="kw" data-page-node-id="Hq3zlLnAAE1CGClXe9O0XH">喘不过气</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="7JK70bEP81us38p5ssOJjd">
+          <div class="label" data-page-node-id="H1JZJmVnuiPJFxad5DvVk0">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="xAbIWdX3KskPhpCafydx8M">完全无焦虑记录 ≠ 没有焦虑 → 只是<b data-page-node-id="NJRJ5V2e4SbrbH65mGhxNj">被压抑</b>了。需要关注身体信号。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="duRYvMWxrc5cxvKTM4klck">
+          <div class="label" data-page-node-id="MG5QCkkzuQ3nEm1CvP9Z7T">引导话术</div>
+          <div class="prompt-text" data-page-node-id="dGFJjXtfAHl5DXAoC8rYuH">"身体有没有哪个部位，最近一直在替你'扛'压力？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.70" data-page-node-id="b9RmP1K1LGIUzhA7mQnDmB">
+        <div class="factor-head" data-page-node-id="DyeSFJ5fK4YkuWT0ujq0FW">
+          <div class="left" data-page-node-id="VeYNF1v7rrN9EGVkNbcPb2">
+            <div class="factor-id" data-page-node-id="W6pOCIwuTU4wIYGtjY062E">S1-PG</div>
+            <div class="factor-name" data-page-node-id="xN8EE4mUGRpPuaKBUE3cvS">规划</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="CHq1Jc4O2C41xEs5TXtOfc">权重 0.70</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="ALimtxIaBJsMEjtzqqMAOW"><b data-page-node-id="6KZVeBi0xFoyxTKJFinX6E">具体的未来规划。</b>比"计划"更长期——是关于"未来 1-5 年"的思考。</p>
+        <div class="factor-section" data-page-node-id="nEnPHWCnx8zqqhGIdCZZ8S">
+          <div class="label" data-page-node-id="lQEcYQKFTmA1nq2UgshKfJ">典型表达</div>
+          <div class="body" data-page-node-id="E2DaIzlUDSkAUC2Firw8Tz">"我长期规划" · "未来五年" · "明年打算" · "十年计划"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="DQRYF17hpOsRECoJjUBCMc">
+          <div class="label" data-page-node-id="zEEmki7rQydaEb4ChO3umr">关键词</div>
+          <div class="keywords" data-page-node-id="cbIZNNdaMeAN7OIINxBU1s"><span class="kw" data-page-node-id="qPX3aahzuzraQiIWV397Oc">规划</span><span class="kw" data-page-node-id="bLut3Lu3HSSWcDQHnFDAxl">长期</span><span class="kw" data-page-node-id="iJaHj1YkvYZqcFvPFlfkRO">明年</span><span class="kw" data-page-node-id="l9vH1YdU4tDk8VxooXY1M6">未来五年</span><span class="kw" data-page-node-id="WWaUlvhkIC0zveH6VYKWMw">十年计划</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="GtVD3deYtivmH6iZKoXKaj">
+          <div class="label" data-page-node-id="jysnqzdrQrWDTH2s6WicuX">引导话术</div>
+          <div class="prompt-text" data-page-node-id="ppozyDNvw6Kb9A37Ru64pK">"你脑海里有没有一个'三年后想成为的样子'？它具体是什么样的？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.70" data-page-node-id="t4UbqMRtraVktr9CmkEzgS">
+        <div class="factor-head" data-page-node-id="rKlT3GNDvCI7zoqwrvTO3N">
+          <div class="left" data-page-node-id="QIjtLQ24fbfz33ZDsgCgf1">
+            <div class="factor-id" data-page-node-id="dY5MGmlR2uZmONMLOBBp3q">S1-FP</div>
+            <div class="factor-name" data-page-node-id="ci5wzdkiK5W9ke3BZ6X9Xi">为未来准备</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="23CNFRJJjCBsGzSbw5ZYYe">权重 0.70</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="7udmw40EiwsLto8dBRl44B"><b data-page-node-id="JRTXHzViREef7UgPxkvgFg">为将来做储备。</b>行动层面的"未来投入"——储蓄、学习新技能、考证。</p>
+        <div class="factor-section" data-page-node-id="3GMNfGFFA61gMmXmkX4Koj">
+          <div class="label" data-page-node-id="6T0UhY2lGT5d2DRswx3wiU">典型表达</div>
+          <div class="body" data-page-node-id="PzG6rfGPfTfPk8kX0Lbugw">"存钱" · "储蓄" · "学新技能" · "考证" · "为了将来"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="VdxHa6uEnF493Ia1Nzclpq">
+          <div class="label" data-page-node-id="ltXdzDQwgDi6EWbUyaEuxs">关键词</div>
+          <div class="keywords" data-page-node-id="VTrluHeskWDHl44ytAE9p0"><span class="kw" data-page-node-id="Amn5cWNWsJ7fYMgavtHX2j">存钱</span><span class="kw" data-page-node-id="lsSaGBRtxLiZKChDORsyYN">储蓄</span><span class="kw" data-page-node-id="khdXNUDNMpD4hC3psDOPNw">学新技能</span><span class="kw" data-page-node-id="ZmO0XKgWqgVGJysO5nr4Cs">考证</span><span class="kw" data-page-node-id="R4j6ITGPmJ98dRx76E72ef">为了将来</span><span class="kw" data-page-node-id="LPK5HkbLLlK82FwuYIfcFH">为了以后</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="SnQ32oRjNBmty6ocsUN18X">
+          <div class="label" data-page-node-id="k2Fk22jlQiFKGwkmPXNrhz">引导话术</div>
+          <div class="prompt-text" data-page-node-id="vhW1kEMYKN04EqB6tPtQll">"你正在为'三年后的自己'准备什么具体的资产？"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== S2 ================== -->
+<section class="dim-section" id="S2" data-page-node-id="1XlZMak2dtkfGqLwm5Oqgr">
+  <div class="container anchor" data-page-node-id="CD4BXFaZvCgWnSRrR4yScn">
+    <div class="dim-head" data-page-node-id="rW9WmmRbtiBYlLB0ZRJgaU">
+      <div data-page-node-id="a7jZxv3DhniGkq6OKHmdBG">
+        <span class="badge-d S" data-page-node-id="mnD0BntdYaxypJERg6ObEQ">S · STATE 02</span>
+        <h2 data-page-node-id="RPAA86UG4Ckw5MnxFIEJX4">S2 · 结果导向</h2>
+        <div class="q" data-page-node-id="6QLMHGalwWCWU31c4s8sGJ">"我是否只在结果里找意义？" —— 它不是褒义。它指向一种特定的"存在方式"。</div>
+      </div>
+      <div class="meta" data-page-node-id="tf3VY5yAHxsnJGWBd4ZQNK">6 因子<br data-page-node-id="yFO9ClD1MCPDgputO2bh6g"/><b data-page-node-id="hgcW0TQf3eUaDxIE5eVXVM">权重</b> 0.85</div>
+    </div>
+    <div class="factors" data-page-node-id="FdOCLU7aeus8Z8HHSXKyyD">
+
+      <div class="factor" data-cat="S" data-weight="0.80" data-page-node-id="At9eNufCGQBhHJU1hBaAXB">
+        <div class="factor-head" data-page-node-id="xJUEEhynvHaF6pSoGrN8x8">
+          <div class="left" data-page-node-id="cblXmJXsD5g2EzWyrJexGR">
+            <div class="factor-id" data-page-node-id="fyE2wtF1P6PuMvg1H4HjvP">S2-DN</div>
+            <div class="factor-name" data-page-node-id="cZX3Tdl39FBRvgwNqx3adf">任务完成</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="MWoAOW7RrRocYKlHfUIieK">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="SerOFffDbxXhBES0QtDRXJ"><b data-page-node-id="f5zoCATXabL9RfCBFu0yTj">围绕"是否完成"运行。</b>清单思维。一天的体验被"打了多少勾"度量。</p>
+        <div class="factor-section" data-page-node-id="BYntZs1InZWifa0hXSQNpX">
+          <div class="label" data-page-node-id="yDHDzL97r4hDZe0l9AKAuv">典型表达</div>
+          <div class="body" data-page-node-id="PemQ3IyYQ8ShS9pHwZqQZZ">"今天完成了" · "做完了" · "搞定了" · "今天结束了"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="7rlwGGLbUVOGYswLNHkXCz">
+          <div class="label" data-page-node-id="QmVKZyOYNRNFGMuCB3Aly1">关键词</div>
+          <div class="keywords" data-page-node-id="cHmfiByGmXNJljMj6Pqo8J"><span class="kw" data-page-node-id="b21A0YKlCsICGzuStqzmCK">完成</span><span class="kw" data-page-node-id="OYxCHutEa3HcVvo3kjkxIB">做完</span><span class="kw" data-page-node-id="Cxif5vkUA4EveAn97FccSf">搞完</span><span class="kw" data-page-node-id="UtVG1xvGRqvu4GdBCLZuVv">搞定</span><span class="kw" data-page-node-id="Ew1r5sEsYwfVqv2Qd4XGvO">结束</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="Xwi9tIPtbNcUdJyquHCtl5">
+          <div class="label" data-page-node-id="1TRbPpBgSafF2n0NWwkAHM">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="xOoGej6rbqkpuDvI6lsBcy">一天没有任何"完成"记录 → 可能进入"无法收束任何事"的状态，长期会出现漂浮感。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="GdTxZxhtuS7nwwYCX3WW4l">
+          <div class="label" data-page-node-id="uH8FR9bdCNmWb88bZV2Isq">引导话术</div>
+          <div class="prompt-text" data-page-node-id="MZq9qwXz6rNTC9JzsbbbV9">"你每天打勾'完成'的时刻，是成就感多还是疲惫感多？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.90" data-page-node-id="oCt1dfdJIBe5WdmXVPR6Er">
+        <div class="factor-head" data-page-node-id="ErlDcmn51je3U428VvmXxS">
+          <div class="left" data-page-node-id="w2aSm4xvco5B1tQZsxhbqO">
+            <div class="factor-id" data-page-node-id="TZhgZ8WRBPmphK3HDYPkq4">S2-DG</div>
+            <div class="factor-name" data-page-node-id="rahAIl0toEFAjkRa2mL4rh">目标达成</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="lhXrZzz1aCpfDhpRzAJdbX">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="oM27w2Uky5iFeVPuDjmmus"><b data-page-node-id="hNyyohtMBfoCsESYj3l1sG">看结果是否达到。</b>比任务完成更系统——是阶段性里程碑的衡量。</p>
+        <div class="factor-section" data-page-node-id="ENZ7jJEDVCbWLonEQlF2d8">
+          <div class="label" data-page-node-id="Jhf0C2kMlWayPLFLr6mM6Z">典型表达</div>
+          <div class="body" data-page-node-id="SbmLL0x8l6fBmE3Sdh8BgX">"达成" · "实现了" · "达到了" · "完成目标" · "达标"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="WIOkPpwdxDEHArbLDdwjCF">
+          <div class="label" data-page-node-id="Ju1LtyFeSgh8wPBPbaVLFa">关键词</div>
+          <div class="keywords" data-page-node-id="7Gr6tlDaPwq8pvQAHJLIyC"><span class="kw" data-page-node-id="Wq1alZZPQtFxozgunIX8QI">达成</span><span class="kw" data-page-node-id="goGOulQlbXd2YHDH9ylMbS">实现</span><span class="kw" data-page-node-id="MDnoTtHuonRgOIKJHuGtPE">达到</span><span class="kw" data-page-node-id="8iBy2DZf43sIQQODhHOTB1">完成目标</span><span class="kw" data-page-node-id="bCi8BaYmduTaXX1u5QjYEd">达标</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="MiHe0s8Dwh8QRiqVyl9kSq">
+          <div class="label" data-page-node-id="Yvra1O5C384PrXbr1UnEGt">引导话术</div>
+          <div class="prompt-text" data-page-node-id="EGNxWjzfaO9jWOPymRXaGe">"达成目标的那一刻，你感觉是'终于松了口气'还是'还行，下一个'？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.90" data-page-node-id="Ilzt8qicBrV1necgJ3mNTw">
+        <div class="factor-head" data-page-node-id="GqUrnhCaq71aVkPreo226y">
+          <div class="left" data-page-node-id="ly49UNiWMp8uiYij8BvU5Z">
+            <div class="factor-id" data-page-node-id="Ld079PR25xeLXkDw2dCJ5d">S2-OU</div>
+            <div class="factor-name" data-page-node-id="RsI231G87GQ5bZz5bMjNDI">产出/交付</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="XHqVzFsLRGdLLT0SA6d8Qr">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="gbYWDCBLyojZM6zrN2A6uW"><b data-page-node-id="7FBHlk8DprC4wGmBBvYVmQ">看是否有产出。</b>现代职场人最常陷入的回路——把"被看见的成果"等同于"我的价值"。</p>
+        <div class="factor-section" data-page-node-id="ShtYVvEd0RqofviIQTxAJn">
+          <div class="label" data-page-node-id="G85C02kX3P9iDLXGexMMfo">典型表达</div>
+          <div class="body" data-page-node-id="EryILCWaWVJzOy0zBI0T9u">"做出了" · "交付了" · "发布了" · "输出了"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="BHBSvyGXmBR2XLRph58the">
+          <div class="label" data-page-node-id="6jrN6m2EVmZNqkyaNWrqPy">关键词</div>
+          <div class="keywords" data-page-node-id="3kQp82nj1O3I6lGmvWV3sp"><span class="kw" data-page-node-id="aGgpGlKjAeUM4u2fawA8R9">产出</span><span class="kw" data-page-node-id="V2ii2tJmajnZ0bC3pbCDdz">交付</span><span class="kw" data-page-node-id="bD8BfstJzLgiNHErZLCrRq">发布</span><span class="kw" data-page-node-id="thGwbcez4ESguDMudfqvKt">输出</span><span class="kw" data-page-node-id="Ur8d3ETtXJru5rqNV6s1yV">做出</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="GM3eo9QwJVqHBa43Utqhye">
+          <div class="label" data-page-node-id="rijkfTiyAsNA9pVzwzK6sY">引导话术</div>
+          <div class="prompt-text" data-page-node-id="TdBlJGJIoGUbYD3Eq61V61">"你最近一次'什么也没产出'却依然觉得有价值的事是什么？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="1.00" data-page-node-id="OjSPsTkrhKeldmFionyKhS">
+        <div class="factor-head" data-page-node-id="EHkOpNz9z11H2F3vEeseBL">
+          <div class="left" data-page-node-id="qPff897VCvlMgxFVnjDWLs">
+            <div class="factor-id" data-page-node-id="NhOssb9GQsQhEKtf2bjT3A">S2-KP</div>
+            <div class="factor-name" data-page-node-id="OE0vHbTNEC9TOuh7BDT9WE">KPI/OKR</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="c33JHDQNKSvAQdS9qCb7bH">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="MvMnRv5THHZZbzqwaCMHKc"><b data-page-node-id="FaTuMK5eGQsvaIo8YvAcBU">量化指标驱动。</b>把生活压缩成数字。是 S2 中最极端的"工具理性"。</p>
+        <div class="factor-section" data-page-node-id="TY317eVxfy5eRkbENkqiTK">
+          <div class="label" data-page-node-id="qXOtShJ7FmLUawfpRNqNRT">典型表达</div>
+          <div class="body" data-page-node-id="zDQ6ygE1LLajIIscDqkBoK">"KPI" · "OKR" · "指标" · "业绩" · "数据"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="wtH5kD4RFM8AgadjRF7U60">
+          <div class="label" data-page-node-id="I94QdeKwdUdeodykPuB1jo">关键词</div>
+          <div class="keywords" data-page-node-id="Mi05BfOe0quPsBNDEevB0p"><span class="kw" data-page-node-id="cHDVcfcAMOnQt65yQM0Bp1">KPI</span><span class="kw" data-page-node-id="7dNpq39C3cUiFGRYmEyN1e">OKR</span><span class="kw" data-page-node-id="mzbjoNBOB9IKk9lZzp8d7t">指标</span><span class="kw" data-page-node-id="IEPlpRMSXJcmnBMDSBCbk0">业绩</span><span class="kw" data-page-node-id="vCuKTMNIVoR0zlXKFhi6wk">数据</span><span class="kw" data-page-node-id="dkXDo4Ff6QwfWt5yGeYBoo">业绩考核</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="aTULMPRm1vXncprbNC3fhm">
+          <div class="label" data-page-node-id="5YAazkpoKVCgf8xK204V1h">引导话术</div>
+          <div class="prompt-text" data-page-node-id="4yIUCKIv1JKcJZ3yxygUZk">"如果从今天起没有人看你的 KPI 了，你会做什么？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.80" data-page-node-id="ywAgWt2yeBSFrSgiFWKEKe">
+        <div class="factor-head" data-page-node-id="EJfrLnOLxatpC4eFKx2rFn">
+          <div class="left" data-page-node-id="XMPnf5lUKiSKUPOQ7wgl4M">
+            <div class="factor-id" data-page-node-id="tBBV8RQVaXLAb4epeQgDXj">S2-EF</div>
+            <div class="factor-name" data-page-node-id="ew6GDzBC4HaDuib32IJB5P">效率追求</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="jfhcsfl11FBKDkx8iou4ht">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="nOMhOix7a2XjSkDaZ8VXd3"><b data-page-node-id="8wF6OmAPZqCA0lGut8Y5BD">追求高效率。</b>效率至上是一种隐性暴力——它让<b data-page-node-id="lNT5W3qYTczAmP2sm5mOhj">慢</b>变成一种"应该被优化的问题"。</p>
+        <div class="factor-section" data-page-node-id="D2Fm8UmvxRNXRN7B8jFYZR">
+          <div class="label" data-page-node-id="rFWN293u0pDB2jVfTbhaa6">典型表达</div>
+          <div class="body" data-page-node-id="BHEcMINWnG3ne9HEg7iYlQ">"高效" · "效率" · "优化" · "提效" · "加速"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="PeGxMFCyQDqOGhYKvjVHXM">
+          <div class="label" data-page-node-id="cz5iy7s2SBlCfawznvHTks">关键词</div>
+          <div class="keywords" data-page-node-id="VgO7Di3QjDQ1pPFfWhFBw0"><span class="kw" data-page-node-id="0f6QKEnRUcfHGIpfntyUHy">效率</span><span class="kw" data-page-node-id="ltU0Ed71IYPyc817SxVaw3">高效</span><span class="kw" data-page-node-id="WAx5EerOewaFkGVLFyu2YZ">优化</span><span class="kw" data-page-node-id="SKoQ8zQip4ZHPBpjCrm0pf">提效</span><span class="kw" data-page-node-id="td3yzQhr6xActNjWfCIlow">加速</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="kG8MnaqImpqdKOFDZthPRE">
+          <div class="label" data-page-node-id="vfCimQvfw3OZBSOTWvDoOk">引导话术</div>
+          <div class="prompt-text" data-page-node-id="M5AtyRpsLQfBLDdAitihND">"你最近一次'故意慢下来'做了什么？感觉怎么样？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="1.00" data-page-node-id="YYHWZmDYg6IjZJZ7o6SpTx">
+        <div class="factor-head" data-page-node-id="PViinrkFnsHX7CBsvxJafU">
+          <div class="left" data-page-node-id="m3Q8vVgPFB2OSIZGYVDHOq">
+            <div class="factor-id" data-page-node-id="G7L3vZYD2waptLEhH1LOGV">S2-DL</div>
+            <div class="factor-name" data-page-node-id="dkwnoMBttPFrln3CVB0zep">截止驱动</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="sG5melX3qVFWWJYeklYrHE">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="74MnUqKmqAZf0E1KmEVqWP"><b data-page-node-id="FgWUqSUedurudkdb45XqPM">被 deadline 牵引。</b>截止日是最强的"未来压力源"——它让人永远在赶路。</p>
+        <div class="factor-section" data-page-node-id="yoD0iuEBigfIQsQASCWEst">
+          <div class="label" data-page-node-id="LyAjT6YJiMOrV88dx705ap">典型表达</div>
+          <div class="body" data-page-node-id="ToVkAkbgMlIxw1LUvIJNN5">"截止" · "deadline" · "期限" · "DDL" · "最后期限"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="xAA8z3SW2iz9nYMYR7INog">
+          <div class="label" data-page-node-id="JKWSqrDzFOyaOU8CZ3RHMb">关键词</div>
+          <div class="keywords" data-page-node-id="t7DmB5NRvLxpvJrWYwttHV"><span class="kw" data-page-node-id="Kvl4pGoGXggL2bl2GtgVIA">截止</span><span class="kw" data-page-node-id="bDjzsl2s8qEpyz0T6iqn5U">deadline</span><span class="kw" data-page-node-id="bGRUdJOS0NBBwM5th5aHC5">期限</span><span class="kw" data-page-node-id="QhHQmqYofa6AoOfznl7SKL">最后期限</span><span class="kw" data-page-node-id="H07sGOLLEQHRApRkmOp9tC">DDL</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="ByzrY2MHosdQy4GcJL3LR1">
+          <div class="label" data-page-node-id="gxLgBqRxMZgQwGai8tg6CJ">引导话术</div>
+          <div class="prompt-text" data-page-node-id="112zODx3kEZFHCj2KHaKlM">"如果你下周没有任何截止日，你会怎么度过？"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== S3 ================== -->
+<section class="dim-section" id="S3" data-page-node-id="2SofmIYiGNWfKkhevWgbD8">
+  <div class="container anchor" data-page-node-id="vUSV0Q2QroS6vEdRDLARt8">
+    <div class="dim-head" data-page-node-id="k1kEH1EmeUf8IWjMXcdj29">
+      <div data-page-node-id="B0vbrT9w5Mz3WYlgL8bwIi">
+        <span class="badge-d S" data-page-node-id="mvoiCARE8CtJ7magYZQ9zz">S · STATE 03</span>
+        <h2 data-page-node-id="zbytc5T7HSjw82G5DUS4Kl">S3 · 主体参与</h2>
+        <div class="q" data-page-node-id="mEhUnVWHFvGZS84KAkQQE8">"是我在生活，还是事情在带着我走？" —— 这是"主体性"问题的核心。</div>
+      </div>
+      <div class="meta" data-page-node-id="4CT7bOT2U5smucTo1yidFS">7 因子<br data-page-node-id="MaTrEVSZ4Ka2ufKHnKLfIr"/><b data-page-node-id="9QB0LsMuVCVfzdQ8y0mHyn">权重</b> 1.00</div>
+    </div>
+    <div class="factors" data-page-node-id="GeR5Fwx3UURrLusoJGGm43">
+
+      <div class="factor" data-cat="S" data-weight="1.00" data-page-node-id="KSEIgt0GvAce0NkYFci0Aa">
+        <div class="factor-head" data-page-node-id="LC5dETiDURDI6Jbnemq6oS">
+          <div class="left" data-page-node-id="DtdxWy2tWSNnif5gke9E7U">
+            <div class="factor-id" data-page-node-id="j9O8uga0AdqROKuWKeGN1v">S3-CH</div>
+            <div class="factor-name" data-page-node-id="s2JzfR0ZHn6A19NvL32pe4">主动选择</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="UODxs5FNgsrllGtQGCavn4">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="SipdTHQDzgo8fuOFHSWOJN"><b data-page-node-id="h1nWLNSbN16h8HAjTIxLin">自己做出决定。</b>选择的瞬间是主体性最直接的体现——即使选错了，也是"我的错"。</p>
+        <div class="factor-section" data-page-node-id="HCIgq2xS47D8XbYJnLJXzo">
+          <div class="label" data-page-node-id="YS3pHwtOkKqYCtQCvWidq6">典型表达</div>
+          <div class="body" data-page-node-id="tesIiWNcF8GSVwWRvnazFD">"我决定" · "我选择" · "我选了" · "决定权在我"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="IcI8zVD8TmtS8ScpEl4Vtx">
+          <div class="label" data-page-node-id="z2X6nTow9X3hEReYHfIZhT">关键词</div>
+          <div class="keywords" data-page-node-id="UFQOQj0M1e5H8GzwPqgxL4"><span class="kw" data-page-node-id="PNd2uP1nLc6hwReqG7U8dZ">决定</span><span class="kw" data-page-node-id="31rVBn4EovUBcCc5Fo0YOg">选择</span><span class="kw" data-page-node-id="pFTDukxfkArCWwU7ilQAvD">选</span><span class="kw" data-page-node-id="Yrh9tnXJkhxzc96Hzcqm4a">挑</span><span class="kw" data-page-node-id="dGqMw4q8A73f8gxTUqCQxS">决定权</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="4d5jXdcp7LM6SsdR90wYCQ">
+          <div class="label" data-page-node-id="Zd9l7qfR73R65NjkKr4DG3">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="ffvOGdkDFrcJeEQyr91i0J">长期无主动选择记录 → 决策疲劳或被环境过度结构化，"我选择"已成为稀缺动作。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="7XdsCpG66jAJ3fdV9eymn2">
+          <div class="label" data-page-node-id="YJ3doArlHf8NT08lNB6I9E">引导话术</div>
+          <div class="prompt-text" data-page-node-id="80qXOyqPrj2kCImk3AV4hh">"今天你做过的、'完全是你的主意'的事是什么？哪怕很小。"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="1.00" data-page-node-id="lV3hNeBqIuSWMxiDBz1Wxx">
+        <div class="factor-head" data-page-node-id="qUrqdeOc4r65ZdTDdfq8mZ">
+          <div class="left" data-page-node-id="cSsUB59R7xMojU5HsgBiWZ">
+            <div class="factor-id" data-page-node-id="OmeE8gWc0sEPM0fVhIdLiQ">S3-EX</div>
+            <div class="factor-name" data-page-node-id="lgTHUcHd2boVxzhG12HeWm">主动探索</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="PFgQDoy7iYXV4jADzL29cr">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="dhjIOVeneus87dwdlkZaer"><b data-page-node-id="P2uSBEPrd1hHkb9SMdyMVQ">主动去尝试新事物。</b>探索是从"已知"走向"未知"的桥梁动作。</p>
+        <div class="factor-section" data-page-node-id="hfD8k6DXFnNAtCpdLFEXKi">
+          <div class="label" data-page-node-id="EmRcde80ZbyTIjGwLMTrdN">典型表达</div>
+          <div class="body" data-page-node-id="zsFDWqRFJXGUEAGv0jifZ9">"我主动去试了" · "探索了一下" · "去发现" · "我想了解"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="RW0oDT7h4jxyB0CIBQ2CmG">
+          <div class="label" data-page-node-id="vE3c9MsZ7esUuH8yVZ9IUF">关键词</div>
+          <div class="keywords" data-page-node-id="E7qJogZZryXB2z8HLD0xy2"><span class="kw" data-page-node-id="m1DCmvEwdgGGIYQOo9MedZ">探索</span><span class="kw" data-page-node-id="bKO87PY0jORQ30lfrpW27T">尝试</span><span class="kw" data-page-node-id="RB0CehKY77OVg4O67I68Ty">试一试</span><span class="kw" data-page-node-id="B4pg3wjHzRhuxsYXLa3W2G">主动找</span><span class="kw" data-page-node-id="SCya8AYD4ShhuslY7nHUD6">去发现</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="GWYCQvVlAeBtTGQIr9ANzH">
+          <div class="label" data-page-node-id="PZVfx7f2IoAQFzdJQ7rTYa">引导话术</div>
+          <div class="prompt-text" data-page-node-id="OuZgdsenFpdqooUqgRyunv">"最近一次'我想搞清楚这件事'的冲动，是什么触发的？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="1.00" data-page-node-id="RAzW3YejzdKKXJ8swUpJ8P">
+        <div class="factor-head" data-page-node-id="56V3t3F79EPgyglLoAEgBr">
+          <div class="left" data-page-node-id="gHk1vOMm1Po8qs2aSXtzHn">
+            <div class="factor-id" data-page-node-id="ZyrkPPDk2CbDxM2e0CNt5H">S3-CR</div>
+            <div class="factor-name" data-page-node-id="Ae8ZJfwujWdAhxoeqdcckd">主动创造</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="uShzuLe2tgPaMmjUCJDOAI">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="LtWvE1c0x2TWalHGNY9LnF"><b data-page-node-id="LCzqfrWavNAoGBlujJFhbS">自己设计或创作。</b>创造是最高级的主体性——把"还没有"变成"有"。</p>
+        <div class="factor-section" data-page-node-id="wxFWRdxOXD2h2464fzrR0n">
+          <div class="label" data-page-node-id="6BKoWwoV7Tv51BEkaCbFRI">典型表达</div>
+          <div class="body" data-page-node-id="mUZt7Db3VBkwd5LF071PAj">"我设计了" · "创作了" · "发明了" · "做出来了"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="YRAbv8NaEHXZKz3YCTkxKJ">
+          <div class="label" data-page-node-id="47w2ifdqBkEDqjfXVHN93Y">关键词</div>
+          <div class="keywords" data-page-node-id="1VzlTUEU5HklXxk00PhBmR"><span class="kw" data-page-node-id="StLLWwsQR9b2xKHhJcDPyl">创造</span><span class="kw" data-page-node-id="ryIKJ7NsMXIfg13Lpi3UkF">设计</span><span class="kw" data-page-node-id="ibEl3QMOpuJnlQtWTENrEv">创作</span><span class="kw" data-page-node-id="4cSFVJTx9TCZmHW1eF0sdO">发明</span><span class="kw" data-page-node-id="Ljkw4iwjJ8Z3Gi1Hgm8zNW">做出来</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="A2p4gQtiFff1G6NwZuAlPF">
+          <div class="label" data-page-node-id="1JPauvVsD86iNJjruCWmSf">引导话术</div>
+          <div class="prompt-text" data-page-node-id="jOpZv9dWHO73NSvXyAyYdn">"你最近创造了什么？哪怕是一段文字、一个想法、一个小工具？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.80" data-page-node-id="U6lUehQqB9XLvLz3tOOBwb">
+        <div class="factor-head" data-page-node-id="zy3F5gZnMDcmEymirKY6Kr">
+          <div class="left" data-page-node-id="PnVxeVcCQ2ssqb408BkEEs">
+            <div class="factor-id" data-page-node-id="vkxWxOvfjax3mBjHPdoBPo">S3-EP</div>
+            <div class="factor-name" data-page-node-id="efHbzoGfiOC1St2YhgJ6lL">主动表达</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="44I5nUQs7AxZIftivfmIcu">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="IzeTEF4F6iRExBJumpPjV3"><b data-page-node-id="vSLASy9XFDmyDpHjZd9qz7">主动表达自己。</b>把"我"放到外面去——这是自我被看见的起点。</p>
+        <div class="factor-section" data-page-node-id="P9LQAo8FxLWvcj0XYK47A8">
+          <div class="label" data-page-node-id="1pSHCoUPqmsfMooAR1hNMU">典型表达</div>
+          <div class="body" data-page-node-id="kY0zBzfWK0aXMtCA5DYgZT">"我说出来了" · "分享了" · "写了下来" · "讲了出来"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="1IuyWiCJTYeE47zT6n0HGy">
+          <div class="label" data-page-node-id="PRICqMadgv0ExbfeiMJuHh">关键词</div>
+          <div class="keywords" data-page-node-id="mGYaYDuzYlORpNczxsBh3F"><span class="kw" data-page-node-id="VdsdfuKThfWD2SWt2TUMmD">表达</span><span class="kw" data-page-node-id="OqY8KFJTjPEAxD18yufIAb">说出</span><span class="kw" data-page-node-id="KrAvhfDRBqAcFKaEMFFbQ3">分享</span><span class="kw" data-page-node-id="2AcOCFCYuLVF0WoAOZJAx3">讲述</span><span class="kw" data-page-node-id="tWjAfI1bfzFlWbPpHFPDbB">写下来</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="IapbPTzkXBnOlpQx9p7GvN">
+          <div class="label" data-page-node-id="0hIN3npyTTFTG6jIFgQOmk">引导话术</div>
+          <div class="prompt-text" data-page-node-id="gZ3lXFWfxeQXPd6obz6nAc">"你最近一次主动表达了一个'重要但不紧急'的想法，是什么时候？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="1.00" data-page-node-id="UGj3b4XRZ6EbDhF8Tnpn43">
+        <div class="factor-head" data-page-node-id="4bp3bl4n4LX5Dupj9WswiR">
+          <div class="left" data-page-node-id="cm1JoLDCddnwbpFHrS88gN">
+            <div class="factor-id" data-page-node-id="SLrDz5sHNsZ7IjvdkgujZM">S3-CG</div>
+            <div class="factor-name" data-page-node-id="J4qHHW4bMOGSImD2T2gQhK">主动改变</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="tWg9n1bX07ZKFdfFcZL00D">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="4PX6wbRSVHvgt7XLDh3EOM"><b data-page-node-id="cFnkZMh0HwHA91Jl3TEKSx">主动做出改变。</b>改变是最重的"主体动作"——它打破了惯性。</p>
+        <div class="factor-section" data-page-node-id="pmODGMgc7S3EI2ECyWxKGW">
+          <div class="label" data-page-node-id="BJLULhSPppVGQYYQx2VJCg">典型表达</div>
+          <div class="body" data-page-node-id="Ooa0dFfdb1UC5PJUttAR1T">"我改变了" · "调整了" · "重新" · "换了一种方式"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="aD8J09G82dQ1trRigJAr3V">
+          <div class="label" data-page-node-id="jlTnRTp9cERUA2GSiAkLuW">关键词</div>
+          <div class="keywords" data-page-node-id="VxewZ6M6uV5cZ38XlKMiIn"><span class="kw" data-page-node-id="VgfMQF0CfYcIoCbpsVkJRi">改变</span><span class="kw" data-page-node-id="jO3tNLpi6IacLmw4bIeBmi">调整</span><span class="kw" data-page-node-id="uvEMgq93x2LvGwOfLFZMfD">重新</span><span class="kw" data-page-node-id="dPFobYVaHBxwBcKQ0GCBDB">推翻重来</span><span class="kw" data-page-node-id="pQ1drtbAGCCnAayqIVTah2">换一种方式</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="pMDfzmANdvyafAcYPCSwUg">
+          <div class="label" data-page-node-id="bNV7pQrFOvlDzOFtIIeLGs">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="A4MeihN0FmDine0z9sxnXq">长期无主动改变记录 → 可能陷入"我已经这样很久了"的默认状态。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="h1fL6qHWPe5LHJf86HUIpU">
+          <div class="label" data-page-node-id="Ku1JGuASUMQeA0KAFLuhzZ">引导话术</div>
+          <div class="prompt-text" data-page-node-id="gkpmMwcio2hQLd78CBpkIe">"你最近一次'主动推翻自己之前的想法'是什么时候？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.90" data-page-node-id="e9bKHi6pzqoGvFAUqbwLZg">
+        <div class="factor-head" data-page-node-id="S0iUYwKK6MyM1xmDVkyYUP">
+          <div class="left" data-page-node-id="Pf3WoGzcDpX4TxH3F1TyV0">
+            <div class="factor-id" data-page-node-id="OSPgOn3QVAe7KPTPlob9NC">S3-PE</div>
+            <div class="factor-name" data-page-node-id="BFBiHL8e2xPuITN9gWj7VD">被动执行</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="VwAbyix9ueRcQBJSW1dUMb">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="WxFLFBgCjNwS7eRBq3BoQy"><b data-page-node-id="zG9CJ6hHvnCGhDtDxbDlvH">被任务牵着走。</b>这是 S3 的<b data-page-node-id="evnMqf2n2fJdC0CgjOo0Rh">反面</b>，单独成为一个因子因为它需要被显性看见——它隐藏得很深。</p>
+        <div class="factor-section" data-page-node-id="RAHbHFQJkKh3EWmlFFhJRX">
+          <div class="label" data-page-node-id="TLEaNdY5kDNCXUbGiArzqE">典型表达</div>
+          <div class="body" data-page-node-id="vnHtGAgQ8c4mHRxRyPKDl4">"被安排了" · "被要求" · "没办法" · "不得不" · "只能"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="8leXLDRmUZeNvgAZolADsh">
+          <div class="label" data-page-node-id="Il1CDiPmsTdpPLuYsHqzpB">关键词</div>
+          <div class="keywords" data-page-node-id="hCnyUiS6YKUSjeYIA6NpAU"><span class="kw" data-page-node-id="ExHx4E7vl7bECtFTpQmsEe">被安排</span><span class="kw" data-page-node-id="zYCD1kBIaBDNglzfqhQZDh">被要求</span><span class="kw" data-page-node-id="H66AwCyEbA6jUyGihfINRF">没办法</span><span class="kw" data-page-node-id="V9YUxo1mB7fAcgscSYu3W3">不得不</span><span class="kw" data-page-node-id="jjL41nAZyDd52NY7DPQRaN">只能</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="KswLmO7WzwMNtpEc1lTgKp">
+          <div class="label" data-page-node-id="m9xUNexaOHBjGxsQOTCeNv">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="awoaJDDJZ9LtxNDe1iUsfc">完全无被动记录 ≠ 完全主动 → 可能只是<b data-page-node-id="k7DdA1YlAzg0qQL9Z7khDG">没意识到</b>自己在被动。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="9XakDdkAQdTcAPMvJTCboS">
+          <div class="label" data-page-node-id="CTpRyH5Oz42rFshoTTuMhS">引导话术</div>
+          <div class="prompt-text" data-page-node-id="BsHTGnVwz4z1DvjbHahxhW">"今天有没有哪个时刻，你感觉到'这件事不是我选的'？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="S" data-weight="0.70" data-page-node-id="OOcU5QN1IhPmYWLXuGlIFt">
+        <div class="factor-head" data-page-node-id="xoxDsOR4QnS8A6TvKHS8hV">
+          <div class="left" data-page-node-id="PIkcExd7r626Vb8EmmIxl3">
+            <div class="factor-id" data-page-node-id="LnL39TBqsEcUHRpBdVMNzA">S3-PA</div>
+            <div class="factor-name" data-page-node-id="3xfQ8G0EeB3zfRbRP1LRrA">被动接受</div>
+          </div>
+          <span class="weight-badge mid" data-page-node-id="oXYGRHQ4cBgqF8X4KQTs1q">权重 0.70</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="EcHjVygs60z5JfmvQdIKjR"><b data-page-node-id="F9L24te7bF4JMxCm6jwwDl">被动接收信息。</b>比"被动执行"更隐性——甚至感受不到自己在被动。</p>
+        <div class="factor-section" data-page-node-id="BpMba9WVLgKPX41W2ff7Bv">
+          <div class="label" data-page-node-id="BTErZzcOaaz7sQ0GEaVuIp">典型表达</div>
+          <div class="body" data-page-node-id="tdGFrqDCBALBowJa01j7FE">"收到了" · "被告知" · "被通知" · "接收到了"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="Hk6sMetdN6BSKcjxKYAoPP">
+          <div class="label" data-page-node-id="nDXwdgisy1t26Zkm9eJGaM">关键词</div>
+          <div class="keywords" data-page-node-id="7AkCpLsHlOUFbKFMAf1pSP"><span class="kw" data-page-node-id="tuUnJKH5WkpYEd31G2s1HF">收到</span><span class="kw" data-page-node-id="P3Qv3OlDTVwNQSYdK0gD3y">被告知</span><span class="kw" data-page-node-id="oA3GJIbx9trZtuIXjyJ7sF">被通知</span><span class="kw" data-page-node-id="ihCE6f5KGUBMw3CoXtdFyg">接收</span><span class="kw" data-page-node-id="HIUHfXk5d6UqgQbG6D2ocx">被动</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="n1rJJtoJlB2SaXo1rZC8IG">
+          <div class="label" data-page-node-id="Yy1XRUmnSQtbotaNrj9OlU">引导话术</div>
+          <div class="prompt-text" data-page-node-id="YNnpFmy8zPs1pkW0B4xBQl">"你今天'无意中知道'的事里，有哪件让你希望早些知道？"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== T1 ================== -->
+<section class="dim-section" id="T1" data-page-node-id="iDZZFVXx3zTmKfQgk0HADs">
+  <div class="container anchor" data-page-node-id="vUBRIHCIIg6h8bsDQNncto">
+    <div class="dim-head" data-page-node-id="ubNZVZ2khI2tgSDDfpW2u0">
+      <div data-page-node-id="z4ACG1Ku9VBrTxRmkAn4c5">
+        <span class="badge-d T" data-page-node-id="DgWy9sxN4WgQxnQS4ylFVe">T · TRACE 01</span>
+        <h2 data-page-node-id="mZtOCUaVMOKX54Uj8dYq3t">T1 · 体验痕迹</h2>
+        <div class="q" data-page-node-id="jXs13bXrRPylmlyscNa22X">"是否形成可回忆的具体节点？" —— 这是"时间没被压缩"最具体的证据。</div>
+      </div>
+      <div class="meta" data-page-node-id="mjnun48wBWcIlNVJUPNyGC">5 因子<br data-page-node-id="utibvt9WkXyYrLwo6hFuft"/><b data-page-node-id="DyshqpAhNdJOQtJwlbrcdx">权重</b> 0.95</div>
+    </div>
+    <div class="factors" data-page-node-id="4b4y1xNJ1RdNBd92m9IP24">
+
+      <div class="factor" data-cat="T" data-weight="0.90" data-page-node-id="jKYj2gpFJTUsijRS37GXYK">
+        <div class="factor-head" data-page-node-id="MOFCybqXZvsyRQvBNpXxhs">
+          <div class="left" data-page-node-id="EP22tgJem33qOHIvCAKzbq">
+            <div class="factor-id" data-page-node-id="OnyHgi8ClDFN4GSHnAwrP8">T1-SE</div>
+            <div class="factor-name" data-page-node-id="H8Wd3q2xHIQ2QlHoXugyKd">感官细节</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="B99f9XtRCuREz9OX6DBiF6">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="PRM923ujSEGDUVZaeW2xFB"><b data-page-node-id="oGaKbmZyS46uSeAN467BEg">(味道/触感/声音) 被记住。</b>感官记忆比抽象记忆更持久——它是"我真的活过这一段"的物理证据。</p>
+        <div class="factor-section" data-page-node-id="FJkFqFVwjdFMgMz2JoE4cj">
+          <div class="label" data-page-node-id="vjyy5bC9gtHeokcW7Rj9nG">典型表达</div>
+          <div class="body" data-page-node-id="NWXi8pELxCPY1oa9aznoBH">"那个味道" · "摸起来" · "听着" · "闻起来" · "好吃" · "好闻"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="UddRb9vBDGhtTpcTL0baGi">
+          <div class="label" data-page-node-id="FFlVPU0wbZtCxtCt239Lbk">关键词</div>
+          <div class="keywords" data-page-node-id="jL00xG5imCTslKu6mluxJ8"><span class="kw" data-page-node-id="ObcFtdkGdPvEnxwXVFF0Bo">味道</span><span class="kw" data-page-node-id="IVmHNGh8lYe74wvAs6ADsX">触感</span><span class="kw" data-page-node-id="gw6tVUirYgOqnp41NhxriT">声音</span><span class="kw" data-page-node-id="NUMi49J75MlpHvya0HlBfw">气味</span><span class="kw" data-page-node-id="oKB1uSEp0EaGn6x51KqLhr">好闻</span><span class="kw" data-page-node-id="MTiIWUXvaZEDV1Hrcx71LT">好吃</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="JFQyCPgfwQKGyLFtCQjfGM">
+          <div class="label" data-page-node-id="OGqxatRb0FnMpbb3zCqbgh">引导话术</div>
+          <div class="prompt-text" data-page-node-id="i40cHD6EbPy7doSHcaq6jP">"今天你闻到、尝到、听到、摸到、看到的任何细节，有哪一个留了下来？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="0.90" data-page-node-id="e2EZ3gfGRDOrsk1BfYxrrV">
+        <div class="factor-head" data-page-node-id="CWZdKj9eClaA2bLMS5on7F">
+          <div class="left" data-page-node-id="aEHd87ZF34y1UYI13JPZZG">
+            <div class="factor-id" data-page-node-id="r14Lqpt7GFwaBn5e8QbhdO">T1-SC</div>
+            <div class="factor-name" data-page-node-id="hcDCSwHEXXsOlovuKupENO">场景细节</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="ATGhLqtv6NrAE45T0BcmbW">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="qMuxOBtMRkzULEeFcebOJK"><b data-page-node-id="ThUNfm64vD5ogYGwngk24N">(天气/地点) 的具体画面。</b>"那天在下雨"——这种场景锚点能把模糊的过去拉回清晰。</p>
+        <div class="factor-section" data-page-node-id="mzKhhKpvtgc7VYBDhSHyND">
+          <div class="label" data-page-node-id="KQoACGKGXz8ysdAast5LMy">典型表达</div>
+          <div class="body" data-page-node-id="nIc4Ngbcv45UQKZXINATfR">"那天在下雨" · "在阳光里" · "那家咖啡馆" · "那条街"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="QrHiX71BaL4qAJDG01i950">
+          <div class="label" data-page-node-id="HArEQKU9Psga3HJKV4XeyS">关键词</div>
+          <div class="keywords" data-page-node-id="lS26R5QcWX0JySwJrzAL8z"><span class="kw" data-page-node-id="UBSBVOv5yehhEzMRMixwSM">雨</span><span class="kw" data-page-node-id="ladyCE430L5v33PFxlaR2L">阳光</span><span class="kw" data-page-node-id="vtIZcdTVqACAzcATKaPzYZ">下雪</span><span class="kw" data-page-node-id="SlZN5TIvZFVKBa4l0QxBQV">天气</span><span class="kw" data-page-node-id="cu7pSMqNmS1ethk67V8TF8">咖啡馆</span><span class="kw" data-page-node-id="VDqZnkyBTwy1UGo0RowtgB">那条街</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="xyBE5Ukq6jge8EEZza9BT3">
+          <div class="label" data-page-node-id="SY7B17LphJlb1uHGwkPtui">引导话术</div>
+          <div class="prompt-text" data-page-node-id="zqz9z0p2txYQBJmhD26ts1">"如果今天是一部电影的场景，你记住了什么画面？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="oViS1CDnACuF7qvCt7yhFS">
+        <div class="factor-head" data-page-node-id="Ype7xdri2sM7lQ8VBwxZCQ">
+          <div class="left" data-page-node-id="jarxQ34URobRCAX5NAfdF6">
+            <div class="factor-id" data-page-node-id="TQ4h3vyMa60qRIyU2GEGDR">T1-EM</div>
+            <div class="factor-name" data-page-node-id="bUEelctBmcGwkRxL8pAH6n">情绪峰值</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="fOkCfzxbHe0lFTVT5kWwTy">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="HmPkpNj13f1SJB0NybR7a5"><b data-page-node-id="nUdrb3lju1H9E2F5Pz2BlN">(喜/悲/静) 的强烈感受。</b>情绪峰值是"时间被记住"的最高强度信号——这是必抓的因子。</p>
+        <div class="factor-section" data-page-node-id="2IwxDVvKvo9APfcr3EXud1">
+          <div class="label" data-page-node-id="nqDOQhgsgTqCl3eHXA7KD9">典型表达</div>
+          <div class="body" data-page-node-id="m9mqYs521dMn15UIDmbxCx">"那一刻特别开心" · "突然很难过" · "心里特别平静" · "笑出了声"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="KFbCmmny1Za5mCSr8zb7lS">
+          <div class="label" data-page-node-id="Xpw9LzsSYxxHjMWzOXRyEo">关键词</div>
+          <div class="keywords" data-page-node-id="162oimtgToOmS2o2mULR87"><span class="kw" data-page-node-id="4QNwg5PLjsB6QUdluJyy02">开心</span><span class="kw" data-page-node-id="2qQGbGBFuGReljvCh8dmvk">难过</span><span class="kw" data-page-node-id="YmeRQaMrLU2LFHwyttuBqS">哭</span><span class="kw" data-page-node-id="1rZQN94uBltHV43W4E2CQj">笑</span><span class="kw" data-page-node-id="kEos4czg3PE9VEf6L9RH8g">激动</span><span class="kw" data-page-node-id="uRVWPerSfeMh3AFDRLjy5h">平静</span><span class="kw" data-page-node-id="DF9yAk9ftJ4nn2bG0YstxT">舒服</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="lb7Kedq7UVZ5I8jgTUeIOT">
+          <div class="label" data-page-node-id="jUQDhT7fXWbnGDYCKSphA3">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="CL01HMM6aUFUF1MMNVcIBR">长期无情绪峰值记录 → 可能进入<b data-page-node-id="o5A3ZTwoc2JnU85cZBLEl2">情感钝化</b>——不是没有情绪，而是没有感受的强度。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="iVF8IbWfoNxxj4n4RQdKo8">
+          <div class="label" data-page-node-id="1tWh4zfs1D4lysQZUt2cVX">引导话术</div>
+          <div class="prompt-text" data-page-node-id="Uo0ZgvwfDoueACxCkoJrZd">"今天最'高'的一刻和最'低'的一刻，分别是什么？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="22SWdwd6TueTzpg68UIwuW">
+        <div class="factor-head" data-page-node-id="QoUMS8fZr3G5TX4il0iKN1">
+          <div class="left" data-page-node-id="8MCiLjKE6dEIsBA5M4AKRb">
+            <div class="factor-id" data-page-node-id="3SdIhuFnjU8DDYlAsFLGxC">T1-TA</div>
+            <div class="factor-name" data-page-node-id="lsSuNoNURdLTXgTMOoUMLN">时间锚点</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="E2YOK0YZngmAi4XjVK7ucE">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="5lneyxl1HzAfWL1SdFIddR"><b data-page-node-id="vbcSkjLYgmdkTHX0vX4neF">那一刻的清晰回忆。</b>"那一刻"这种措辞本身就是一种高强度体验的标志。</p>
+        <div class="factor-section" data-page-node-id="UeeEffgOf4HIEBVS66LM0u">
+          <div class="label" data-page-node-id="KxwN0Ze6Y4j8FtcYNxXdFA">典型表达</div>
+          <div class="body" data-page-node-id="Yxwrz1FSsz9QsaaJUBYMpT">"那一刻" · "我记得" · "那一刻难忘" · "那一瞬间"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="YKWP94bMEg6Zl5H4UgFJha">
+          <div class="label" data-page-node-id="EL4BQMt9ST4WYTMDHkOCn7">关键词</div>
+          <div class="keywords" data-page-node-id="LHjV2Fsue1ytOsNaEIUCI0"><span class="kw" data-page-node-id="4qukj67xr8jnIGSy8GcFl9">那一刻</span><span class="kw" data-page-node-id="ZaTgdBTC7ZvDpGhqkPSY3V">记得</span><span class="kw" data-page-node-id="DrEHoNXd9ZndoavWCD47eF">难忘</span><span class="kw" data-page-node-id="i7wBUNd5Eg5CugDRnFu72r">永远记得</span><span class="kw" data-page-node-id="MH8c5xoh17DoVwi1NHWPHF">那一瞬间</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="5NJCJi4VkevJoWszIwScRX">
+          <div class="label" data-page-node-id="Gszs2CA9gC1QStlyxZLNBa">引导话术</div>
+          <div class="prompt-text" data-page-node-id="zvsmPjRWZnMRRG15XDqOLZ">"过去一周里，有哪个'那一刻'的画面是清晰到可以讲给别人听的？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="LDOhCtkVQEIoPpNJRlhEK9">
+        <div class="factor-head" data-page-node-id="ADmGOazUHR6gc3fbnSEkNW">
+          <div class="left" data-page-node-id="5eSvHFWYbfd9G7yCV3e2Mq">
+            <div class="factor-id" data-page-node-id="A8VAJDHHMIup9TOd4Rb4gg">T1-FR</div>
+            <div class="factor-name" data-page-node-id="Fl9qbkMiW7ZGNcPTrdigs5">独特首次</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="vvry5GWRQ3RRwyPV1VwXXq">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="rZvcecG7MKYF3vqj33NFrl"><b data-page-node-id="AEfK8nWmKDcpFOuaO80NdS">第一次的鲜明记忆。</b>海马体对"第一次"有特殊的记忆编码权重，所以这是最容易回忆起的痕迹。</p>
+        <div class="factor-section" data-page-node-id="d2BxqiNTkIYyRMaxKB6uon">
+          <div class="label" data-page-node-id="turYFRtjLtO3KYY4oJXV2L">典型表达</div>
+          <div class="body" data-page-node-id="PIT4fAHCuyEhz4oBT4HrYl">"第一次" · "初次" · "头一回" · "人生第一次"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="wD9QzAIlmjUckCSgulrRfE">
+          <div class="label" data-page-node-id="HEfUyG9i9vkjMbpAop7MJO">关键词</div>
+          <div class="keywords" data-page-node-id="DVHVf6n6iLPF76JBmE0ogK"><span class="kw" data-page-node-id="y49uV8TbA2DmIzhh0CZPBY">第一次</span><span class="kw" data-page-node-id="Bcj5MvE0N0ArQSRBtZAFo3">初次</span><span class="kw" data-page-node-id="mGympUq7vZOPo8QDUdWJgq">头一回</span><span class="kw" data-page-node-id="2x33qLj1PVMyeMFSFvZwpH">人生第一次</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="HZD4PNCJBY358rZnRtw4xx">
+          <div class="label" data-page-node-id="ysIkYoOJmHPaSRY50KGdGP">引导话术</div>
+          <div class="prompt-text" data-page-node-id="3uUSQxQB6Z8aMUXr5P7XLp">"你最近一次'第一次做某件事'是什么？"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== T2 ================== -->
+<section class="dim-section" id="T2" data-page-node-id="xUnaZ1IRsggADQWguG97ti">
+  <div class="container anchor" data-page-node-id="gb1QaPwDTlQ40UFFUo4D4T">
+    <div class="dim-head" data-page-node-id="t9iZsmFpd1ww0ZH1Nc9kjg">
+      <div data-page-node-id="VpsNVQMmedBGusWLor0X1B">
+        <span class="badge-d T" data-page-node-id="CjGzT4z2AJG00eCEUcQ14E">T · TRACE 02</span>
+        <h2 data-page-node-id="TqSws9YDt15hzmqLQbcBVy">T2 · 认知变化</h2>
+        <div class="q" data-page-node-id="naVbWiyH73KfLu3F41BRao">"我有没有变得不一样？" —— 这是"我是否真的在成长"的核心问题。</div>
+      </div>
+      <div class="meta" data-page-node-id="RQBt7x2EwgEvNe1xbGMBqG">6 因子<br data-page-node-id="GNeSsCPsoxjf9RskmHBnXG"/><b data-page-node-id="Eimi3zlCfAryrkLnXBjBNR">权重</b> 1.00</div>
+    </div>
+    <div class="factors" data-page-node-id="MPv9yaTNu4veWguLMXzy0O">
+
+      <div class="factor" data-cat="T" data-weight="0.90" data-page-node-id="KAJvthasgFqukybwgRR4Gu">
+        <div class="factor-head" data-page-node-id="liR7vzI7CKe9SaERV0jZBY">
+          <div class="left" data-page-node-id="eELb808n6eZKQF4pOZhHUp">
+            <div class="factor-id" data-page-node-id="fGrBTsEigfS58o7PgUAWRY">T2-DI</div>
+            <div class="factor-name" data-page-node-id="pIgdtYedE1XYPvRIplPPID">新发现</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="rqjGgByUhDLzkZIWA5OSZr">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="cdUqTIRgceHlSD7I2vNYje"><b data-page-node-id="qwgLPvcM8pSu6s23sHQbu7">新发现了某件事。</b>广义上的发现——一本书、一个人、一种现象。</p>
+        <div class="factor-section" data-page-node-id="L7aFVtHwdy5IaXfHrIBrO6">
+          <div class="label" data-page-node-id="Z1vhgKVP98y7tsKsK3QpHI">典型表达</div>
+          <div class="body" data-page-node-id="eXjssSHDG5vgvpGXHHCzUq">"我发现" · "找到了" · "看到" · "注意到"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="miG6usHoT9WBrJ3eeF17dn">
+          <div class="label" data-page-node-id="548PjvQOEWGpsc8wXvglxl">关键词</div>
+          <div class="keywords" data-page-node-id="Q3RxQcGcXTU70PoCK73rYD"><span class="kw" data-page-node-id="yx4SPIdDy6ZBSRCQMl43YS">发现</span><span class="kw" data-page-node-id="AK0CB39QAikXw20BQyxo2A">找到了</span><span class="kw" data-page-node-id="CdGqTmgPzfLoyUXY0sjL7X">看到</span><span class="kw" data-page-node-id="5PHafUR0wH521AVK8hUucq">注意到</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="scPUfjGe9uMwau3Rxn9VMo">
+          <div class="label" data-page-node-id="LYEL5HDDQM3CENhb5YH6CH">引导话术</div>
+          <div class="prompt-text" data-page-node-id="J0nBXISUPWHXs6z3lIF6JY">"过去 24 小时里，你'无意中注意到'了什么？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="K9GWTo65diBlqKJ28akSiu">
+        <div class="factor-head" data-page-node-id="FqIMq5wWlrzVGHht74h5GV">
+          <div class="left" data-page-node-id="KAqAoySrVLryREX5SL2ZpW">
+            <div class="factor-id" data-page-node-id="zshBPBI7ydNc3gfeOEmyg5">T2-UN</div>
+            <div class="factor-name" data-page-node-id="NE80I78TzACWo9x73K0RiH">新理解</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="W1e6pfREW3UHg2KhBa8jHC">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="jy1BVFlmMcLAEM9gSg6dwy"><b data-page-node-id="OvcelpTr6uFscPJeMfO9Eb">对某事有了新的理解。</b>比"发现"更深——是<b data-page-node-id="91Hn8RkBScgukHxHyRvIZV">理解</b>，是认知结构的更新。</p>
+        <div class="factor-section" data-page-node-id="ADqS8lR4o10sPwmU4F3iZj">
+          <div class="label" data-page-node-id="RijU6X6jplHgCqPTHQa17j">典型表达</div>
+          <div class="body" data-page-node-id="oiB075Or0V4vlE2XzCh8QC">"我理解了" · "我明白了" · "我搞懂了" · "我领悟了" · "恍然大悟"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="pVqxzCia0o3VX5Zn4RZGWD">
+          <div class="label" data-page-node-id="uk2HV0PMLsexaJMnFaLOUb">关键词</div>
+          <div class="keywords" data-page-node-id="TXTFF2wAVc2zNkvV9chQ6C"><span class="kw" data-page-node-id="vItvYzoOJ34G43DWlS9qA7">理解</span><span class="kw" data-page-node-id="jNttZIAHUsdjIG2swHgH6w">明白</span><span class="kw" data-page-node-id="No7nTEHhUAz94IjJuODFy7">搞懂</span><span class="kw" data-page-node-id="faEZD3rscohvITKmNtec9J">领悟</span><span class="kw" data-page-node-id="MWTQMrqPzDF7LETKf4v5Gd">恍然大悟</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="bIoFJJL2n5ClqIhweEBh1I">
+          <div class="label" data-page-node-id="PgMYGu3boURmfVsmBHSsuK">引导话术</div>
+          <div class="prompt-text" data-page-node-id="AZB1t8fs6T3SBx095Zhe33">"你最近一次'突然搞懂了一件事'是什么时候？它改变了你之后做什么吗？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="junXPhP2JjOZWsI1sRv2QV">
+        <div class="factor-head" data-page-node-id="DXhKh3RS0rQ0M1wKQhEgzc">
+          <div class="left" data-page-node-id="qRkVpH4v0XM8jD0h7AG86R">
+            <div class="factor-id" data-page-node-id="SAa0dyjwatHYa1iwjXHo45">T2-OV</div>
+            <div class="factor-name" data-page-node-id="B4tFI5LH95nLUEzRsQUCp2">旧观点推翻</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="M5CoPEy0uahkQuOo3TI1Ht">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="avjA8vUgJt6fOdKDYyJSDH"><b data-page-node-id="RXme9ISHvVHRHC6Kqnyjns">以前的看法被推翻。</b>认知升级的<b data-page-node-id="4hPPfLrQ6bS1515sp1IEFn">硬证据</b>——这比"新理解"更激进。</p>
+        <div class="factor-section" data-page-node-id="hYrRzVuN4YhAuuz9RYMUE3">
+          <div class="label" data-page-node-id="8m6CJFKDA49ONsxPL5e5lP">典型表达</div>
+          <div class="body" data-page-node-id="l4CaQ8tpYyyma4hZeP4Nc1">"我推翻了之前的看法" · "不再认为" · "改观了" · "刷新了认知"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="0wCFixWf46G4FS3QQ0AEzr">
+          <div class="label" data-page-node-id="Jrh3bOikamBZdXdkuU3pzF">关键词</div>
+          <div class="keywords" data-page-node-id="0erYamNTDmhrQc1ESMS1BS"><span class="kw" data-page-node-id="9YYwBLZCUGi4kvr3QsemYS">推翻</span><span class="kw" data-page-node-id="8s6tEWYqMNdbzGB1p6cypI">改变看法</span><span class="kw" data-page-node-id="Iqnl27VaRzN7zxbNSbrmcu">不再认为</span><span class="kw" data-page-node-id="rseZhAOdR5pqp9nurJHm5s">改观</span><span class="kw" data-page-node-id="t3ZYKnAoIYacJeJgrULqo6">刷新认知</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="nH3p3opX1y8XQqS6tF9iHo">
+          <div class="label" data-page-node-id="wmVGrec4bmquS32gOcT7Yy">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="9T5GKv2nibGtufhkKlDJ0l">长期无推翻记录 → 可能陷入<b data-page-node-id="LaIGpgMZxQOBCSMwztDjDE">认知固化</b>，新信息会被强行装进旧框架里。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="HIIZmWEON4QWEZcafHRVAH">
+          <div class="label" data-page-node-id="rjjSODnZ6gpVxUsE2Y3Fee">引导话术</div>
+          <div class="prompt-text" data-page-node-id="aHw2f6uG1e7V0Oc7UQxoS0">"你最近一次承认'我之前想错了'是什么时候？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="0.80" data-page-node-id="YjalsGFacVVEo7NRLdf3Aw">
+        <div class="factor-head" data-page-node-id="Idy7DSn8df9a5CbA89moKx">
+          <div class="left" data-page-node-id="k0C5HSe8QcKtjYAKQoYMOL">
+            <div class="factor-id" data-page-node-id="cEi55w9mVq8YpMQBbl56ct">T2-INT</div>
+            <div class="factor-name" data-page-node-id="ZaJfgANSEAcaGM55bXxOs5">新兴趣</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="CN4QmhCBLATYduD8UxLLBn">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="lvuCRf2q67JDRaldWjofNj"><b data-page-node-id="HbC97wiuFp6j2Bal2v4mxO">产生了新的兴趣点。</b>好奇心是认知变化的"轻量版"——种草、感兴趣、想了解。</p>
+        <div class="factor-section" data-page-node-id="lfyo0bo1MnhUYNkhc0wXQp">
+          <div class="label" data-page-node-id="Q0k8KAUoFKQ5xXTMHtQ4IV">典型表达</div>
+          <div class="body" data-page-node-id="uEiCyVyT1hskN6CGaZrVI0">"我感兴趣了" · "我爱上了" · "我迷上了" · "我种草了" · "想试试"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="4WK3ZXWIHzTZypLDUzShho">
+          <div class="label" data-page-node-id="yUpLAy71E1N43C27kgHD3S">关键词</div>
+          <div class="keywords" data-page-node-id="AtW5TeskxU535Kz0rQvt9X"><span class="kw" data-page-node-id="9mMsS34KizLOoP0lDKzZLG">感兴趣</span><span class="kw" data-page-node-id="FKz3m8EbS7PDDeppBItWRD">爱上</span><span class="kw" data-page-node-id="9xjFf943kiECJmdw07tQ3z">迷上</span><span class="kw" data-page-node-id="Q8TrBeeizFNexkBuTs1frp">种草</span><span class="kw" data-page-node-id="YoM2mLe10e8Sd45pZi4x4H">想试试</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="8BRBxTUB7gy8ADSrVsGhu1">
+          <div class="label" data-page-node-id="7IddjAxaFCTFCImVk3UFi2">引导话术</div>
+          <div class="prompt-text" data-page-node-id="YSZBPWiNWuxqomJrfblgBG">"你最近对什么突然'上头了'？哪怕是一本没读完的书？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="wkVCOV7Ry1sEdzIV1Ro7PG">
+        <div class="factor-head" data-page-node-id="WxMPXHW7Yg5UU3flFxvdAK">
+          <div class="left" data-page-node-id="UsvFgB2129HRkcwfURK7Sa">
+            <div class="factor-id" data-page-node-id="1k40FHEC8brBcODBXQnVGt">T2-VA</div>
+            <div class="factor-name" data-page-node-id="epP7xm6IPAX2SOwSUFGl6A">新价值排序</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="jBwxaqqak3eA5OUkYBX7Cq">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="9H2GxI6PiRo6qea3qF3y5c"><b data-page-node-id="XG9UoDsgeUo2yvFD8cEnfk">内心优先级重新排列。</b>最深层的认知变化——不是"我知道了什么"，而是"什么对我更重要"。</p>
+        <div class="factor-section" data-page-node-id="PjhtS7NmArhy2SOgV0cvo8">
+          <div class="label" data-page-node-id="FOsRswXFXEtj2oA12EBkj2">典型表达</div>
+          <div class="body" data-page-node-id="tAYUPETPQtyZJjE8zTdg6A">"这件事更重要了" · "这个不再重要" · "我重新排了序" · "放在第一位"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="BnWSh5b7lLyIzzzMjRbNzH">
+          <div class="label" data-page-node-id="A9ksP18YLESdREz1iPgYrR">关键词</div>
+          <div class="keywords" data-page-node-id="4uLSWUIBFYHmk74zRDQUXw"><span class="kw" data-page-node-id="XwKJzyY9GFYRkqhLPf5UNK">更重要</span><span class="kw" data-page-node-id="BAZI230v38tTjQnRafEBWu">不再重要</span><span class="kw" data-page-node-id="xpHz7N5s67Ox9RjoMuvYlm">重新排序</span><span class="kw" data-page-node-id="VPadIurtkv1N46P878ReOh">优先级</span><span class="kw" data-page-node-id="9nPWbXcORxCEhpdIskAINL">放在第一位</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="F2oZzHaK8Ck5IrhBb5ExGx">
+          <div class="label" data-page-node-id="3lSxHrQfOFvPLYFvB52ziN">引导话术</div>
+          <div class="prompt-text" data-page-node-id="SCdOs0a0BVwrs3EhQAI0F2">"过去一年，你心里'最重要的事'排序有什么变化？哪件事升上来了？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="FOT1mkkFH7abUvEoElOMSg">
+        <div class="factor-head" data-page-node-id="8k1TjtE03SkAgh2qjIx7P9">
+          <div class="left" data-page-node-id="U9IiHoBwnjXVxoUtYO6YS1">
+            <div class="factor-id" data-page-node-id="1qZLl2HzwaITrgLrfJxJOK">T2-SR</div>
+            <div class="factor-name" data-page-node-id="gMPmGiHzl0W4dMV3zDduFG">自我重新认识</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="cioEj3cviYqkXup0vkbMjl">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="8obyblILQKA8mD3VurUujd"><b data-page-node-id="EYnTpcTMTbUO4O5XleK4sp">对自己有了新的认知。</b>最深层的 T2——认知变化的"内核"指向的是"我是谁"。</p>
+        <div class="factor-section" data-page-node-id="EoxUphNDQSTLr9i9I5fTxb">
+          <div class="label" data-page-node-id="Z4GWVksHYeODhSMgp2K0MD">典型表达</div>
+          <div class="body" data-page-node-id="v6TtsMaQ0ECYcrKfusTvjq">"原来我是这样的人" · "我以前以为" · "我才知道" · "我发现自己" · "重新认识自己"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="ufHudrNkmuxX7ArRxbnwSx">
+          <div class="label" data-page-node-id="istCappOV8zGGWSWgURH5S">关键词</div>
+          <div class="keywords" data-page-node-id="jiDfg2ccRSLNSv3noU9MIO"><span class="kw" data-page-node-id="COwC7aNYwdGcaEHiYYbT0E">原来我是</span><span class="kw" data-page-node-id="JANWaEa9haD2WP3xFYGNh4">我以为</span><span class="kw" data-page-node-id="prXWk4BdxJAzg0BvLBRDNb">我才知道</span><span class="kw" data-page-node-id="96tfnz6SBDOLIAkB969XhM">发现自己</span><span class="kw" data-page-node-id="crSNzvPtmObeUP7OTbfV7k">重新认识自己</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="SapLyBaOAX8yDfDFd48JhU">
+          <div class="label" data-page-node-id="qk9OVqVadLOztWzikpnay2">引导话术</div>
+          <div class="prompt-text" data-page-node-id="FS7M6FRamNGiqA5EBxd3IH">"你最近一次'原来我是这样的人'的瞬间，是什么触发的？"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================== T3 ================== -->
+<section class="dim-section" id="T3" data-page-node-id="arFhmulBd11CoXVbTwIapv">
+  <div class="container anchor" data-page-node-id="hDXmFLkyGf0yHjkrGVlCWR">
+    <div class="dim-head" data-page-node-id="PuaKwajhThAEQOMFnyv0mU">
+      <div data-page-node-id="NafKrAMEUyBv1i3pJCT9rG">
+        <span class="badge-d T" data-page-node-id="8iFdEWjVKQBQWCr7QZ0W1W">T · TRACE 03</span>
+        <h2 data-page-node-id="CJkRsJPI9Bf87TCjAJLSOC">T3 · 关系连接</h2>
+        <div class="q" data-page-node-id="2XwABi9CQSff8zO0k5D62X">"人与人之间是否留下了痕迹？" —— 这是"我没有独自活过"的证据。</div>
+      </div>
+      <div class="meta" data-page-node-id="286XmYwMDAtXUNT3e6ksAD">7 因子<br data-page-node-id="Ljo1EmvsL4K5H6xa77CXLD"/><b data-page-node-id="TnmWCUjVtpvJCnTAGG8Fqy">权重</b> 0.90</div>
+    </div>
+    <div class="factors" data-page-node-id="h5BKplYN9yJ43FEclGSp4a">
+
+      <div class="factor" data-cat="T" data-weight="0.80" data-page-node-id="RqNAd6jtbQeOenGU5kNYHB">
+        <div class="factor-head" data-page-node-id="iDv4g0zjacT9AsXZyLyR5w">
+          <div class="left" data-page-node-id="Gmt0OYvgDbRKscILgZlomL">
+            <div class="factor-id" data-page-node-id="GoNXCqce6qmItudaBBD2vT">T3-NK</div>
+            <div class="factor-name" data-page-node-id="XX6ZqWgrH8HZTBgcwz8Nfx">新认识</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="7DfW91BX1wX650UPtzOeo2">权重 0.80</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="5jVOOF1THFCKogR87v7jDC"><b data-page-node-id="J1W36yqnpqS2FtW8AKPbem">新建立了联系。</b>认识新人是关系网络的扩张——但<b data-page-node-id="NZwiWP93x3poFfx95CkRhM">新认识</b>本身只是开始，不是连接。</p>
+        <div class="factor-section" data-page-node-id="vfXCI59cJafFnGEa1pgtjp">
+          <div class="label" data-page-node-id="gVrAcphbGQBNJTOJlxMm3Q">典型表达</div>
+          <div class="body" data-page-node-id="gCrIp8EQjxoIdQMNzD92Rl">"我认识了一位" · "结识了" · "加了好友"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="W1z7BkMK73Wf8HFExG0S5J">
+          <div class="label" data-page-node-id="S545DcM4xVOhrx4roR76pf">关键词</div>
+          <div class="keywords" data-page-node-id="G0NYYEcRmWwTOSPVO7TyA5"><span class="kw" data-page-node-id="MDm1yruamrqCtrH6wJGEVw">认识</span><span class="kw" data-page-node-id="RjhcUYCw1liEZxboREKhRM">结识</span><span class="kw" data-page-node-id="NrdJXIduO8rRiSaCF4K8Co">认识了一位</span><span class="kw" data-page-node-id="oE8JEtJI9slQ1Qz1brcReG">加好友</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="AFBLircGG5q2xgsoXUf6c5">
+          <div class="label" data-page-node-id="xhnQQUp9TyXNKEZ8zuVGmM">引导话术</div>
+          <div class="prompt-text" data-page-node-id="eDJmD6g4mEnlkdIUw4eszJ">"你最近认识的人里，谁让你想再聊一次？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="TdSGLNbpcM5zkbCCehmIt7">
+        <div class="factor-head" data-page-node-id="fmgJAPZePgP9KrnxTQDspe">
+          <div class="left" data-page-node-id="GtNTLpDUTE8mOmv108F8QB">
+            <div class="factor-id" data-page-node-id="N68AndBrVWXTCSojVyxgfG">T3-DC</div>
+            <div class="factor-name" data-page-node-id="sE6DUHQVCiehUQlE0tb5nb">深度交流</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="u7IUnktSe3lTqnEXGqBVVO">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="rMIsCBDDUuMNdgqXkG2anR"><b data-page-node-id="4LDDEYD7SNl7C74I9OG2XV">与他人深入对话。</b>这是关系连接中<b data-page-node-id="ZHDw1N8z14vjKIupqBvfNH">最有价值</b>的瞬间——它把人从"社交"变成"连接"。</p>
+        <div class="factor-section" data-page-node-id="oEqLvB9MF7JywTb4EeEduP">
+          <div class="label" data-page-node-id="RtpQjopfIcZuXttbudCDRE">典型表达</div>
+          <div class="body" data-page-node-id="NvIddj08ggvOBzbZq4eN90">"我们深入聊了" · "推心置腹" · "敞开心扉" · "长谈了一次"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="uHeYro2AWK0GJ3DkyRcdNg">
+          <div class="label" data-page-node-id="mAEFdyEHpXus6Mudqo5MFG">关键词</div>
+          <div class="keywords" data-page-node-id="87hE6NrPexb899t1s3TIR1"><span class="kw" data-page-node-id="vuHVkFk11RRd0YXZUGIK8r">深度</span><span class="kw" data-page-node-id="ZLTfW7IaMPR1xjtFbFQ4Vf">深入</span><span class="kw" data-page-node-id="L6fdcPHOf8lOLkuHjnuHaC">长谈</span><span class="kw" data-page-node-id="bs6YRHP9Q5MClHnTYr5A2R">推心置腹</span><span class="kw" data-page-node-id="RBpSMa0V5pdwudtGDq4PsW">敞开心扉</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="zvmXZaxW23lYpY2fQnRfnr">
+          <div class="label" data-page-node-id="DsvVGrUUVoJhkjNymgF12x">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="sAfeheN4zdJ5imO5HUS89S">长期无深度交流 → 可能"被很多人认识，但没有真正认识谁"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="M77uy9hOAPSqmF4lVGUNnJ">
+          <div class="label" data-page-node-id="yzXqt43tsGwWpeFE0Cv3NA">引导话术</div>
+          <div class="prompt-text" data-page-node-id="3qJwyT3zIOEGBD7DNDxXiS">"你最近一次'说了平时不会说的话'是什么时候？和谁？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="zfdlA9MI9bRAVcszOVk2NL">
+        <div class="factor-head" data-page-node-id="tF2ZICostYshzU4wac7NSS">
+          <div class="left" data-page-node-id="0KPBagas3wTM3fZXzdREAT">
+            <div class="factor-id" data-page-node-id="ZbYnVbCVkzBHppbvxZUX7q">T3-CR</div>
+            <div class="factor-name" data-page-node-id="gNCFs5vC7TUFdQDjveQz5h">关系变化</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="bQFciCYhlY8Ax3YKtRBtVx">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="5LTAIEC2LZknsfARsAevX9"><b data-page-node-id="QjpkR279YO6PddiSYfBmUU">关系发生转变。</b>这是 T3 中<b data-page-node-id="wDLkl0K1nfVCLA3JYNSfEQ">最重</b>的因子——关系变化是人生的重要事件。</p>
+        <div class="factor-section" data-page-node-id="3SGKW42J4b1qQP9Kklcdtu">
+          <div class="label" data-page-node-id="8pK1mBnUF0oiBKanFDQchZ">典型表达</div>
+          <div class="body" data-page-node-id="babxcR8nB71jCJzzo5Uuke">"我们和好了" · "我们闹翻了" · "关系变了" · "我们疏远了" · "我们走近了"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="PbzniaU1y3QHQIO5MekDEb">
+          <div class="label" data-page-node-id="xo48p7oMp42OOLA5oDRl7F">关键词</div>
+          <div class="keywords" data-page-node-id="oiQ5QzltkfKkTb1AEwpfUE"><span class="kw" data-page-node-id="TUtXuvMhtudSXAMGxTFutu">和好</span><span class="kw" data-page-node-id="6JgPUf3i6h3549Dv5KPyxM">分手</span><span class="kw" data-page-node-id="pYGSccU0UCkFTMAuBF00zX">闹翻</span><span class="kw" data-page-node-id="4GCbPGoWOHmba5z65NXfKn">关系变化</span><span class="kw" data-page-node-id="UUoNWK4idPFhh1oH4Yt4rz">疏远</span><span class="kw" data-page-node-id="i5Cia7EJL4BRcrlIduhH8i">走近</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="HAMJD68hwYlPk09ckDQYR3">
+          <div class="label" data-page-node-id="ZEufXEibFL0NmIl1EAMxl7">引导话术</div>
+          <div class="prompt-text" data-page-node-id="VmAxi8ZO6vBKOkesx41sjE">"你身边有没有一段关系，最近在悄悄发生变化？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="0.90" data-page-node-id="SOBRBNnVjBasrnqm8KCL2B">
+        <div class="factor-head" data-page-node-id="w6PqkehdNnDaf5oZCt4sZ0">
+          <div class="left" data-page-node-id="QOm3O6RZoPu4FJkpURLIt1">
+            <div class="factor-id" data-page-node-id="KDBunP4TAhjkqH0Le2EvxD">T3-CE</div>
+            <div class="factor-name" data-page-node-id="z3TYffyFkF1Ufg1yJkXRkx">共同经历</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="ZpIEN6YgDBaAdMr4U2hhvD">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="LLU1wbYwrc6mL0Axyss4pO"><b data-page-node-id="dEKCgmt04BfosiEBzJ5KMY">一起做了某件事。</b>共同经历是<b data-page-node-id="sVsJom6Wzf4c7hfe6tGfMm">关系的凝固剂</b>——它让"认识"变成"我们"。</p>
+        <div class="factor-section" data-page-node-id="DL5BoMpLESQ2if3dZULbG1">
+          <div class="label" data-page-node-id="GUzNramVFFkHEsHjRhrG5d">典型表达</div>
+          <div class="body" data-page-node-id="GIx2Rt1r8xDBeyYrcXCrai">"我们一起做了" · "共同经历了" · "一块儿" · "我们一起"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="5X6aAmGSUJd4j4opJ7l7YP">
+          <div class="label" data-page-node-id="lvEvoVJvo0aVhSUAx77GT6">关键词</div>
+          <div class="keywords" data-page-node-id="Bf2sHd84N46IDfd6V3TZKi"><span class="kw" data-page-node-id="rN8CZaWxQS5rr87QWGxxPM">一起</span><span class="kw" data-page-node-id="NESpb6iB2NgihhB69DRFRv">共同</span><span class="kw" data-page-node-id="9PlkNfIdixOWA72AGSWkbz">一块儿</span><span class="kw" data-page-node-id="3JW1x0Lb0BFETqxOdsQyGe">我们一起</span><span class="kw" data-page-node-id="34nOYTkqiVmQnm2tuJieJx">陪伴</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="qctuseq7LTEUxNksSTnPYz">
+          <div class="label" data-page-node-id="0wwLOPnjHwWEVXIuHyD38Q">引导话术</div>
+          <div class="prompt-text" data-page-node-id="cSrfaKlqmIX3PX5LtBkrVR">"有没有哪次经历，让你和某个人之间的关系'不一样了'？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="zmwZj5aM7E6ojd3GD5cpvC">
+        <div class="factor-head" data-page-node-id="y4sN45oQVu232IdlTmE81W">
+          <div class="left" data-page-node-id="EvPVEfxKcLVuCEIepTGvPD">
+            <div class="factor-id" data-page-node-id="Dq37GcJFkHGqBfQyEscKlJ">T3-EI</div>
+            <div class="factor-name" data-page-node-id="Chxxq7wKrBix3dechuYwLz">情感表达</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="KIw9jwchmfnRVxQmUoZkcY">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="ftVuLoliPF0jjdYRAgb1Lc"><b data-page-node-id="5YacWxChActdI8ypEoYzNb">表达了真实情感。</b>这是关系的<b data-page-node-id="z0rWoieBkvoyatAK5OwhZo">高风险动作</b>——也是最高回报的动作。</p>
+        <div class="factor-section" data-page-node-id="W7RjqXuliFUCOfU2Gt7FVu">
+          <div class="label" data-page-node-id="rTtoLC4UEt60sqiVc6e8t0">典型表达</div>
+          <div class="body" data-page-node-id="lHgp099qCp2L0E3GnyUBNV">"我表白了" · "我说出来了" · "我们拥抱了" · "我哭了" · "我握住了他的手"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="I1fP8t2KPegirL6DMHDBcj">
+          <div class="label" data-page-node-id="HD4m0cfl3XGQP8C16zEtEt">关键词</div>
+          <div class="keywords" data-page-node-id="JIfBwAjQcm8HX3HCj4hjFt"><span class="kw" data-page-node-id="qk3RR8ogrhC52NTqLP5wtC">表白</span><span class="kw" data-page-node-id="XuynwjmtENyoINvqkkXknH">说出</span><span class="kw" data-page-node-id="vfgKH8Vy2PgiLePhqIzENI">拥抱</span><span class="kw" data-page-node-id="ThbgUEybeegsAsB43kY4c0">握手</span><span class="kw" data-page-node-id="stTWWWKbJQEhMf23MFkmC7">流泪</span><span class="kw" data-page-node-id="gemG7gpoVWVcpPnnRLrPvS">哭诉</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="4fjPMbDa120LLYCoCbNe2z">
+          <div class="label" data-page-node-id="BBzZ7nAwFrZPmUd0nqu16m">引导话术</div>
+          <div class="prompt-text" data-page-node-id="4gHZzICzQ7xV0wqZmphFUb">"你最近一次'冒着被拒绝的风险去表达'是什么？结果如何？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="1.00" data-page-node-id="mJBC5bdbEEeWMKAqhBF27u">
+        <div class="factor-head" data-page-node-id="x1d4paAbrxS4EZA1yxSDlS">
+          <div class="left" data-page-node-id="j2bKplIPGzHKaVEEwtLOz9">
+            <div class="factor-id" data-page-node-id="BAu1K5Uwf0De9pMUoF9Oyi">T3-UD</div>
+            <div class="factor-name" data-page-node-id="jsyPAOzZ0BsCCeum6FcQmF">被理解</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="qQUyVDFeHvdXMGCs7H0i06">权重 1.00</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="JZ9H9a2EGouvnTsPF4rSsE"><b data-page-node-id="H7ZDGf3mZ9RKcWWCVa2TC6">感觉到被理解。</b>这是关系中的<b data-page-node-id="Fot5aF5ShUfplnqahdN1LH">最深满足</b>——"我被看见"是人类最底层的需求之一。</p>
+        <div class="factor-section" data-page-node-id="DqzvdL1DxEx5lylnRyTaEq">
+          <div class="label" data-page-node-id="udYuPHFF8C1lReR1JF7vP6">典型表达</div>
+          <div class="body" data-page-node-id="Awv3q2vFN1Q93PyukPUnhc">"被理解了" · "他懂我" · "你懂" · "被懂得"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="PA9dSBBnDgbXiz5c0oy1l2">
+          <div class="label" data-page-node-id="Co1c6pcwEpWT8FVSC91MIt">关键词</div>
+          <div class="keywords" data-page-node-id="Bku28JCOn4HlK7mrpHcDDQ"><span class="kw" data-page-node-id="W1Q2fRitmCqMJB8vA1TTbI">被理解</span><span class="kw" data-page-node-id="ExVPXgvS5fCzQzjc1olfy6">懂我</span><span class="kw" data-page-node-id="jaGkbr9O9gD8Ql02XSlePD">你懂</span><span class="kw" data-page-node-id="gNJiXOhTqG2iMOPhXpVAPt">被懂得</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="o1lZyCNLmCTwlUdBCVIBkH">
+          <div class="label" data-page-node-id="2Ayx5HFuvS8jdnTYz2ZFWS">反义词 / 缺乏信号</div>
+          <div class="counter-signal" data-page-node-id="29sD13Ga2CDoorlmusjCOY">长期无被理解记录 → 可能陷入"孤独感"——周围很多人，但没人真的懂。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="7OnVBKNKjqE2Vs3zTQqsoE">
+          <div class="label" data-page-node-id="VvbwnRyGvgdXMpYdj8Yt3m">引导话术</div>
+          <div class="prompt-text" data-page-node-id="xbelmM8x2fc0OlK9T6rUHd">"谁最近让你感觉'我说的他/她真的听懂了'？那种感觉像什么？"</div>
+        </div>
+      </div>
+
+      <div class="factor" data-cat="T" data-weight="0.90" data-page-node-id="FPZ5FynUy7rcYibwrtRCwZ">
+        <div class="factor-head" data-page-node-id="FfbsOvti5MVmwj9uR50Mry">
+          <div class="left" data-page-node-id="pBn77JCrt23GCH4BTBHFaB">
+            <div class="factor-id" data-page-node-id="rxBIA8osiVa7xJoeCVOBIZ">T3-UU</div>
+            <div class="factor-name" data-page-node-id="2cmCROkcCGXTJzEFp8JqQ8">理解别人</div>
+          </div>
+          <span class="weight-badge hot" data-page-node-id="6cngvQ0SUsrH4YqkFZ2THF">权重 0.90</span>
+        </div>
+        <p class="factor-desc" data-page-node-id="ydwB00E77JtOAzAe0R4xki"><b data-page-node-id="4WhzC9HYGDp518SRw4jF9F">理解了他人。</b>与"被理解"对称——理解他人是<b data-page-node-id="DsTZCgHVOdfqQFOOdrtPYD">主动给予</b>的爱。</p>
+        <div class="factor-section" data-page-node-id="wyiKqMLldk8yX7PflLtGcC">
+          <div class="label" data-page-node-id="kz22g7reiSeUl0WzNWC6dz">典型表达</div>
+          <div class="body" data-page-node-id="bJ3jyad4TJkcgeJbjEQg15">"我理解他" · "我懂他" · "我懂你" · "原来他是这样想的"。</div>
+        </div>
+        <div class="factor-section" data-page-node-id="lzf0KRWXfKDQ5PhNeACVDe">
+          <div class="label" data-page-node-id="h9TtnpgNHosurgJT0D2S1u">关键词</div>
+          <div class="keywords" data-page-node-id="hJgfesrf2KUfcm5dquVXAG"><span class="kw" data-page-node-id="JDQaY59FLqVq4qfWp7NAJu">理解他</span><span class="kw" data-page-node-id="HN44t4ggwDxE8cACWiHWdC">懂他</span><span class="kw" data-page-node-id="p6i1g1fC9dJBOhDK9DZdYT">我懂你</span><span class="kw" data-page-node-id="XFCMHFmK4OfoCf4CXZKpWj">原来他</span></div>
+        </div>
+        <div class="factor-section" data-page-node-id="13aU3pB1mSHYy2z93T2Vuk">
+          <div class="label" data-page-node-id="US2VVqFb5w2Z7iwurfUaWH">引导话术</div>
+          <div class="prompt-text" data-page-node-id="m7UD3gttr5KaEArYA0X0FL">"你最近一次'突然懂了一个人'的瞬间是什么？"</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer style="padding:48px 0;border-top:1px solid var(--line);background:var(--bg-soft);text-align:center;color:var(--ink-faint);font-size:12px;font-family:var(--mono);letter-spacing:1px" data-page-node-id="YfC4nk5h3p0qPkHQhUPkAF">
+  <div class="container" data-page-node-id="9bUBUWjeI9tQJAwh0cQZ1v">
+    时痕 TIMETRACE · 因子指标体系白皮书 v1.0 · 56 因子 · 2026-09-18<br data-page-node-id="QCpHQnupGctG75diyvOKgJ"/>
+    配套应用：<a href="../index.html" style="color:var(--accent-deep)" data-page-node-id="6D8PkbSuqcEEMqIyop0p4x">品牌着陆页</a> · <a href="../app.html" style="color:var(--accent-deep)" data-page-node-id="RfH40YgCeqxL80hqqK2srE">完整工作台</a>
+  </div>
+</footer>
+
+<!-- ================== 搜索 + 过滤脚本 ================== -->
+<script>
+(function(){
+  const searchInput = document.getElementById('searchInput');
+  const pills = document.querySelectorAll('.filter-pill');
+  let curFilter = 'all';
+
+  function applyFilter(){
+    const q = searchInput.value.toLowerCase().trim();
+    document.querySelectorAll('.factor').forEach(card => {
+      const text = card.textContent.toLowerCase();
+      const catOk = curFilter === 'all' || (curFilter === 'hot' ? card.dataset.weight >= '0.9' : card.dataset.cat === curFilter);
+      const queryOk = !q || text.includes(q);
+      card.style.display = (catOk && queryOk) ? '' : 'none';
+    });
+    // 隐藏无任何显示因子的 dim-section
+    document.querySelectorAll('.dim-section').forEach(sec => {
+      const any = sec.querySelectorAll('.factor:not([style*="display: none"])').length;
+      sec.style.display = any ? '' : 'none';
+    });
+  }
+
+  pills.forEach(p => p.addEventListener('click', () => {
+    pills.forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+    curFilter = p.dataset.filter;
+    applyFilter();
+  }));
+  searchInput.addEventListener('input', applyFilter);
+})();
+</script>
+</body>
+</html>

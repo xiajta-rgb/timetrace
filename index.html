@@ -1,0 +1,1656 @@
+<!doctype html>
+<html lang="zh-CN" data-page-node-id="hkLxdMB90q3s3ydaaBJPCS">
+<head data-page-node-id="ct4EVr8BvOcCwmQlyU7gLq">
+<meta charset="utf-8" data-page-node-id="lFunmA11a4RoTdArHuJKPA" />
+<meta name="viewport" content="width=device-width,initial-scale=1" data-page-node-id="u9QfQ78evmWCORENcpBhkW" />
+<meta name="color-scheme" content="light" data-page-node-id="7yvh4s4uFGLT9WrDjX7fqq" />
+<title>时痕 TimeTrace · 看见你正在经历的时间</title>
+<meta name="description" content="时痕 TimeTrace · 一套 D-S-T 时间体验指标体系 + AI 自动解读，让成年人第一次看见自己正在怎么活，而不是只在使用时间。" data-page-node-id="MwJsBp3Yg15Hdygy4GV1FY" />
+<link rel="preconnect" href="https://fonts.googleapis.com" data-page-node-id="j6L60n7M9FOhoUemQlP9cW" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-page-node-id="8LR85HHetBympN5HT6auEN" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;450;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" data-page-node-id="s2SCQinLtD474qEnOx4qLj" />
+<style>
+  /* ============================================================
+     DESIGN TOKENS · 统一栅格 · 暖纸 · 衬线 · 克制动效
+     ============================================================ */
+  :root{
+    /* — 色彩（OKLCH · 中性偏暖） — */
+    --paper:        oklch(98% 0.010 85);
+    --bg:           oklch(95.5% 0.013 85);
+    --ink:          oklch(22% 0.018 235);
+    --ink-soft:     oklch(42% 0.012 235);
+    --ink-faint:    oklch(60% 0.010 235);
+    --ink-ghost:    oklch(76% 0.008 235);
+    --line:         oklch(89% 0.012 85);
+    --line-soft:    oklch(93% 0.008 85);
+    --accent:       oklch(44% 0.072 168);
+    --accent-soft:  oklch(94% 0.022 168);
+    --accent-deep:  oklch(30% 0.070 168);
+    --gold:         oklch(70% 0.105 75);
+    --gold-soft:    oklch(94% 0.030 80);
+
+    /* — 字号（modular scale · ratio 1.25） — */
+    --fs-xs:  12.5px;
+    --fs-sm:  14px;
+    --fs-md:  16px;
+    --fs-lg:  18px;
+    --fs-xl:  22px;
+    --fs-2xl: 28px;
+    --fs-3xl: 36px;
+    --fs-4xl: 48px;
+    --fs-5xl: clamp(48px, 6.2vw, 88px);
+
+    /* — 间距 — */
+    --sp-1: 6px;  --sp-2: 12px; --sp-3: 18px; --sp-4: 24px;
+    --sp-5: 36px; --sp-6: 48px; --sp-7: 72px; --sp-8: 112px;
+
+    /* — 圆角 — */
+    --r-s: 8px; --r-m: 14px; --r-l: 20px;
+
+    /* — 阴影（更柔） — */
+    --shadow-1: 0 1px 0 oklch(22% 0.018 235 / .04), 0 8px 24px -16px oklch(22% 0.018 235 / .18);
+    --shadow-2: 0 1px 0 oklch(22% 0.018 235 / .05), 0 24px 60px -28px oklch(30% 0.070 168 / .22);
+
+    /* — 字体 — */
+    --serif: "Noto Serif SC", "Cormorant Garamond", serif;
+    --sans:  "Inter", "Noto Serif SC", -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    --mono:  "JetBrains Mono", ui-monospace, monospace;
+
+    /* — 动效曲线（统一） — */
+    --ease-out:   cubic-bezier(.22, .61, .36, 1);
+    --ease-soft:  cubic-bezier(.4, 0, .2, 1);
+    --dur-1: .25s;
+    --dur-2: .45s;
+    --dur-3: .8s;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{
+      animation-duration: .001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .001ms !important;
+      scroll-behavior: auto !important;
+    }
+    .particle-canvas{ display: none !important; }
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body{
+    margin: 0;
+    font-family: var(--sans);
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.6;
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(1100px 540px at 78% -8%,  oklch(44% 0.072 168 / .07), transparent 60%),
+      radial-gradient(820px  440px at -8% 28%,  oklch(70% 0.105 75  / .06), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  .container{ max-width: 1200px; margin: 0 auto; padding: 0 32px; container-type: inline-size; }
+  a{ color: inherit; text-decoration: none; }
+  ::selection{ background: var(--accent); color: var(--paper); }
+
+  ::-webkit-scrollbar{ width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track{ background: transparent; }
+  ::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 999px; border: 2px solid var(--bg); }
+  ::-webkit-scrollbar-thumb:hover{ background: var(--ink-ghost); }
+
+  /* ============================================================
+     NAV · 紧凑克制
+     ============================================================ */
+  .nav{
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: saturate(160%) blur(14px);
+    background: oklch(95.5% 0.013 85 / .7);
+    border-bottom: 1px solid oklch(89% 0.012 85 / .6);
+  }
+  .nav-inner{
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 0;
+  }
+  .brand{ display: inline-flex; align-items: center; gap: 12px; font-weight: 500; }
+  .brand-mark{
+    width: 26px; height: 26px; border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, oklch(85% 0.10 75), oklch(48% 0.10 70));
+    box-shadow: inset 0 0 0 1px oklch(100% 0 0 / .5), 0 0 0 .5px oklch(22% 0.018 235 / .08);
+    transition: transform var(--dur-1) var(--ease-out);
+  }
+  .brand:hover .brand-mark{ transform: rotate(45deg); }
+  .brand-name{
+    font-family: var(--serif); font-size: 17px; letter-spacing: .3px; font-weight: 600;
+  }
+  .brand-name em{
+    font-style: normal; font-family: var(--mono); font-size: 11px; letter-spacing: 1.4px;
+    color: var(--ink-faint); font-weight: 400; margin-left: 8px;
+    padding-left: 8px; border-left: 1px solid var(--line);
+  }
+  .nav-links{ display: flex; gap: 30px; font-size: var(--fs-sm); color: var(--ink-soft); }
+  .nav-links a{
+    position: relative; padding: 4px 0;
+    transition: color var(--dur-1) var(--ease-out);
+  }
+  .nav-links a:hover{ color: var(--ink); }
+  .nav-links a::after{
+    content: ""; position: absolute; left: 0; right: 100%; bottom: -2px;
+    height: 1px; background: var(--accent);
+    transition: right var(--dur-2) var(--ease-out);
+  }
+  .nav-links a:hover::after{ right: 0; }
+  .nav-cta{
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 9px 16px; border-radius: 999px;
+    font-size: var(--fs-sm); color: var(--paper); background: var(--ink);
+    transition: background var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+  }
+  .nav-cta:hover{ background: var(--accent-deep); transform: translateY(-1px); }
+
+  /* ============================================================
+     HERO · 杂志级首屏
+     ============================================================ */
+  .hero{
+    position: relative; padding: var(--sp-8) 0 var(--sp-7);
+    overflow: hidden; isolation: isolate;
+  }
+  .particle-canvas{
+    position: absolute; inset: 0; z-index: -1;
+    pointer-events: none; opacity: .7;
+    mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 30%, black 30%, transparent 80%);
+  }
+  .hero-inner{ position: relative; z-index: 1; }
+  .eyebrow{
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 7px 14px 7px 12px; border-radius: 999px;
+    border: 1px solid var(--line);
+    background: oklch(98% 0.010 85 / .7);
+    backdrop-filter: blur(8px);
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: 1px;
+    color: var(--ink-soft);
+  }
+  .eyebrow .dot{
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px oklch(44% 0.072 168 / .15);
+    animation: dot-pulse 2.4s var(--ease-out) infinite;
+  }
+  @keyframes dot-pulse{
+    0%, 100%{ box-shadow: 0 0 0 3px oklch(44% 0.072 168 / .15); }
+    50%     { box-shadow: 0 0 0 6px oklch(44% 0.072 168 / 0);  }
+  }
+  .headline{
+    font-family: var(--serif); font-weight: 600;
+    font-size: var(--fs-5xl); line-height: 1.04; letter-spacing: -0.5px;
+    margin: var(--sp-4) 0 var(--sp-3);
+  }
+  .headline .grad{
+    background: linear-gradient(120deg,
+      oklch(30% 0.070 168) 0%,
+      oklch(44% 0.072 168) 30%,
+      oklch(70% 0.105 75) 65%,
+      oklch(58% 0.130 50) 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shimmer 14s var(--ease-soft) infinite;
+  }
+  @keyframes shimmer{
+    0%, 100%{ background-position: 0% 50%; }
+    50%     { background-position: 100% 50%; }
+  }
+  .subhead{
+    font-size: clamp(16px, 1.25vw, 19px);
+    color: var(--ink-soft);
+    max-width: 640px; line-height: 1.75;
+  }
+  .subhead em{ font-style: normal; color: var(--ink); border-bottom: 1px dashed var(--ink-ghost); padding-bottom: 1px; }
+  .hero-actions{ display: flex; gap: 12px; margin-top: var(--sp-5); flex-wrap: wrap; }
+
+  .btn{
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 13px 22px; border-radius: 999px;
+    font-size: var(--fs-md); font-weight: 500;
+    border: 1px solid transparent;
+    cursor: pointer; position: relative; overflow: hidden;
+    transition: transform var(--dur-1) var(--ease-out),
+                background var(--dur-1) var(--ease-out),
+                color var(--dur-1) var(--ease-out),
+                border-color var(--dur-1) var(--ease-out);
+  }
+  .btn::after{
+    content: ""; position: absolute; inset: 0;
+    background: linear-gradient(120deg, transparent 30%, oklch(100% 0 0 / .18) 50%, transparent 70%);
+    transform: translateX(-110%);
+    transition: transform var(--dur-3) var(--ease-out);
+    pointer-events: none;
+  }
+  .btn:hover::after{ transform: translateX(110%); }
+  .btn-primary{ background: var(--ink); color: var(--paper); }
+  .btn-primary:hover{ background: var(--accent-deep); transform: translateY(-1px); }
+  .btn-ghost{ background: transparent; border-color: oklch(22% 0.018 235 / .18); color: var(--ink); }
+  .btn-ghost:hover{ background: var(--ink); color: var(--paper); border-color: var(--ink); transform: translateY(-1px); }
+
+  .hero-meta{
+    margin-top: var(--sp-7);
+    padding-top: var(--sp-4);
+    border-top: 1px solid var(--line);
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-5);
+  }
+  .hero-meta > div{ font-size: var(--fs-xs); color: var(--ink-faint); letter-spacing: .4px; }
+  .hero-meta strong{
+    display: block;
+    font-family: var(--serif); font-size: var(--fs-3xl); color: var(--ink); font-weight: 600;
+    letter-spacing: -.5px; margin-bottom: 4px;
+  }
+  .hero-meta strong .unit{
+    font-family: var(--mono); font-size: var(--fs-xs); color: var(--accent);
+    margin-left: 6px; font-weight: 400;
+  }
+
+  /* ============================================================
+     SECTION · 统一节奏
+     ============================================================ */
+  section{
+    padding: var(--sp-8) 0;
+    border-top: 1px solid var(--line-soft);
+    position: relative;
+  }
+  .section-head{
+    display: grid; grid-template-columns: 1.4fr 1fr; gap: var(--sp-6);
+    align-items: end; margin-bottom: var(--sp-6);
+  }
+  .section-eyebrow{
+    font-family: var(--mono); font-size: 11.5px;
+    letter-spacing: 1.6px; color: var(--accent);
+    text-transform: uppercase; font-weight: 500;
+    margin-bottom: var(--sp-3);
+  }
+  .section-title{
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(32px, 3.8vw, 52px); line-height: 1.18;
+    letter-spacing: -.4px; color: var(--ink);
+  }
+  .section-lead{
+    font-size: var(--fs-lg); color: var(--ink-soft);
+    max-width: 440px; line-height: 1.75; justify-self: end;
+  }
+  .section-lead em{ font-style: normal; color: var(--ink); font-weight: 500; }
+
+  .reveal{
+    opacity: 0; transform: translateY(24px);
+    transition: opacity var(--dur-3) var(--ease-out),
+                transform var(--dur-3) var(--ease-out);
+    will-change: opacity, transform;
+  }
+  .reveal.in{ opacity: 1; transform: none; }
+  .reveal[data-d="1"]{ transition-delay: .06s; }
+  .reveal[data-d="2"]{ transition-delay: .12s; }
+  .reveal[data-d="3"]{ transition-delay: .18s; }
+  .reveal[data-d="4"]{ transition-delay: .24s; }
+
+  /* ============================================================
+     01 · PROBLEM
+     ============================================================ */
+  .problem-grid{
+    display: grid; grid-template-columns: 1.05fr 1fr;
+    gap: var(--sp-6); margin-top: var(--sp-5);
+  }
+  .quote-card{
+    position: relative; padding: var(--sp-6);
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-l); box-shadow: var(--shadow-1);
+    overflow: hidden;
+    display: flex; flex-direction: column; justify-content: space-between;
+    gap: var(--sp-5);
+    container-type: inline-size;
+  }
+  .quote-card::before{
+    content: ""; position: absolute; inset: -1px;
+    border-radius: var(--r-l); padding: 1px;
+    background: linear-gradient(135deg, oklch(70% 0.105 75 / .35), transparent 50%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    pointer-events: none;
+  }
+  .quote-mark{
+    font-family: "Cormorant Garamond", serif;
+    font-size: 120px; line-height: .8; color: var(--accent-soft);
+  }
+  .quote-card blockquote{
+    margin: 0; padding: 0;
+    font-family: var(--serif); font-size: clamp(22px, 2.2vw, 30px);
+    line-height: 1.45; font-weight: 500; color: var(--ink); letter-spacing: -.2px;
+  }
+  .quote-card .src{
+    font-size: var(--fs-xs); color: var(--ink-faint);
+    display: flex; align-items: center; gap: 10px;
+  }
+  .quote-card .src::before{
+    content: ""; width: 24px; height: 1px; background: var(--ink-ghost);
+  }
+  .problem-points{ display: grid; gap: 2px; align-content: center; }
+  .problem-points li{
+    list-style: none; padding: var(--sp-3) var(--sp-4);
+    background: var(--paper);
+    border-top: 1px solid var(--line-soft);
+    font-size: var(--fs-md); color: var(--ink-soft); line-height: 1.7;
+    transition: background var(--dur-1) var(--ease-out);
+  }
+  .problem-points li:first-child{ border-top: 1px solid var(--line); border-radius: var(--r-m) var(--r-m) 0 0; }
+  .problem-points li:last-child { border-radius: 0 0 var(--r-m) var(--r-m); }
+  .problem-points li:hover{ background: oklch(98% 0.010 85); }
+  .problem-points li b{ color: var(--ink); font-weight: 600; margin-right: 6px; }
+  .problem-points li .idx{
+    font-family: var(--mono); font-size: var(--fs-xs); color: var(--ink-faint);
+    margin-right: 12px; letter-spacing: .5px;
+  }
+
+  /* ============================================================
+     02 · MODEL · D-S-T
+     ============================================================ */
+  .model-wrap{
+    margin-top: var(--sp-5);
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-l); overflow: hidden;
+    box-shadow: var(--shadow-1);
+  }
+  .model-tabs{
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    border-bottom: 1px solid var(--line);
+    background: oklch(96.5% 0.012 85);
+  }
+  .model-tab{
+    appearance: none; background: transparent; border: none;
+    padding: var(--sp-4) var(--sp-5); text-align: left;
+    cursor: pointer; font-family: var(--serif); font-size: var(--fs-lg); color: var(--ink-soft);
+    border-bottom: 2px solid transparent;
+    transition: color var(--dur-1) var(--ease-out),
+                border-color var(--dur-2) var(--ease-out),
+                background var(--dur-1) var(--ease-out);
+  }
+  .model-tab[aria-selected="true"]{
+    color: var(--ink); background: var(--paper);
+    border-bottom-color: var(--accent);
+  }
+  .model-tab .tag{
+    display: block; font-family: var(--mono); font-size: 10.5px;
+    letter-spacing: 1.6px; color: var(--ink-faint); margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+  .model-panels{ padding: var(--sp-5) var(--sp-5) var(--sp-6); }
+  .model-panel{ display: none; }
+  .model-panel.active{ display: block; animation: fade-in .55s var(--ease-out) both; }
+  @keyframes fade-in{
+    from{ opacity: 0; transform: translateY(8px); }
+    to  { opacity: 1; transform: none; }
+  }
+  .model-grid{
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3);
+  }
+  .model-card{
+    position: relative; padding: var(--sp-5); background: var(--paper);
+    border: 1px solid var(--line-soft); border-radius: var(--r-m);
+    transition: border-color var(--dur-2) var(--ease-out),
+                transform var(--dur-2) var(--ease-out),
+                box-shadow var(--dur-2) var(--ease-out);
+  }
+  .model-card:hover{
+    border-color: var(--accent-soft);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-1);
+  }
+  .model-card .code{
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--accent-soft); color: var(--accent-deep);
+    font-family: var(--mono); font-size: 12.5px; font-weight: 600;
+    letter-spacing: .3px; margin-bottom: var(--sp-3);
+  }
+  .model-card h5{ font-family: var(--serif); font-size: var(--fs-xl); margin: 0 0 4px; font-weight: 600; color: var(--ink); }
+  .model-card .q{ font-size: var(--fs-sm); color: var(--ink-faint); margin: 0 0 var(--sp-3); }
+  .model-card p{ font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.7; margin: 0; }
+  .model-card p em{ font-style: normal; color: var(--ink); }
+
+  .dims{
+    margin-top: var(--sp-6);
+    display: grid; grid-template-columns: repeat(9, 1fr);
+    border: 1px solid var(--line); border-radius: var(--r-m); overflow: hidden;
+    background: var(--paper);
+  }
+  .dim{
+    padding: var(--sp-3) var(--sp-3); border-right: 1px solid var(--line-soft);
+    transition: background var(--dur-1) var(--ease-out);
+    cursor: default;
+  }
+  .dim:last-child{ border-right: none; }
+  .dim:hover{ background: oklch(96% 0.014 85); }
+  .dim .badge{
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 1px;
+    color: var(--ink-faint);
+  }
+  .dim h6{ font-family: var(--serif); font-size: var(--fs-md); margin: 6px 0 2px; font-weight: 600; color: var(--ink); }
+  .dim p{ font-size: var(--fs-xs); color: var(--ink-faint); margin: 0; line-height: 1.5; }
+
+  .principles{
+    margin-top: var(--sp-6);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3);
+  }
+  .principle{
+    padding: var(--sp-4); background: var(--paper);
+    border: 1px solid var(--line); border-radius: var(--r-m);
+    display: grid; grid-template-columns: auto 1fr; gap: var(--sp-3); align-items: start;
+  }
+  .principle .num{
+    font-family: "Cormorant Garamond", serif;
+    font-size: var(--fs-3xl); color: var(--accent); font-weight: 500; line-height: 1;
+  }
+  .principle h6{ font-family: var(--serif); font-size: var(--fs-md); margin: 0 0 2px; color: var(--ink); font-weight: 600; }
+  .principle p{ font-size: var(--fs-sm); color: var(--ink-soft); margin: 0; line-height: 1.6; }
+
+  /* ============================================================
+     03 · AI EXTRACTOR
+     ============================================================ */
+  .ai-wrap{
+    margin-top: var(--sp-5);
+    display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--sp-4);
+  }
+  .ai-card{
+    position: relative; padding: var(--sp-5);
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-l); box-shadow: var(--shadow-1);
+  }
+  .ai-card .head{
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: var(--sp-4);
+  }
+  .ai-card .head .lbl{
+    font-family: var(--mono); font-size: 11px; letter-spacing: 1.6px;
+    color: var(--ink-faint); text-transform: uppercase;
+  }
+  .ai-card .head .date{
+    font-family: var(--serif); font-size: var(--fs-md); color: var(--ink-soft);
+  }
+  .journal{
+    font-family: var(--serif); font-size: var(--fs-lg); line-height: 2; color: var(--ink);
+    background: var(--bg); border: 1px dashed var(--line);
+    border-radius: var(--r-m); padding: var(--sp-4) var(--sp-5);
+  }
+  .journal .span{
+    position: relative; padding: 1px 4px; margin: 0 -2px; border-radius: 4px;
+    font-style: normal;
+    transition: background var(--dur-2) var(--ease-out),
+                color var(--dur-2) var(--ease-out);
+  }
+  .journal .span.hl{
+    background: oklch(82% 0.10 75 / .35);
+    color: oklch(28% 0.06 50);
+  }
+  .ai-card.ai .head .live{
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: 1.4px;
+    color: var(--accent);
+  }
+  .ai-card.ai .head .live::before{
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 0 oklch(44% 0.072 168 / .4);
+    animation: live-ring 1.6s var(--ease-out) infinite;
+  }
+  @keyframes live-ring{
+    0%, 100%{ box-shadow: 0 0 0 0 oklch(44% 0.072 168 / .4); }
+    50%     { box-shadow: 0 0 0 5px oklch(44% 0.072 168 / 0);  }
+  }
+  .ai-rows{ display: grid; gap: 8px; }
+  .ai-row{
+    display: grid; grid-template-columns: 1.3fr auto; align-items: center; gap: var(--sp-3);
+    padding: 10px 14px;
+    background: var(--bg); border: 1px solid transparent;
+    border-radius: 10px;
+    opacity: 0; transform: translateX(-8px);
+    transition: opacity .5s var(--ease-out),
+                transform .5s var(--ease-out),
+                border-color var(--dur-1) var(--ease-out);
+  }
+  .ai-row.show{ opacity: 1; transform: none; border-color: var(--line); }
+  .ai-row:hover{ border-color: var(--accent-soft); }
+  .ai-row .src{ font-family: var(--serif); font-size: var(--fs-md); color: var(--ink); }
+  .ai-row .tag{
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--accent-soft); color: var(--accent-deep);
+    padding: 4px 10px; border-radius: 999px;
+    font-family: var(--mono); font-size: 11.5px; letter-spacing: .3px;
+    border: 1px solid oklch(44% 0.072 168 / .14);
+    white-space: nowrap;
+  }
+  .ai-cta{ display: flex; gap: 8px; margin-top: var(--sp-4); flex-wrap: wrap; }
+  .ai-cta .btn{ padding: 8px 14px; font-size: var(--fs-sm); }
+
+  .results{
+    margin-top: var(--sp-6);
+    background: var(--ink); color: var(--paper);
+    border-radius: var(--r-l); padding: var(--sp-6) var(--sp-6);
+    position: relative; overflow: hidden;
+  }
+  .results::before{
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(700px 380px at 100% 0%, oklch(44% 0.072 168 / .28), transparent 60%),
+      radial-gradient(500px 300px at 0% 100%, oklch(70% 0.105 75 / .16), transparent 60%);
+  }
+  .results .section-head{ position: relative; margin-bottom: var(--sp-4); }
+  .results .section-eyebrow{ color: oklch(82% 0.05 168); }
+  .results .section-title{ color: var(--paper); }
+  .results .section-lead{ color: oklch(80% 0.015 235); }
+  .res-grid{
+    position: relative;
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+  }
+  .res{
+    padding: var(--sp-4);
+    border: 1px solid oklch(40% 0.015 235);
+    border-radius: var(--r-m);
+    background: oklch(28% 0.018 235 / .4);
+    transition: border-color var(--dur-1) var(--ease-out),
+                transform var(--dur-1) var(--ease-out);
+  }
+  .res:hover{ border-color: oklch(44% 0.072 168 / .6); transform: translateY(-2px); }
+  .res h5{ font-family: var(--serif); font-size: var(--fs-md); margin: 0 0 6px; color: oklch(94% 0.04 80); font-weight: 600; }
+  .res p{ font-size: var(--fs-xs); color: oklch(82% 0.012 235); margin: 0 0 var(--sp-3); line-height: 1.6; }
+  .res .formula{ font-family: var(--mono); font-size: 10.5px; color: oklch(80% 0.05 168); letter-spacing: .3px; }
+  .res .formula b{ color: oklch(85% 0.10 75); font-weight: 500; }
+
+  /* ============================================================
+     04 · PROFILE
+     ============================================================ */
+  .profile-grid{
+    margin-top: var(--sp-5);
+    display: grid; grid-template-columns: 1.1fr 1fr; gap: var(--sp-4);
+  }
+  .card{
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-l); padding: var(--sp-5);
+    box-shadow: var(--shadow-1);
+  }
+  .profile-card .head{
+    display: flex; align-items: flex-start; justify-content: space-between;
+    margin-bottom: var(--sp-3); gap: var(--sp-3); flex-wrap: wrap;
+  }
+  .profile-card .head h5{
+    margin: 0; font-family: var(--serif); font-size: var(--fs-xl); font-weight: 600;
+  }
+  .window-pick{
+    display: inline-flex; padding: 3px; gap: 2px;
+    background: var(--bg); border: 1px solid var(--line); border-radius: 999px;
+  }
+  .window-pick button{
+    appearance: none; border: none; background: transparent;
+    padding: 5px 11px; border-radius: 999px;
+    font-family: var(--mono); font-size: 11.5px; color: var(--ink-soft); cursor: pointer;
+    transition: background var(--dur-1) var(--ease-out), color var(--dur-1) var(--ease-out);
+  }
+  .window-pick button[aria-pressed="true"]{ background: var(--ink); color: var(--paper); }
+
+  .radar{
+    position: relative; max-width: 480px; margin: var(--sp-3) auto 0;
+    aspect-ratio: 1/1;
+  }
+  .radar svg{ width: 100%; height: auto; display: block; overflow: visible; }
+
+  .persona-bar{
+    display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+    margin-top: var(--sp-3);
+  }
+  .persona-bar button{
+    appearance: none; background: transparent;
+    border: 1px solid var(--line); border-radius: 999px;
+    padding: 7px 14px; font-family: var(--serif); font-size: var(--fs-sm);
+    color: var(--ink-soft); cursor: pointer;
+    transition: all var(--dur-1) var(--ease-out);
+  }
+  .persona-bar button:hover{ color: var(--ink); border-color: var(--ink-ghost); }
+  .persona-bar button[aria-pressed="true"]{
+    background: var(--ink); color: var(--paper); border-color: var(--ink);
+  }
+  .persona-bar .emo{ margin-right: 6px; }
+
+  .bars{ margin-top: var(--sp-4); display: grid; gap: 6px; }
+  .bar-row{
+    display: grid; grid-template-columns: 100px 1fr 38px; gap: var(--sp-3);
+    align-items: center;
+  }
+  .bar-row .name{ font-family: var(--serif); font-size: var(--fs-sm); color: var(--ink); font-weight: 500; }
+  .bar{ height: 6px; background: var(--line-soft); border-radius: 999px; overflow: hidden; }
+  .bar > span{
+    display: block; height: 100%; border-radius: 999px;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 1s var(--ease-out);
+  }
+  .bar.t-high > span{ background: linear-gradient(90deg, var(--gold), oklch(78% 0.12 75)); }
+  .bar.t-mid  > span{ background: linear-gradient(90deg, var(--accent), oklch(64% 0.08 168)); }
+  .bar.t-low  > span{ background: linear-gradient(90deg, oklch(70% 0.015 235), oklch(82% 0.010 235)); }
+  .bar.show > span{ transform: scaleX(1); }
+  .bar-row .val{ font-family: var(--mono); font-size: var(--fs-xs); color: var(--ink-faint); text-align: right; }
+
+  .profile-side{ display: flex; flex-direction: column; gap: var(--sp-3); }
+  .narrative{
+    font-family: var(--serif); font-size: var(--fs-lg); line-height: 1.85;
+    color: var(--ink); border-left: 2px solid var(--accent);
+    padding: 4px 0 4px var(--sp-4); margin: 0;
+    min-height: 132px;
+    transition: opacity .35s var(--ease-out);
+  }
+  .narrative.fading{ opacity: 0; }
+  .narrative + .ref{
+    margin-top: var(--sp-3); font-family: var(--mono); font-size: 11px;
+    color: var(--ink-faint); letter-spacing: 1.2px;
+  }
+  .prompt{
+    margin-top: var(--sp-3); padding: var(--sp-3) var(--sp-4);
+    border: 1px dashed var(--line); border-radius: var(--r-m); background: var(--bg);
+  }
+  .prompt .lbl{ font-family: var(--mono); font-size: 10.5px; color: var(--ink-faint); letter-spacing: 1.4px; margin-bottom: 4px; }
+  .prompt .q{ font-family: var(--serif); font-size: var(--fs-md); color: var(--ink); line-height: 1.6; margin: 0; }
+
+  /* ============================================================
+     05 · SCENARIOS
+     ============================================================ */
+  .sc-grid{
+    margin-top: var(--sp-5);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3);
+  }
+  .scenario{
+    position: relative; padding: var(--sp-5);
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-l);
+    display: flex; flex-direction: column; gap: var(--sp-3);
+    transition: transform var(--dur-2) var(--ease-out),
+                box-shadow var(--dur-2) var(--ease-out),
+                border-color var(--dur-2) var(--ease-out);
+  }
+  .scenario:hover{ transform: translateY(-3px); box-shadow: var(--shadow-2); border-color: var(--accent-soft); }
+  .scenario .glyph{
+    width: 44px; height: 44px; border-radius: 12px;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    background: linear-gradient(135deg, var(--accent-soft), var(--gold-soft));
+    border: 1px solid oklch(89% 0.012 85);
+  }
+  .scenario h5{ font-family: var(--serif); font-size: var(--fs-xl); font-weight: 600; margin: 0; }
+  .scenario .desc{ font-size: var(--fs-sm); color: var(--ink-soft); line-height: 1.7; margin: 0; }
+  .scenario .micro{ display: flex; gap: 5px; flex-wrap: wrap; }
+  .micro-tag{
+    font-family: var(--mono); font-size: 10.5px;
+    padding: 3px 8px; border-radius: 999px;
+    background: var(--bg); border: 1px solid var(--line);
+    color: var(--ink-soft); letter-spacing: .2px;
+  }
+  .scenario .stats{
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3);
+    padding-top: var(--sp-3); margin-top: auto;
+    border-top: 1px dashed var(--line);
+  }
+  .stat .v{ font-family: var(--serif); font-size: var(--fs-xl); font-weight: 600; color: var(--ink); line-height: 1; }
+  .stat .l{ font-family: var(--mono); font-size: 10px; color: var(--ink-faint); letter-spacing: 1px; margin-top: 4px; text-transform: uppercase; }
+
+  /* ============================================================
+     06 · ANNUAL REPORT
+     ============================================================ */
+  .report-grid{
+    margin-top: var(--sp-5);
+    display: grid; grid-template-columns: 1fr 1.3fr; gap: var(--sp-4);
+  }
+  .report-cover{
+    position: relative; aspect-ratio: 3/4;
+    background:
+      linear-gradient(160deg, oklch(28% 0.025 235) 0%, oklch(20% 0.020 235) 55%, oklch(32% 0.075 168) 100%);
+    color: var(--paper); border-radius: var(--r-l); padding: var(--sp-5);
+    overflow: hidden; box-shadow: var(--shadow-2);
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .report-cover::before{
+    content: ""; position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(380px 200px at 78% 10%, oklch(70% 0.105 75 / .28), transparent 60%),
+      radial-gradient(280px 180px at 22% 92%, oklch(44% 0.072 168 / .42), transparent 60%);
+  }
+  .report-cover .y{ font-family: var(--serif); font-size: clamp(64px, 8vw, 108px); line-height: .9; font-weight: 600; position: relative; }
+  .report-cover .t{ font-family: var(--serif); font-size: var(--fs-xl); margin-top: 8px; position: relative; }
+  .report-cover .s{ font-family: var(--mono); font-size: 10.5px; opacity: .7; letter-spacing: 1.4px; margin-top: 4px; position: relative; }
+  .report-cover .foot{
+    position: relative; display: flex; justify-content: space-between;
+    font-family: var(--mono); font-size: 11px; opacity: .65; letter-spacing: 1.2px;
+  }
+
+  .report-content{
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-l); padding: var(--sp-5);
+    box-shadow: var(--shadow-1);
+    display: flex; flex-direction: column; gap: var(--sp-3);
+  }
+  .report-content h4{ font-family: var(--serif); font-size: var(--fs-2xl); margin: 0; font-weight: 600; }
+  .report-content p{ font-size: var(--fs-md); color: var(--ink-soft); line-height: 1.8; margin: 0; }
+  .chapters{
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
+  }
+  .chap{
+    display: flex; align-items: center; gap: var(--sp-2);
+    padding: var(--sp-3); background: var(--bg);
+    border: 1px solid var(--line); border-radius: var(--r-m);
+    transition: border-color var(--dur-1) var(--ease-out), transform var(--dur-1) var(--ease-out);
+  }
+  .chap:hover{ border-color: var(--accent-soft); transform: translateY(-1px); }
+  .chap .num{ font-family: var(--mono); font-size: 11px; color: var(--accent); font-weight: 500; letter-spacing: .5px; }
+  .chap .txt{ font-family: var(--serif); font-size: var(--fs-sm); color: var(--ink); }
+  .report-foot{ font-size: var(--fs-xs); color: var(--ink-faint); }
+
+  /* ============================================================
+     07 · PRICING
+     ============================================================ */
+  .pricing{
+    margin-top: var(--sp-5);
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-3);
+  }
+  .price{
+    position: relative; background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-l); padding: var(--sp-5);
+    display: flex; flex-direction: column; gap: var(--sp-3);
+    transition: border-color var(--dur-2) var(--ease-out), transform var(--dur-2) var(--ease-out);
+  }
+  .price:hover{ transform: translateY(-3px); border-color: var(--ink-ghost); }
+  .price.featured{
+    border-color: var(--ink); background: var(--ink); color: var(--paper);
+    box-shadow: var(--shadow-2);
+  }
+  .price.featured .desc, .price.featured .billed, .price.featured ul{ color: oklch(82% 0.010 235); }
+  .price.featured .amount strong{ color: var(--paper); }
+  .price.featured .amount span{ color: oklch(72% 0.010 235); }
+  .price.featured ul li::before{ color: var(--gold); }
+  .price.featured h4{ color: var(--paper); }
+  .price .badge-pop{
+    position: absolute; top: -10px; left: var(--sp-4);
+    background: var(--gold); color: var(--ink);
+    padding: 3px 10px; border-radius: 999px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: 1.2px;
+  }
+  .price h4{ font-family: var(--serif); font-size: var(--fs-xl); margin: 0; font-weight: 600; }
+  .price .desc{ font-size: var(--fs-sm); color: var(--ink-faint); margin: 0; min-height: 42px; }
+  .price .amount{ display: flex; align-items: baseline; gap: 4px; margin-top: var(--sp-2); }
+  .price .amount strong{ font-family: var(--serif); font-size: var(--fs-4xl); font-weight: 600; letter-spacing: -1px; }
+  .price .amount span{ font-size: var(--fs-sm); color: var(--ink-faint); }
+  .price .billed{ font-size: var(--fs-xs); color: var(--ink-faint); }
+  .price ul{ list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; font-size: var(--fs-sm); color: var(--ink-soft); }
+  .price ul li{ display: flex; gap: 10px; align-items: flex-start; }
+  .price ul li::before{ content: "✓"; color: var(--accent); font-weight: 700; margin-top: 1px; font-size: 13px; }
+  .price .btn{ margin-top: auto; }
+  .price.featured .btn-primary{ background: var(--paper); color: var(--ink); }
+  .price.featured .btn-primary:hover{ background: var(--gold-soft); }
+
+  /* ============================================================
+     08 · FAQ + 09 · CTA
+     ============================================================ */
+  .faq{ margin-top: var(--sp-6); display: grid; gap: 8px; max-width: 820px; }
+  .faq details{
+    background: var(--paper); border: 1px solid var(--line);
+    border-radius: var(--r-m); padding: 16px 20px;
+    transition: border-color var(--dur-1) var(--ease-out);
+  }
+  .faq details[open]{ border-color: var(--accent-soft); }
+  .faq summary{
+    cursor: pointer; font-family: var(--serif); font-size: var(--fs-md); color: var(--ink);
+    list-style: none; display: flex; justify-content: space-between; align-items: center; gap: var(--sp-3);
+    font-weight: 500;
+  }
+  .faq summary::-webkit-details-marker{ display: none; }
+  .faq summary::after{
+    content: "+"; font-family: var(--mono); color: var(--ink-faint); font-size: 18px;
+    transition: transform var(--dur-2) var(--ease-out);
+    width: 18px; height: 18px; display: inline-flex; align-items: center; justify-content: center;
+  }
+  .faq details[open] summary::after{ transform: rotate(45deg); }
+  .faq p{ margin: 12px 0 0; color: var(--ink-soft); font-size: var(--fs-sm); line-height: 1.8; }
+
+  .cta-final{
+    margin-top: var(--sp-7);
+    padding: var(--sp-7) var(--sp-5);
+    text-align: center;
+    background:
+      radial-gradient(700px 320px at 80% 0%, oklch(70% 0.105 75 / .18), transparent 60%),
+      radial-gradient(700px 320px at 0% 100%, oklch(44% 0.072 168 / .18), transparent 60%),
+      var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-l);
+  }
+  .cta-final h3{
+    font-family: var(--serif); font-weight: 600;
+    font-size: clamp(28px, 3.4vw, 44px);
+    line-height: 1.2; letter-spacing: -.4px;
+    margin: 0 0 var(--sp-3); color: var(--ink);
+  }
+  .cta-final p{ color: var(--ink-soft); max-width: 520px; margin: 0 auto var(--sp-5); font-size: var(--fs-md); line-height: 1.8; }
+  .hero-actions.center{ justify-content: center; }
+  .cta-final .meta{
+    margin-top: var(--sp-3); font-family: var(--mono); font-size: 11px;
+    color: var(--ink-faint); letter-spacing: 1.2px;
+  }
+
+  footer{
+    border-top: 1px solid var(--line); padding: var(--sp-5) 0;
+    color: var(--ink-faint); font-size: var(--fs-xs); letter-spacing: .3px;
+  }
+  .footer-row{ display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--sp-3); align-items: center; }
+  .footer-row a{ transition: color var(--dur-1) var(--ease-out); }
+  .footer-row a:hover{ color: var(--ink); }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 1080px){
+    .problem-grid, .ai-wrap, .profile-grid, .report-grid{ grid-template-columns: 1fr; }
+    .dims{ grid-template-columns: repeat(3, 1fr); }
+    .dim{ border-right: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+    .res-grid{ grid-template-columns: repeat(3, 1fr); }
+    .sc-grid{ grid-template-columns: 1fr; }
+    .pricing{ grid-template-columns: 1fr; }
+    .principles{ grid-template-columns: 1fr; }
+    .model-grid{ grid-template-columns: 1fr; }
+    .section-head{ grid-template-columns: 1fr; align-items: start; }
+    .section-lead{ justify-self: start; }
+  }
+  @media (max-width: 680px){
+    .nav-links{ display: none; }
+    .nav-cta{ padding: 8px 14px; }
+    .hero{ padding: var(--sp-7) 0 var(--sp-6); }
+    section{ padding: var(--sp-7) 0; }
+    .hero-meta{ grid-template-columns: repeat(2, 1fr); gap: var(--sp-4); }
+    .bar-row{ grid-template-columns: 88px 1fr 32px; }
+    .dims{ grid-template-columns: repeat(2, 1fr); }
+    .res-grid{ grid-template-columns: 1fr 1fr; }
+    .chapters{ grid-template-columns: 1fr; }
+    .ai-wrap{ gap: var(--sp-3); }
+  }
+
+  @container (max-width: 700px){
+    .quote-card{ padding: var(--sp-4); }
+    .quote-card blockquote{ font-size: 20px; }
+    .scenario{ padding: var(--sp-4); }
+  }
+</style>
+</head>
+<body data-page-node-id="N9cZ9BgSyTruasQwc13U72">
+
+<!-- NAV -->
+<nav class="nav" data-page-node-id="pAKx0E7UUgaMYu15jiHawN">
+  <div class="container nav-inner" data-page-node-id="ETtTG5br7qrgPAUJ38oiJW">
+    <a class="brand" href="#top" data-page-node-id="30IaGyaPilSxyOIa09cVoe">
+      <span class="brand-mark" aria-hidden="true" data-page-node-id="ER1Oka9TbLcf0BcsUDbpJH"></span>
+      <span class="brand-name" data-page-node-id="TPcBTpSWnId1YYS7AnjXsP">时痕 <em data-page-node-id="BIfdciHKGSqJ5uWolirVtG">TIMETRACE</em></span>
+    </a>
+    <div class="nav-links" data-page-node-id="1JCuSAmvNdCP6cC4QWngSF">
+      <a href="#problem" data-page-node-id="y0DxpLdcDGYZXEKEhvmUDc">为什么</a>
+      <a href="#model" data-page-node-id="WiMFaflLMKHd6FbLatgX4r">指标体系</a>
+      <a href="#ai" data-page-node-id="HXzEhRA4hEAd01LwFBC8p9">AI 解读</a>
+      <a href="#profile" data-page-node-id="osjQOiDxbVVIx5NEhNBnJw">画像</a>
+      <a href="#scenarios" data-page-node-id="USFBl2lNJcYi3JKv1EZ1Tm">场景</a>
+      <a href="#pricing" data-page-node-id="qaqsfZku51gFMtFb8y4g25">订阅</a>
+    </div>
+    <a href="#cta" class="nav-cta" data-page-node-id="Oc5wCdpbDYYYG6aZwtxspw">免费开始 →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" id="top" data-page-node-id="SSm0LftZeOAHdtQafYvK6n">
+  <canvas class="particle-canvas" id="particleCanvas" aria-hidden="true" data-page-node-id="9ehET6FXJRmTNTtRImYquP"></canvas>
+  <div class="container hero-inner" data-page-node-id="ir4oamM46rbqAhKqx88MqQ">
+    <span class="eyebrow reveal" data-page-node-id="DoGCtuYpm5BgfVrtDjJtUA"><span class="dot" data-page-node-id="h1nMD7sBx5eMpUHoi34esj"></span>D-S-T 时间体验指标体系 · v1.0</span>
+    <h1 class="headline reveal" data-d="1" data-page-node-id="9Qpp726NfQXjN1cxdx68Ec">
+      不是「你做了什么」，<br  data-page-node-id="42jZ69TFQpQAH1ohHqrP88"/>
+      而是「你正在<span class="grad" data-page-node-id="UCYkk7bul6YQeeQ3Fq0Xdw">经历</span>什么」。
+    </h1>
+    <p class="subhead reveal" data-d="2" data-page-node-id="7ZuvDGLqlPP0fTFikEzg3v">
+      时痕 TimeTrace 是一套为成年人设计的时间体验记录工具。
+      你只需要写下今天发生的事，AI 会自动构建你的<em data-page-node-id="t0Fk79WXNpggf6ysbpgG8d">时间经历画像</em>——
+      让你第一次看见自己正在怎么活，而不是只在使用时间。
+    </p>
+    <div class="hero-actions reveal" data-d="3" data-page-node-id="WPfIEO36i726oT0hDNB9h4">
+      <a href="#cta" class="btn btn-primary" data-page-node-id="O1U9LhemWEJO4iKZvYbh5o">开始 14 天免费试用</a>
+      <a href="#model" class="btn btn-ghost" data-page-node-id="5ZdxZVDPzGAfU2ndwQ50nY">了解指标体系</a>
+    </div>
+    <div class="hero-meta reveal" data-d="4" data-page-node-id="nFnukEkBHgPV9FwAGlQj9P">
+      <div data-page-node-id="NhwAkXaZtefaOnhfRUzLvb"><strong data-page-node-id="q8RAAEeqNcrS29bF2v2Ayy">9<span class="unit" data-page-node-id="9itrOD7I43ETE1cF7i3A1q">维度</span></strong>一级时间维度</div>
+      <div data-page-node-id="sjH9AecPR9bxwAOEfCblHq"><strong data-page-node-id="Z0pYB2vhFupimOGwOF3jfi">3<span class="unit" data-page-node-id="055qp8abul9OBSX91G1O8m">层</span></strong>D / S / T 结构</div>
+      <div data-page-node-id="j19jwRf5zeIqQKLxqY5Ns0"><strong data-page-node-id="ca8karq7Xkay2KlCuweFlA">5<span class="unit" data-page-node-id="zk3DTR1T4LBda9MGxE9Ecc">项</span></strong>衍生观察指标</div>
+      <div data-page-node-id="5l7qYwZKSdhChm19ikRY1l"><strong data-page-node-id="ulXqBSjZ84bXLyyzlByEtv">0<span class="unit" data-page-node-id="T6n9TIpBzDBuOR8byuQW2C">分</span></strong>不做幸福指数</div>
+    </div>
+  </div>
+</header>
+
+<!-- 01 · PROBLEM -->
+<section id="problem" data-page-node-id="vTy0QIjBJ10DVqXsSdEb8F">
+  <div class="container" data-page-node-id="FF1HaPa1Rx8DQRFJRtHc0s">
+    <div class="section-head" data-page-node-id="ep6BMyMmueV0P9C6SvQqEx">
+      <div data-page-node-id="rLS1SQSgssvQkXk9DBk9oX">
+        <div class="section-eyebrow reveal" data-page-node-id="USx90mzpjFBxStfl21slBC">01 · 为什么做</div>
+        <h2 class="section-title reveal" data-d="1" data-page-node-id="AS8De1cYUU5STpZyHdQGvu">成年人越来越会「使用」时间，<br data-page-node-id="3fz3QOOCxZ4gSNGDYfd2gK"/>却忘了「经历」时间。</h2>
+      </div>
+      <p class="section-lead reveal" data-d="2" data-page-node-id="FB02PL8XJM8O8sG8rxqKyN">
+        时间管理工具已经很多了。但几乎所有工具都在解决「如何把时间排得更满」，
+        而很少有人问一句：<em data-page-node-id="fkqkB2qgEmzxQYxYJNETuG">过去这一年，你真正经历了多少日子？</em>
+      </p>
+    </div>
+
+    <div class="problem-grid" data-page-node-id="zp2Midoa6HSY17B7LZxHNk">
+      <div class="quote-card reveal" data-d="1" data-page-node-id="f50umHnDDQno9KCQzKvgHG">
+        <div class="quote-mark" aria-hidden="true" data-page-node-id="thcUmNyb5qAD9lMiW1ab46">"</div>
+        <blockquote data-page-node-id="snR16FlaK9WhPiDtXxCurW">
+          一年过去了，感觉什么都没发生。<br  data-page-node-id="tqIwuQruf5ACLd1N3e6OHh"/>
+          可我明明一直都很忙。
+        </blockquote>
+        <div class="src" data-page-node-id="KUBGHqQ3bma6bwFLKoL3YG">33 岁 · 互联网产品经理 · 使用 4 款时间管理 App 后</div>
+      </div>
+      <ul class="problem-points" data-page-node-id="cLRS3vvmys3wxZiTG6FsR4">
+        <li class="reveal" data-d="1" data-page-node-id="LtFIONXSd5U8JaV0EYx22z"><span class="idx" data-page-node-id="LC9DhfbgBBWEH39lZUs4e9">01</span><b data-page-node-id="lB5rdZFGRkX5vBJyDWwKWf">时间感加速</b>。不是真的快了，是记忆里没留下可识别的节点。</li>
+        <li class="reveal" data-d="2" data-page-node-id="Dtl9B2MhE64zyqu7Pbvs8e"><span class="idx" data-page-node-id="KfgESQAEn8v5g1cltzwdKY">02</span><b data-page-node-id="mKW5Cq3bwVhWWt81FNE9HT">目标导向挤压当下</b>。生活被拆成「是否完成」「是否有产出」。</li>
+        <li class="reveal" data-d="3" data-page-node-id="F0EEVjDaaAmZ9YLrt5X0MR"><span class="idx" data-page-node-id="bwMX7GxGTsFzEW80Biuq1P">03</span><b data-page-node-id="zsl8J2QpeQEdh7rX0udTDk">主体性流失</b>。事情带着人走，人变成了执行器。</li>
+        <li class="reveal" data-d="4" data-page-node-id="Azyrkp4iCfGBN3hZ5NUCxG"><span class="idx" data-page-node-id="KMUgIFCOmfR40AD5kGyMDc">04</span><b data-page-node-id="LXfQYhn3VTNtBWrYBzPUTM">评价错位</b>。我们擅长给任务打分，却不擅长给自己打分。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 02 · MODEL -->
+<section id="model" data-page-node-id="O9EXliKLp3Jb6HfT0L1phA">
+  <div class="container" data-page-node-id="hY4DXmN06nHjvzFGOdf1f5">
+    <div class="section-head" data-page-node-id="jKdshrsUge1QyiNWmvTMMk">
+      <div data-page-node-id="1O6Boi2dCD8sQqwJR23gRx">
+        <div class="section-eyebrow reveal" data-page-node-id="cCtJOj1KMvBHpC60XICZiP">02 · 指标体系</div>
+        <h2 class="section-title reveal" data-d="1" data-page-node-id="sUC26YBV90SoPZoc6ZdIUu">D — S — T：<br data-page-node-id="E4Ekfd628I41j52w91DgoM"/>先把"人到底发生了什么"拆清楚。</h2>
+      </div>
+      <p class="section-lead reveal" data-d="2" data-page-node-id="jsgCvjUY6BnSwbHDaCXKRm">
+        拒绝伪心理学的"幸福指数"。我们只做<em data-page-node-id="scBeaHmK8CCk4QEwJunQag">事实层、结构层、留痕层</em>的可计算拆分，
+        再让 AI 进行事实性解释。
+      </p>
+    </div>
+
+    <div class="model-wrap reveal" data-d="1" data-page-node-id="l39rm38WyJKMRl6n3mqkqT">
+      <div class="model-tabs" role="tablist" data-page-node-id="eBMy9LFkv2SZ5V5gmn4Ntd">
+        <button class="model-tab" role="tab" aria-selected="true" data-tab="D" type="button" data-page-node-id="5lS7MerwMOoOK88rfKBZmJ">
+          <span class="tag" data-page-node-id="NYQCjJlWEZZ7Cye8YeQ6pg">D · DURATION</span>时间发生
+        </button>
+        <button class="model-tab" role="tab" aria-selected="false" data-tab="S" type="button" data-page-node-id="PLFeaZvZPB7xSmSqM0xCGB">
+          <span class="tag" data-page-node-id="u8yygBm891JDTmXyDQF2s1">S · STATE</span>时间结构
+        </button>
+        <button class="model-tab" role="tab" aria-selected="false" data-tab="T" type="button" data-page-node-id="Ann4nEkMx1oYJDxv8DWgLm">
+          <span class="tag" data-page-node-id="86sNf6JxHTTrWv15Z2ab3U">T · TRACE</span>时间留痕
+        </button>
+      </div>
+
+      <div class="model-panels" data-page-node-id="cnLBFOkOnqIziyPEtYGoGm">
+        <div class="model-panel active" data-panel="D" data-page-node-id="yDb5X4b8RukJ0BcoCwq4g3">
+          <div class="model-grid" data-page-node-id="C6e7SdXJCKEJuKDBq8NI2s">
+            <article class="model-card" data-page-node-id="tQZPVqBTmJIH226HkWs9DB">
+              <span class="code" data-page-node-id="1sZeE4uPr2UMYkNPtY1zx6">D1</span><h5 data-page-node-id="cKY6yrYUNjtLw6I7m1t3RU">时间投入</h5><p class="q" data-page-node-id="R3HfdAFjfrNDLxv3AU85Yf">我的时间去了哪里？</p>
+              <p data-page-node-id="DBW4VQW3Sdgm8jzMjLmry4">流向 9 大类生活场景：工作 / 学习 / 家庭 / 社交 / 独处 / 睡眠 / 通勤 / 杂务 / 其他。<em data-page-node-id="ROiMk3Mt1S2bEF024qLHzy">只记录，不评价。</em></p>
+            </article>
+            <article class="model-card" data-page-node-id="EIRim14PLs7CeXQkP2PhWc">
+              <span class="code" data-page-node-id="MAHCyA1FwAgd4Fn91iP5Ql">D2</span><h5 data-page-node-id="3vbBfWiZ0unkKHrrrnSNkc">时间重复</h5><p class="q" data-page-node-id="9qUhn7OW7SIFuVd5acGoWU">多少日子是相似的？</p>
+              <p data-page-node-id="IUfoL6kltvksOmWCRMsbOy">相似日占比、重复活动、重复路径、重复社交、重复内容消费。回答「为什么一年过去却感觉什么都没发生」。</p>
+            </article>
+            <article class="model-card" data-page-node-id="HrDtUrxb0NetFTJlhOg4NC">
+              <span class="code" data-page-node-id="S8kEf5nnujOf3AUOUzWykO">D3</span><h5 data-page-node-id="9ytN9OINd2AbZ81Zz7YttB">时间事件</h5><p class="q" data-page-node-id="7kRlSFOxpObOgt2Y3OWSWH">出现了多少区分度事件？</p>
+              <p data-page-node-id="3Cul6U9FmREVvNkQSFHcKq">新地点 · 新人物 · 新体验 · 新行动 · 意外 · 认知变化。注意：<em data-page-node-id="ABcXIGLcZnIZ2mYTQg8TA6">"事件" ≠ "任务"。</em>一次任务完成可能没有形成任何独特经历。</p>
+            </article>
+          </div>
+        </div>
+        <div class="model-panel" data-panel="S" data-page-node-id="2X4UIEtFflEa0cG9I8BnBo">
+          <div class="model-grid" data-page-node-id="3V4Y2h30L59kxSeJXXEzAh">
+            <article class="model-card" data-page-node-id="Myzql27JA0tWtbBVm5IiwP">
+              <span class="code" data-page-node-id="7DPymhregtQFFs0KDmK2dB">S1</span><h5 data-page-node-id="3dHkdqsQBq80Is3vPFhmah">未来导向</h5><p class="q" data-page-node-id="kekCBVvVPbiQyD9iRfkELn">我的意识有多少在围绕未来？</p>
+              <p data-page-node-id="HEQkYZleMvVfYEKYJaDMW8">识别：计划 / 目标 / 预期 / 担忧 / 规划 / 为未来准备。未来导向 ≠ 不好，真正要观察的是它<em data-page-node-id="LRLKBE2lkThC78rFmKurVJ">是否长期挤占当下</em>。</p>
+            </article>
+            <article class="model-card" data-page-node-id="wQ2579r3aWogUvQmKhbMDR">
+              <span class="code" data-page-node-id="Fz4hOT8iqwqr9JRyDSIMOH">S2</span><h5 data-page-node-id="bAGXwDbU5LAh5iY0dJbugb">结果导向</h5><p class="q" data-page-node-id="kZp17wvXwgvNFV4t3Nb79v">我是否只在结果里找意义？</p>
+              <p data-page-node-id="Rfymo3XtYeTwixILkU7fS8">做完了吗？达成了吗？有产出吗？对应：我在过程中发现了什么？体验到了什么？结果导向本身是<em data-page-node-id="UJWAKuPFqsB9RFXGhfKunV">一条轴</em>，不做两个独立因子。</p>
+            </article>
+            <article class="model-card" data-page-node-id="x0iY6BoHRszRGDSnImBNSN">
+              <span class="code" data-page-node-id="SAGwlQCl8qzrGu3MGqnftc">S3</span><h5 data-page-node-id="DRlRahv2MGwoOPToVtM2n4">主体参与</h5><p class="q" data-page-node-id="MYSkIqZwHbqZvWF1m8niVo">是我在生活，还是事情带着我走？</p>
+              <p data-page-node-id="C0aJYWI1UkqV9hrBsHSBGe">主动选择 / 探索 / 创造 / 表达 / 改变 ↔ 被动执行 / 接受。回答：<em data-page-node-id="pIoAva43e1Sl1EqzPiDoZU">"这段时间是我在生活，还是事情在带着我走？"</em></p>
+            </article>
+          </div>
+        </div>
+        <div class="model-panel" data-panel="T" data-page-node-id="STRGSpN7kHRIFMbYOqWFrk">
+          <div class="model-grid" data-page-node-id="6wKFcd8DdiAXjrz91qJOoI">
+            <article class="model-card" data-page-node-id="Qv4gNY68LwodbEgrWRVkDs">
+              <span class="code" data-page-node-id="vf4yWlJSSAHbHnjORycz8D">T1</span><h5 data-page-node-id="eig8VmGaw1dYKp3YYLEV0I">体验痕迹</h5><p class="q" data-page-node-id="9aZcBExSlTj0BrA5HcXGwg">是否形成可回忆的具体节点？</p>
+              <p data-page-node-id="QRu2ckCxTTGvEhjSbNExzb">"那天晚上下很大的雨。" "第一次去了那家店。" 重点不在数量，在于有没有形成<em data-page-node-id="XeXM9D06LxoyJaDOIT1K2L">具体、独特的记忆节点</em>。</p>
+            </article>
+            <article class="model-card" data-page-node-id="DL5fEu0pvtFjNh7Mqmky7Z">
+              <span class="code" data-page-node-id="IVpF1raNWqvQ168buTTm6C">T2</span><h5 data-page-node-id="tOm7HaSPPzJghYD5dLlQS5">认知变化</h5><p class="q" data-page-node-id="srrFtwA7tAoqzLEBlGenVF">我有没有变得不一样？</p>
+              <p data-page-node-id="txkIxxG6oyLUaKR62Fc7oN">新发现 / 新理解 / 旧观点被推翻 / 新兴趣 / 新价值排序 / 对自己的重新认识。经历不一定带来快乐，但<em data-page-node-id="7ps6g9sxJC8ec0q5hFX4zC">真正的经历往往会留下变化</em>。</p>
+            </article>
+            <article class="model-card" data-page-node-id="InqEpeTG27NSeD6LmgrBXA">
+              <span class="code" data-page-node-id="PGqLvczMPYjCGs4zDPNTHn">T3</span><h5 data-page-node-id="PAFeCbvlaXnFrGl0WAuTPB">关系连接</h5><p class="q" data-page-node-id="3ZEjgAGES5eT1DGBAkgLor">人与人之间是否留下了痕迹？</p>
+              <p data-page-node-id="7EclgWiwiR7jCSN95lkDDL">新认识 / 深度交流 / 关系变化 / 共同经历 / 情感表达 / 被理解。<em data-page-node-id="NDCujzTw463cfXMYCQAp5s">≠ 社交时间，</em>独处两小时也可能经历很深。</p>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="dims reveal" data-page-node-id="KaPk9FJTYx3e4Z1OVuikzo">
+      <div class="dim" data-page-node-id="H9YAZQzk1Ju0d2vmJt2U3s"><div class="badge" data-page-node-id="TSNpi3iFNCRUApjkIu3cd7">D1</div><h6 data-page-node-id="GSdrYUBCOxEabUCoh3r7Gh">时间投入</h6><p data-page-node-id="3mSiZSRYRnmDw7n7xNB1ik">流向 9 类场景</p></div>
+      <div class="dim" data-page-node-id="IwXKrdfMmGM7ELt7hjiaD0"><div class="badge" data-page-node-id="UWqKj0qdm8LhBEq0GlAgJN">D2</div><h6 data-page-node-id="cRjLmdwGCSt17G0b3JPWGu">时间重复</h6><p data-page-node-id="1H57SDbhsayBESrYqJEnc6">相似日占比</p></div>
+      <div class="dim" data-page-node-id="DeEm8XF4VmBbm6X5uNy1u4"><div class="badge" data-page-node-id="MKD8Ve8NiPC9wFciQ3Pym3">D3</div><h6 data-page-node-id="2b9SJdpHlaZpIHReTIoEIz">时间事件</h6><p data-page-node-id="aQ6wipm2lvoIzDdHMFyajz">新地点 · 人物</p></div>
+      <div class="dim" data-page-node-id="bCuBlUyfuw4Tg9wHucYpjg"><div class="badge" data-page-node-id="gK3hgqwpSmV7rZxlx2afuD">S1</div><h6 data-page-node-id="R1QKMWHfQEbAKUtiCVH2Dg">未来导向</h6><p data-page-node-id="FBcJRMJB6b6VAEaGi2Qvwn">意识指向未来</p></div>
+      <div class="dim" data-page-node-id="57t0gouDY7jznGYN2LRWUR"><div class="badge" data-page-node-id="OVVxc4GdG9riBFPaaDi22M">S2</div><h6 data-page-node-id="ViqGIbZWK5IF2wgXA2ICTM">结果导向</h6><p data-page-node-id="gZFHIoRPno9b76jRaJfFYq">过程 vs 结果</p></div>
+      <div class="dim" data-page-node-id="ygAHvOob65JuKoLtepFcMz"><div class="badge" data-page-node-id="jhzmTP2uR1E4rMlsuYU4DH">S3</div><h6 data-page-node-id="jlROqToaVUH5yWcB2SYVnw">主体参与</h6><p data-page-node-id="jV4oHlGypRnnw0z3v8Xor4">主动 vs 被动</p></div>
+      <div class="dim" data-page-node-id="ptl6oDf0E63fNUyJBK6j7P"><div class="badge" data-page-node-id="PGlVBPW2lZhCqKYLSrk2Lz">T1</div><h6 data-page-node-id="rySeLrwl0AorDikh3W3wjW">体验痕迹</h6><p data-page-node-id="Xl4hIZT31hxBsSq4QeOYgg">记忆节点</p></div>
+      <div class="dim" data-page-node-id="d9ckWH4E6jOIl00hojwf9Z"><div class="badge" data-page-node-id="uIdXKDuHNiRAcjircPBNGv">T2</div><h6 data-page-node-id="b1aPO0iqaHc4nHmaicK8So">认知变化</h6><p data-page-node-id="fZEnRSp06GFi0uS3wuh5cJ">旧观点推翻</p></div>
+      <div class="dim" data-page-node-id="Q4pfZNv8rFwmZtc7Csm9J5"><div class="badge" data-page-node-id="LRReJZHohgc3HuUdBuOwGu">T3</div><h6 data-page-node-id="jyl3C1zeNbMLzD1HDA99DR">关系连接</h6><p data-page-node-id="iyNWD0s1gHLMiSX9DqAGtA">深度连接</p></div>
+    </div>
+
+    <div class="principles" data-page-node-id="nfCOiCn27hPKbLDoGmC5Lt">
+      <div class="principle reveal" data-page-node-id="GsDMEuzbfc0eYMDSFGSieL"><span class="num" data-page-node-id="3IefPqgrikG8jBYCyYhxDT">01</span><div data-page-node-id="HNldsM60oHwaiVVWnpuUfw"><h6 data-page-node-id="RXGjrg5blXHQu1I6qZVoh7">不做"越高越好"</h6><p data-page-node-id="4g1m4sHqkDGKfDT5UZKbjJ">重复度高、未来导向高，也可以是稳定的好生活。指标只描述结构，不替你下判断。</p></div></div>
+      <div class="principle reveal" data-d="1" data-page-node-id="IE4x1FAgPPDhaFseDb2pZ1"><span class="num" data-page-node-id="i4TcaksFfHBCy8HCDz3I6I">02</span><div data-page-node-id="ZzquGt5jsbiVKVkJp0l6Wi"><h6 data-page-node-id="6hOaR900kBTG1ZxUXrEh18">评价放在关系结构</h6><p data-page-node-id="jUll6LPkwBXHnkWEJVVoW2">真正有价值的不是单项分数，而是不同维度组合后呈现的"时间结构"。</p></div></div>
+      <div class="principle reveal" data-d="2" data-page-node-id="rbk4S7bAPde5JogQvEHJXQ"><span class="num" data-page-node-id="oBmexOtuItW9DTe4K1FspT">03</span><div data-page-node-id="udHnHVXYGBIoDOqxu7983z"><h6 data-page-node-id="D4CZWmNukJYiXmgutmaYla">高中低三档，不做加分项</h6><p data-page-node-id="rKuDbsx3jCzkBd4KsOagjY">1–3 低 / 4–7 中 / 8–10 高。高 ≠ 好，低 ≠ 坏，让数据保持中性。</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · AI EXTRACTOR -->
+<section id="ai" data-page-node-id="DzT0fUwobBWUcFMURPRW2l">
+  <div class="container" data-page-node-id="VDh5KZ7J7ym60rgPEF0P90">
+    <div class="section-head" data-page-node-id="QjhZWoREIjKFsx1X0FZfg0">
+      <div data-page-node-id="aEaYiKbOxaUilQgUBmNVYj">
+        <div class="section-eyebrow reveal" data-page-node-id="HYnxFYFXx31ulZT5zFPQMq">03 · AI 自动解读</div>
+        <h2 class="section-title reveal" data-d="1" data-page-node-id="j4bPcsgzHiC2rWMlyFmIs0">用户记录的是生活，<br data-page-node-id="BNAa6BmywOWUAfvwNXJtGs"/>AI 负责建立指标。</h2>
+      </div>
+      <p class="section-lead reveal" data-d="2" data-page-node-id="8OV3f3rqr3ZTsr3EZsDQEe">
+        你不需要每天回答"今天幸福吗 1–10"。你只管像写日记一样写下今天发生的事，
+        时痕会从中<em data-page-node-id="dlGNgdaUEu9AicUbw5Jv1p">自动抽取结构化信号</em>，落到 D-S-T 三个层级。
+      </p>
+    </div>
+
+    <div class="ai-wrap" data-page-node-id="VJikx3ZBt1mShOBfNRjkK9">
+      <div class="ai-card user reveal" data-d="1" data-page-node-id="1fhkIq2CrG0IU2uGZEJ65I">
+        <div class="head" data-page-node-id="yV29C5LpGIePZFRQM8PXqs">
+          <span class="lbl" data-page-node-id="hqqzTE7UbPZWlw9jQ0tTiA">你的日记</span>
+          <span class="date" data-page-node-id="jPPR28Q4ywfsmuO7id0Ata">9 月 12 日</span>
+        </div>
+        <div class="journal" id="journal" data-page-node-id="iym3IgLjqzWLdHPfKed3OQ">
+          今天<em class="span" data-tag="D1" data-page-node-id="qnc5DEuyjULVlIl996okAp">开了六个小时会</em>，中午<em class="span" data-tag="D3" data-page-node-id="Ul2rUoWtJo0wSluwUMBgcq">一个人去吃了那家新开的面馆</em>，<em class="span" data-tag="T1" data-page-node-id="5viW3aXWxid3aM4NMexeay">居然挺好吃</em>。
+          下午讨论项目的时候<em class="span" data-tag="T2" data-page-node-id="r8E7EniGOk3vjrcHSnLXRs">突然想到一个新的方法</em>，<em class="span" data-tag="S3" data-page-node-id="fIWunzjJOGzH5SefXKpE6m">团队试了一下确实跑通了</em>。
+          晚上回家<em class="span" data-tag="D2" data-page-node-id="EcORMcPUY6qmlNCeAsZD2v">刷了两个小时短视频</em>，<em class="span" data-tag="S1" data-page-node-id="smShXnH6IjsLwdBALv0kic">有点恍惚</em>。
+        </div>
+      </div>
+
+      <div class="ai-card ai reveal" data-d="2" data-page-node-id="bFgWhrBk4tb2enG1GdeQRU">
+        <div class="head" data-page-node-id="x1Anrt8XMiZA25EWYvoAWc">
+          <span class="lbl" data-page-node-id="B3i0BWcGSciakNRt6JUldB">时痕 AI</span>
+          <span class="live" data-page-node-id="EEewg5cjlW1Qp7gskwAB1o">LIVE EXTRACT</span>
+        </div>
+        <div class="ai-rows" id="aiRows" data-page-node-id="RWVSxYzY7ZQXICj5ccxxD3">
+          <div class="ai-row" data-tag="D1" data-page-node-id="awfkODckF0Tetm0gLzyCZL"><span class="src" data-page-node-id="TRDwbQB0g8NstmOM0gmMZ2">开了六个小时会</span><span class="tag" data-page-node-id="WccayiICTAMwINedHuU0TR">D1 · 时间投入</span></div>
+          <div class="ai-row" data-tag="D3" data-page-node-id="vHJ7vT2jwHNeoa3rHBg1qf"><span class="src" data-page-node-id="L4yTmOP2cf3yg1lo2cq4YE">新开的面馆</span><span class="tag" data-page-node-id="ItTMBip3cGmGdqIRDcCdxs">D3 · 新地点</span></div>
+          <div class="ai-row" data-tag="T1" data-page-node-id="SC1UhBTwnfGziHHhKTUrbP"><span class="src" data-page-node-id="VieTLegwL7m3waT6hGRC6p">居然挺好吃</span><span class="tag" data-page-node-id="Hfay4FkMDYFeCE6x9vOWGX">T1 · 体验痕迹</span></div>
+          <div class="ai-row" data-tag="T2" data-page-node-id="Khf4EY8OSqsJdPZxIwef0N"><span class="src" data-page-node-id="cwkBDxmx6Abts4inwF2AG4">突然想到一个新的方法</span><span class="tag" data-page-node-id="N1uhkuzPt7ZuNa4CzVoKqm">T2 · 认知变化</span></div>
+          <div class="ai-row" data-tag="S3" data-page-node-id="mCqcm3bLnunFk0HM3wbEMr"><span class="src" data-page-node-id="l83hV6zigmfljBFhlUHVu3">团队试了一下跑通了</span><span class="tag" data-page-node-id="38CgXGROcAIFsFplrRXNGJ">S3 · 主体参与</span></div>
+          <div class="ai-row" data-tag="D2" data-page-node-id="brCKPWC65mZxmkZ8GoVoWg"><span class="src" data-page-node-id="7vZ032422xyCTiL0VDCISe">刷了两个小时短视频</span><span class="tag" data-page-node-id="yzarB66yQFJToIAvUtAzgB">D2 · 重复消费</span></div>
+          <div class="ai-row" data-tag="S1" data-page-node-id="6mK4MOY35YAx6yCTKqAwwE"><span class="src" data-page-node-id="m1hIjzAH5Omwga8WKCuNHK">有点恍惚</span><span class="tag" data-page-node-id="uB9iRroRYYNGUsjnyAoHsw">S1 · 当下感知</span></div>
+        </div>
+        <div class="ai-cta" data-page-node-id="aiXuXiNhkeMz3z9NOGOPgm">
+          <button class="btn btn-ghost" id="aiReplay" type="button" data-page-node-id="LVqqm2S4KwrpTRGZjBYO32">↻ 重播抽取</button>
+          <button class="btn btn-primary" id="aiNext" type="button" data-page-node-id="nQBvhbQHxLdAC37QPcmxAo">看画像生成 →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="results reveal" data-page-node-id="vj9ELiYCnr6to6PTEnEzkY">
+      <div class="section-head" data-page-node-id="V51ZkJhIGOkQoDu1zhsY2w">
+        <div data-page-node-id="HKcToRifGAVmWPXD9LMSn5">
+          <div class="section-eyebrow" data-page-node-id="lDOY7WIMQElmtXwgVbVZeB">04 · 衍生观察指标</div>
+          <h2 class="section-title" data-page-node-id="Qfx1SFVtXEhrIEnhF3jWpo">由底层指标计算而来的 5 个观察结果。</h2>
+        </div>
+        <p class="section-lead" data-page-node-id="aJlzAd6KXInoswI91lwoJD">它们不是"分数"，而是<em data-page-node-id="V7Cf6msf3Yd6e730aX1eJ1">"你最近的时间正在呈现什么结构"</em>。</p>
+      </div>
+      <div class="res-grid" data-page-node-id="DwYCe616iDyaNy2WbbJILl">
+        <div class="res" data-page-node-id="izI5XcC8FCT0pYA11I1rAL"><h5 data-page-node-id="aG6vVfXTKeum6QoTRhTLSH">时间压缩度</h5><p data-page-node-id="e8oSq1a3eQAPiTKkfDMxF1">过去一段时间是否容易被压缩成一片模糊的"过去"。</p><div class="formula" data-page-node-id="s3PKmr0PGSmwwopagkDd6R"><b data-page-node-id="WhkAD6jHmVI3RCYAssigfN">D2</b> + <b data-page-node-id="BpuJpfnKKuuG6FZWvfo7NY">D3</b> + <b data-page-node-id="E2ti9z9oSzfVF7IyvnoLmr">T1</b></div></div>
+        <div class="res" data-page-node-id="O36jvITbu89lPO6QM7hz6C"><h5 data-page-node-id="WwSAcBVAPuZDpekzVVQkxO">体验密度</h5><p data-page-node-id="3eAMXDjTF0HcLZFJQ2oCbv">单位时间内产生多少具有区分度的体验节点。</p><div class="formula" data-page-node-id="thR1Xm4gJB60enuoBj6Aj3"><b data-page-node-id="lbOJHyf9eWqEbbARLafMLl">D3</b> + <b data-page-node-id="BGIydMLSEul2FZWl19tqbk">T1</b></div></div>
+        <div class="res" data-page-node-id="oFVWaJS3CtsKG10aX9gxnw"><h5 data-page-node-id="KGiAdcumc2i2AwckOQhADG">结果化程度</h5><p data-page-node-id="MJeqEi8Oxbp7b11fMH6AXA">当前生活有多大比例被目标和结果牵引。</p><div class="formula" data-page-node-id="cWrrXVCDy5DtmzMrCeLXJo"><b data-page-node-id="Tob9bIb2EtkMjRWa4nUrLP">S1</b> + <b data-page-node-id="kWlGp9m6WQSOau61OsSwJQ">S2</b></div></div>
+        <div class="res" data-page-node-id="PT3D5vRKuGUFPzTNI7sARq"><h5 data-page-node-id="r0umXWwXFSw8EBpBRyotoo">生命参与度</h5><p data-page-node-id="HCiwWfwLAyolpQD5VEyQPO">自己有多少真正参与了正在发生的事情。</p><div class="formula" data-page-node-id="19bSzzM1NILQLWk4lNWaA4"><b data-page-node-id="4cpLGOE7tN8aQQy22mrLyX">S3</b> + <b data-page-node-id="r7JDbCQdLluAGSr33tinvk">T1</b> + <b data-page-node-id="Is57lCBcVtUqGsG1Or2Yoz">T2</b></div></div>
+        <div class="res" data-page-node-id="5epZCsjbDC8F0g3pAbGO8P"><h5 data-page-node-id="LWfANdB09xweinuJ2aCdY2">时间留痕度</h5><p data-page-node-id="hwVKQLr1KgrXs1jYAsUNyF">过去的时间在记忆、认知和关系中留下了多少东西。</p><div class="formula" data-page-node-id="gNWyRHLCkoNiJV9TByOK6o"><b data-page-node-id="APGxalNlFe3na5TECVjTcQ">T1</b> + <b data-page-node-id="bvjzQ8HswxKLhbNX8JbXUQ">T2</b> + <b data-page-node-id="NzoHuApJK2gT1QldLVNujq">T3</b></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 04 · PROFILE -->
+<section id="profile" data-page-node-id="Lc9x1kiSeBjPBL9eGn4b6J">
+  <div class="container" data-page-node-id="BPOHfX0s4XiGJ508vO92y7">
+    <div class="section-head" data-page-node-id="tvaK269ztgUX6Hy5blm2ds">
+      <div data-page-node-id="zb4aiZ13gLDzSJtmOPxsgb">
+        <div class="section-eyebrow reveal" data-page-node-id="fnMSzidPyDkbu9a8dFrAOW">05 · 个人时间体验画像</div>
+        <h2 class="section-title reveal" data-d="1" data-page-node-id="WoBfsFjazPwnZ38CCIArmY">过去 30 天，<br data-page-node-id="JgAo3pZu7DtzlGJMwj0jp4"/>你的时间正在呈现什么结构？</h2>
+      </div>
+      <p class="section-lead reveal" data-d="2" data-page-node-id="LAqCVWiqk37FvbM7NaYyKb">
+        我们不给你一个"人生总分"。我们把 9 个维度的当下状态并排摆出来，
+        再用一段<em data-page-node-id="w2xFZI783HecjfG7O74MA6">事实性文字</em>告诉你：这段时间你在怎么活。
+      </p>
+    </div>
+
+    <div class="profile-grid" data-page-node-id="GfdruOP8BMK9OzqBKROMZR">
+      <div class="card profile-card reveal" data-d="1" data-page-node-id="TTxNIP0DcDPQwYAmTWBAVF">
+        <div class="head" data-page-node-id="cJWvs4EGIWurqbh4sCh3Gt">
+          <h5 data-page-node-id="lscdPnhrllGRgLEdnj8tVm">个人时间体验画像</h5>
+          <div class="window-pick" role="tablist" data-page-node-id="yWCTmM2G5P2KX8bz2Wh9lL">
+            <button aria-pressed="false" data-window="7" type="button" data-page-node-id="dAQ1Igem43pxYe1WDKLF1x">7 天</button>
+            <button aria-pressed="true"  data-window="30" type="button" data-page-node-id="UIiPccNQDlvfPuRXGW9xGH">30 天</button>
+            <button aria-pressed="false" data-window="90" type="button" data-page-node-id="LxOqD4dyodXuvQtALlmElb">90 天</button>
+            <button aria-pressed="false" data-window="365" type="button" data-page-node-id="O9Nlb29sTuc2YZ656JLjoB">1 年</button>
+          </div>
+        </div>
+
+        <div class="radar" aria-label="九维时间体验画像雷达图" data-page-node-id="JkWlfzHH5KHWAA0jWgIBGq">
+          <svg viewBox="-260 -260 520 520" id="radarSvg" role="img" data-page-node-id="0S9zVmkWuBzBmnhGRCO64s"></svg>
+        </div>
+
+        <div class="persona-bar" role="tablist" aria-label="切换典型画像" data-page-node-id="feTWiv5HKA5dLkH6Nr2f05">
+          <button aria-pressed="true"  data-persona="balanced" type="button" data-page-node-id="PgmDiM8GrPPFCsF9tU0kDD"><span class="emo" data-page-node-id="6FX3BtCHPDLnoaHLRC4cWe">⚖</span>均衡型</button>
+          <button aria-pressed="false" data-persona="task"    type="button" data-page-node-id="haVR5xJ8vjIQsC6mdwWlI1"><span class="emo" data-page-node-id="m7gdLYIUDzoFpXuUvFogIq">▦</span>任务化</button>
+          <button aria-pressed="false" data-persona="explore" type="button" data-page-node-id="EnjXOasEtLadJFiTGPJBId"><span class="emo" data-page-node-id="qwhtH4QOCIZKK2U6uWIrZD">◇</span>探索型</button>
+          <button aria-pressed="false" data-persona="stable"  type="button" data-page-node-id="DcswyY3V9lyAxNeAA2Lhj2"><span class="emo" data-page-node-id="y5V9jEo03fRaCj3FvkJw2o">❀</span>稳定陪伴</button>
+        </div>
+
+        <div class="bars" id="bars" data-page-node-id="Er3DR8LHyJ70x8z5GMO9SW"></div>
+      </div>
+
+      <div class="card profile-side reveal" data-d="2" data-page-node-id="6FkwPNVhPCkEAOkViYDlFv">
+        <div data-page-node-id="ZxtMZcMfF4cSMS8gFNiFF0">
+          <div class="section-eyebrow" style="margin-bottom:var(--sp-2)" data-page-node-id="r4AN0RBE1nC3LiDa3r3QOZ">事实性解释</div>
+          <p class="narrative" id="narrative" data-page-node-id="B9EZNHQzQTfGhuin0F9qOQ">…</p>
+          <div class="ref" data-page-node-id="3AUJc5VrbtafJH9eE8b5ng">时痕 AI · 事实性解释 · 不评分</div>
+        </div>
+        <div class="prompt" data-page-node-id="isygfD8xPW2Gm6FuL9KoUL">
+          <div class="lbl" data-page-node-id="Fy1TMmD6XOFWHPipBqstA9">留给你的问题</div>
+          <p class="q" id="prompt" data-page-node-id="bIxLXdOTuyttD7AV94b9lH">我是不是一直在推进事情，却没有真正经历这些日子？</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 · SCENARIOS -->
+<section id="scenarios" data-page-node-id="eo8SEtzX9JRH0liHqf9TbI">
+  <div class="container" data-page-node-id="MPRvYtVhRdhuGkcYjt6HY3">
+    <div class="section-head" data-page-node-id="0HwrwVQTUI6eERt7QxhELb">
+      <div data-page-node-id="XaI6vYDjmtxwKMPnUnYFhN">
+        <div class="section-eyebrow reveal" data-page-node-id="r6Cpb1bBENwQlQs1vWtikW">06 · 真实场景</div>
+        <h2 class="section-title reveal" data-d="1" data-page-node-id="corZTzCKGed4K8cQQvDukz">三种典型日子，<br data-page-node-id="QPwxezgLJxBXpAIhjE8txm"/>三种时间结构。</h2>
+      </div>
+      <p class="section-lead reveal" data-d="2" data-page-node-id="pkDwjRv1hzvB7TBgDiab5t">
+        同一套指标体系下，三个普通人的画像差异。<em data-page-node-id="La5OB9CTR2aO46Pdx27UlK">时痕不评价好坏</em>，只让结构被看见。
+      </p>
+    </div>
+
+    <div class="sc-grid" data-page-node-id="Pa9dEy0gxxwLBH41KEL91U">
+      <article class="scenario reveal" data-page-node-id="lvlTpKH9yIgtHuxy3p03kR">
+        <span class="glyph" data-page-node-id="cXJ7iyBK3gPS7yh2YE8F8B">✈</span>
+        <h5 data-page-node-id="IFPcXQDbemRs1HpP9dYheX">出差日</h5>
+        <p class="desc" data-page-node-id="PMqGbMsqBqLfWBV0mDbys3">会议密集、通勤长、独处多。第一次去到新地方，但很难形成深度连接。</p>
+        <div class="micro" data-page-node-id="bBh8JhYN4Rhlv5u0lhKIRY">
+          <span class="micro-tag" data-page-node-id="g8a4zQeAqhXgx1NlLy3pJs">D1 工作 +35%</span>
+          <span class="micro-tag" data-page-node-id="HTWjBbL0ACSKDaoFyNRvD4">D3 新地点 +1</span>
+          <span class="micro-tag" data-page-node-id="w02XnOt863fDVxZ3xluZqb">S3 主体参与低</span>
+        </div>
+        <div class="stats" data-page-node-id="7Qg2hALoCNPz6kUjJ9GXZI">
+          <div class="stat" data-page-node-id="D6Ws6rzCBInuYUdV9IEksi"><div class="v" data-page-node-id="GnmdDaEVemA5PBE22nsfMi">8.4</div><div class="l" data-page-node-id="HKzG7Fo3fW5LP7RC9eZqUL">未来导向</div></div>
+          <div class="stat" data-page-node-id="f8qEIEc1uS9lYkmnuKXv4E"><div class="v" data-page-node-id="cUajBtN4jDQHWHBR9av6dd">3.2</div><div class="l" data-page-node-id="7je0lXVdVGgH9HIGRDNW2l">关系连接</div></div>
+          <div class="stat" data-page-node-id="hp7LAYNEAWjdrCa97I15Hp"><div class="v" data-page-node-id="KyKtHfFNEPwT2ChnQm5BuA">6.1</div><div class="l" data-page-node-id="Yi0LQMUK0HymDjlZVoSpH5">体验留痕</div></div>
+        </div>
+      </article>
+      <article class="scenario reveal" data-d="1" data-page-node-id="dPYMqdkv5HBC4EzIGDahAF">
+        <span class="glyph" data-page-node-id="rmHc0eO9R2NdENYM8QL7aD">⌂</span>
+        <h5 data-page-node-id="7VughrzQd1whNgZIt9pmg2">陪伴日</h5>
+        <p class="desc" data-page-node-id="K4gDo1LEvXdgtHB7Qq3ws1">重复度高的稳定生活，但深度交流与共同经历频繁。时间虽然没有新事件，却在关系里留下厚重的痕迹。</p>
+        <div class="micro" data-page-node-id="nXMtm5aolkOxhy0AhSylXA">
+          <span class="micro-tag" data-page-node-id="rpGOE54kOKjpoCZQdGQRBu">T3 关系连接高</span>
+          <span class="micro-tag" data-page-node-id="S6Y0EFhwewGZkISJujZC4Y">D2 重复度高</span>
+          <span class="micro-tag" data-page-node-id="f1DyF1bIPL5Cx9ww0CNv9W">S1 未来导向低</span>
+        </div>
+        <div class="stats" data-page-node-id="aWesFLB5gNTVqXUcwZUhaq">
+          <div class="stat" data-page-node-id="wOcawRPf2lG7GKhtULL9nh"><div class="v" data-page-node-id="OcRyjAQglHRtCKW114eG1n">2.8</div><div class="l" data-page-node-id="R0IHxQTRusmrRmQhfqixyN">未来导向</div></div>
+          <div class="stat" data-page-node-id="ii35HFwY67NjcVmk6ReoQm"><div class="v" data-page-node-id="S1DE8FGqAWkfA4HsuT7EbV">8.6</div><div class="l" data-page-node-id="tihnEoyb8yhngx4aphcTuH">关系连接</div></div>
+          <div class="stat" data-page-node-id="2MycfhfTEfyBiOeqERyhTN"><div class="v" data-page-node-id="rlYXfVVOpJf9aJeS9dqgC5">7.4</div><div class="l" data-page-node-id="3jrJoCti0HCzKIo1GMdL7y">认知变化</div></div>
+        </div>
+      </article>
+      <article class="scenario reveal" data-d="2" data-page-node-id="XnrFOTgn2bWUopIVodjwWe">
+        <span class="glyph" data-page-node-id="2j3HQx5Wjvj2rc7HeEznf2">◇</span>
+        <h5 data-page-node-id="ojNLw1fickxSvDCvPoFIlu">探索日</h5>
+        <p class="desc" data-page-node-id="41J19upJfaZ7xfnM0YGhWy">新地点、新体验、新认知集中爆发，但缺少持续的关系连接与结果交付。短期体验密度极高。</p>
+        <div class="micro" data-page-node-id="2s9rd3bFJHr76CtFw1zCN9">
+          <span class="micro-tag" data-page-node-id="tI6j3pWwn1I9sEG7R1cZ8m">D3 新事件密集</span>
+          <span class="micro-tag" data-page-node-id="ggE4dzGwW1QPoPFerCoUeC">T2 认知变化高</span>
+          <span class="micro-tag" data-page-node-id="6FilC9l3vVdc8ivNhBlksf">S3 主动参与</span>
+        </div>
+        <div class="stats" data-page-node-id="dGnGj457ZK86W9lnwOu42i">
+          <div class="stat" data-page-node-id="cqcUyMtnqGpEzB6EzVE5Nw"><div class="v" data-page-node-id="kP4sUAehmwnL8D8gLJdXx9">9.1</div><div class="l" data-page-node-id="fFsyUCAlHlDYDxJL0AYDfn">新事件</div></div>
+          <div class="stat" data-page-node-id="Urjb5LPgHeZSUjl8REjrFJ"><div class="v" data-page-node-id="ihvSTUOWoAjVupQTXKvsnu">8.3</div><div class="l" data-page-node-id="rvUaGgfLdMklANjJY6oB0x">主体参与</div></div>
+          <div class="stat" data-page-node-id="kmD4RdeTvQMoSrkVsoOWAo"><div class="v" data-page-node-id="mtHziCjZKDJ5o1C21I9L1g">3.5</div><div class="l" data-page-node-id="19Pcm0lYm2PPGx3B64h5Nt">结果导向</div></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- 06 · ANNUAL REPORT -->
+<section id="report" data-page-node-id="ZigAKh90qrVQkxLi4d349t">
+  <div class="container" data-page-node-id="zGo7B7Jxyfih9Sl4taTfFn">
+    <div class="section-head" data-page-node-id="MIqb8BLONPsLuqaLoRgjpM">
+      <div data-page-node-id="HxygFksLyi8mpiB2ON6FsF">
+        <div class="section-eyebrow reveal" data-page-node-id="bpHoBntLsWvQ99zYcMzPzH">07 · 年度时间体验报告</div>
+        <h2 class="section-title reveal" data-d="1" data-page-node-id="0AUIqwIZ0OBByd0Q1qaOq0">把一年活成一本可被看见的书。</h2>
+      </div>
+      <p class="section-lead reveal" data-d="2" data-page-node-id="okGGIvDHdZFhrbiqHXaCUi">
+        年底自动生成。<em data-page-node-id="NDnQRxmIdxlZ3o7oMHBdbZ">16 开布面装帧 + 高克重内文纸。</em>可电子阅读，亦可作为年度礼物。
+      </p>
+    </div>
+
+    <div class="report-grid" data-page-node-id="oaPyvb4yOg2DDaf307xI3d">
+      <div class="report-cover reveal" data-d="1" data-page-node-id="tXmGoqLrGzu80e0hHWFGdU">
+        <div class="y" data-page-node-id="0Rvkd0SZOToVv4iP5GvGBj">2025</div>
+        <div class="t" data-page-node-id="G1DPkCZ92430adcO9ykJea">你的时间体验报告</div>
+        <div class="s" data-page-node-id="77khCRpDySp3gTdKrxCScJ">TIME TRACE · ANNUAL EDITION</div>
+        <div class="foot" data-page-node-id="CavEvS1zGLjxxjGhA4OOGF"><span data-page-node-id="y04uvpCjU5PJFIH9YFBfUe">时痕 TIMETRACE</span><span data-page-node-id="jp23OcXdta7NN4a0ojJkux">VOL · 01</span></div>
+      </div>
+      <div class="report-content reveal" data-d="2" data-page-node-id="FLTVwDnfA2xG7nx8HAGkDt">
+        <h4 data-page-node-id="q59KWTA3YPeRvmS2dSgXMc">这份报告里会包含：</h4>
+        <p data-page-node-id="dCdEeU0B5mVSx4iI85GBT1">不是"你做了多少事"，而是"你经历了什么"。按月、按主题、按关系拆解一整年的时间结构，并配 AI 生成的事实性叙事章节。</p>
+        <div class="chapters" data-page-node-id="RDvuqk9VHAPsPwo8mhb5t1">
+          <div class="chap" data-page-node-id="QwGIGGls0R1i3DHtNnWJ0g"><span class="num" data-page-node-id="0ceNyxfG6WDfdJRyRmaWwA">01</span><span class="txt" data-page-node-id="muJt26izDoZ0nD56ueFomY">年度 D-S-T 总览</span></div>
+          <div class="chap" data-page-node-id="oJ2Wm6D3WyFySE0kCpAlke"><span class="num" data-page-node-id="zhVxWxuBBOVAqvnGDGthrY">02</span><span class="txt" data-page-node-id="1Cjlo7eJ6fVr1obQs4vndg">12 个月切片对比</span></div>
+          <div class="chap" data-page-node-id="Vuuhk2oC0HhOWodIbMsFQE"><span class="num" data-page-node-id="AF6zlyVE8Y7AMKY2N1JcP2">03</span><span class="txt" data-page-node-id="mjV74MTYENdbllNHcozZl4">关键事件时间轴</span></div>
+          <div class="chap" data-page-node-id="2JGzyzNKNsFBcJF3OYAO1d"><span class="num" data-page-node-id="UzMaICVdACVISufcAYyCDj">04</span><span class="txt" data-page-node-id="ZtaoMVGQVeSSwjjCI1Rx6J">认知变化清单</span></div>
+          <div class="chap" data-page-node-id="TuDtzuA7cx3HYbuXQro42T"><span class="num" data-page-node-id="GGHbhMfoPQ5JEk2HyKboCu">05</span><span class="txt" data-page-node-id="DtGQaP7FYBPvoXYuABEid0">关系网络回顾</span></div>
+          <div class="chap" data-page-node-id="LYJB1EDOrHziXLnmThZA4U"><span class="num" data-page-node-id="vrJIbBSRivNlwOfaJGUGCN">06</span><span class="txt" data-page-node-id="VP137jGR8Alzt3zjfWDJAO">AI 撰写年度叙事</span></div>
+        </div>
+        <div class="report-foot" data-page-node-id="eLVBstKNlz72Cd3BEak9Gi">Annual 订阅用户自动包含 · 也可单独购买 ¥198 / 册</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 · PRICING -->
+<section id="pricing" data-page-node-id="nN2FSwwK43JykU5RGMigBr">
+  <div class="container" data-page-node-id="ZRJbbrP9jKE3rE4tPrcY7m">
+    <div class="section-head" data-page-node-id="ru5AOjikh7udDo6ytk7eft">
+      <div data-page-node-id="LlYSrgYNlEVZNsBGPrpbOu">
+        <div class="section-eyebrow reveal" data-page-node-id="FyFqm9kucVA4ad6DPxgOTc">08 · 订阅</div>
+        <h2 class="section-title reveal" data-d="1" data-page-node-id="wToBuLfdcnTqHVVkyDxuih">选择一个适合你的节奏。</h2>
+      </div>
+      <p class="section-lead reveal" data-d="2" data-page-node-id="b2MZehg92kczlItFsbvuO6">
+        免费版即可看到完整画像结构；Pro 解锁跨周期对比、年度回顾与 AI 深度解读。
+      </p>
+    </div>
+
+    <div class="pricing" data-page-node-id="91daavrULrfSfJLZdkxeut">
+      <div class="price reveal" data-page-node-id="RWbyuRBQyHzWTeG7xLNU9O">
+        <h4 data-page-node-id="NnHl2smAC2DhPcDNSQmG5u">Free · 记录</h4>
+        <p class="desc" data-page-node-id="1jV4Kxpvc3NarW6sS56fif">适合刚开始想"看见自己"的人。</p>
+        <div class="amount" data-page-node-id="Tk5P0PPaBbZMLCpqAousEH"><strong data-page-node-id="fB7wIphgXoj7JiAEt1LqG9">¥0</strong><span data-page-node-id="Tugl3vM4P8hIT3SWqLRhAG">/ 永久</span></div>
+        <div class="billed" data-page-node-id="QPCRbSlD2t4VpIQqMMbndr">无需信用卡</div>
+        <ul data-page-node-id="4nYFPskBf2y4ACxvRa6m86">
+          <li data-page-node-id="8Br3z3BtjLhg1hySh2LR7x">每日 1 条日记式记录</li>
+          <li data-page-node-id="1gkyhhPW4pBhtTGFXCwii7">近 7 天的简化画像</li>
+          <li data-page-node-id="cnJxO7HRiM7NewvbdX0P1t">3 个核心维度可视化</li>
+          <li data-page-node-id="0QGTq27DXc26w3TknPtZbP">本地数据导出</li>
+        </ul>
+        <a href="#cta" class="btn btn-ghost" data-page-node-id="tzjHO8haEUY7KjGMHy8GuM">免费开始</a>
+      </div>
+      <div class="price featured reveal" data-d="1" data-page-node-id="dQu38WPE3aUEJ4Pzbnz7aj">
+        <span class="badge-pop" data-page-node-id="tbFsdN3tUdv1GMwzUmKNPP">最受欢迎</span>
+        <h4 data-page-node-id="jkPJAGeaSBJmJEmEZ3u07c">Pro · 画像</h4>
+        <p class="desc" data-page-node-id="dlRLSbqYQ2XzMeugQh2Dk0">完整 D-S-T 体系 + AI 事实性解释。</p>
+        <div class="amount" data-page-node-id="GGUpmRtUlCT9tchzCq3d4D"><strong data-page-node-id="wBHlrKgKHfW9fJfIAbgWsu">¥38</strong><span data-page-node-id="G4QiZGqt4isk7UDUb6Q8pD">/ 月</span></div>
+        <div class="billed" data-page-node-id="yborCiUJcxgeggewewGPLv">按月订阅，可随时取消</div>
+        <ul data-page-node-id="GEnSb2SiME6zY7y7rgaLYB">
+          <li data-page-node-id="ZAwWoTVdEoTbLEOe4KQzKJ">无限记录 · 多媒介输入</li>
+          <li data-page-node-id="8sqqEZQTgwEjm6sAjwWuR1">完整 9 维画像 + 5 个观察指标</li>
+          <li data-page-node-id="SCkgAtCzHOisfcW9XbgtJL">30 / 90 / 365 天对比视图</li>
+          <li data-page-node-id="9ogXmGVWXTCBqgxc04F73y">AI 周报与月度解读</li>
+          <li data-page-node-id="ZUQSpekCfpAcbVM9EQuXF0">加密云端同步</li>
+        </ul>
+        <a href="#cta" class="btn btn-primary" data-page-node-id="nNdR7cXgRCOFPITsXqF624">开启 14 天试用</a>
+      </div>
+      <div class="price reveal" data-d="2" data-page-node-id="lUVvCPgpWh691nqOkzgFLh">
+        <h4 data-page-node-id="8vafUqocUdV6UzdVp6cJUc">Annual · 年度</h4>
+        <p class="desc" data-page-node-id="gPW6eyLp8fQm7eROIaQ1LP">把一年活成一本可被看见的书。</p>
+        <div class="amount" data-page-node-id="KXqnAb1DbR95kCPLjjNr56"><strong data-page-node-id="mcxluWNycuBNyzEYBrByrE">¥328</strong><span data-page-node-id="8QY1SMvzRd3Qn5uGSvh0a3">/ 年</span></div>
+        <div class="billed" data-page-node-id="NJCvydAaP8kmv7n0xSj14n">相当于 ¥27 / 月</div>
+        <ul data-page-node-id="HqDHNj6TmMJ3yi1c0lWzTL">
+          <li data-page-node-id="2e2iLPLFWO8TCF74ibvTnd">Pro 全部能力</li>
+          <li data-page-node-id="YBGSUfoIfzGHUDCJNRIZqW">「年度时间体验报告」PDF</li>
+          <li data-page-node-id="zCXTCpIIZ6Ondx4inBSy1v">可定制实体时间册（限量）</li>
+          <li data-page-node-id="tcSN6ycjyApDCPcwLYU40d">跨年对比 · 长期趋势</li>
+          <li data-page-node-id="CiutXFl5MiETcOZVh8zaBz">优先体验新指标</li>
+        </ul>
+        <a href="#cta" class="btn btn-ghost" data-page-node-id="B2oDDROklJVFIFzYBKvBIs">订阅年度</a>
+      </div>
+    </div>
+
+    <div class="faq reveal" data-page-node-id="kHHQ2EAecFlmkVGf8cRD7d">
+      <details data-page-node-id="iq4797y2EFCW5ChERxVyTS">
+        <summary data-page-node-id="70HPyZ9JV7CPmMYBVp4OyA">时痕是时间管理工具吗？</summary>
+        <p data-page-node-id="gq2aHZpzqg03mGuI7L2czA">不是。时痕不帮你安排时间，也不提醒你做事。它只做一件事：让你看见自己正在怎么经历时间。安排时间是你的事，安排完之后的"自己过得怎么样"，才是时痕的事。</p>
+      </details>
+      <details data-page-node-id="DISgAQMHDSvyHHhSr6B8mv">
+        <summary data-page-node-id="QzDMPmdTff08iPNUy28MHk">为什么不做"幸福指数"？</summary>
+        <p data-page-node-id="yjJCA00YtWc0mFA3bv12Mu">因为"幸福"是一个价值判断，会让 AI 替用户评价人生。时痕只做事实层、结构层、留痕层的可计算拆分，再做事实性解释。是否"过得好"，留给你自己。</p>
+      </details>
+      <details data-page-node-id="ZtJksJgFdsEq4AEsFtMkPq">
+        <summary data-page-node-id="AxQt0FbXM2Rd4Bhzibv4p7">数据隐私如何处理？</summary>
+        <p data-page-node-id="2Dpc5QJCzDqDJkuHBZO0h5">所有日记默认加密本地存储。云端同步采用端到端加密，AI 解读在沙箱环境内进行，不参与任何模型训练。你可以随时一键导出或彻底删除。</p>
+      </details>
+      <details data-page-node-id="hAPyTGTgJcUssjTzofPZea">
+        <summary data-page-node-id="DuoS3fJSarEXLJg5ec8DGs">我需要每天写很多吗？</summary>
+        <p data-page-node-id="C7F2UiMAdXst21zmPgEoAa">不需要。系统设计支持"碎片化记录"：一段话、一句话、甚至一个关键词都可以。AI 会帮你补全结构。但坚持 30 天以上，画画像的稳定性才会显现。</p>
+      </details>
+      <details data-page-node-id="VarRiXnRodFCP0KnGxImGS">
+        <summary data-page-node-id="zf9E3BupO7lUqssyDUrkiW">免费版够用吗？</summary>
+        <p data-page-node-id="B8WLaZPIvCCQIv1xJzqzMo">如果你只是想体验"看见自己"这件事，免费版已经够。如果你想跨周期对比、生成年度报告、做长期趋势，Pro 是为这件事准备的。</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- 09 · CTA -->
+<section id="cta" data-page-node-id="ujgSvw1cs5HwRrcYb1y6du">
+  <div class="container" data-page-node-id="OEFzaZMRRLVhwaGBsbc9qM">
+    <div class="cta-final reveal" data-page-node-id="siTJUfoGPKbkHXBKXH2eVT">
+      <div class="section-eyebrow" style="color:var(--accent); margin-bottom:var(--sp-3)" data-page-node-id="5qZhCWlDWXxTpOobQVJxqW">09 · 开始</div>
+      <h3 data-page-node-id="ODiC9COiN4aEK2cOC9BnhI">让 30 天后的自己，<br data-page-node-id="N0fOHUDE6ZULzH4QJzSFH5"/>看见今天的自己。</h3>
+      <p data-page-node-id="y9Ww45MdeXP83BCRf5TyNf">不是告诉你怎么活，而是让你第一次看见自己正在怎么活。<br data-page-node-id="rdAO03xBHHAegCAdNyUKD3"/>时痕不评价你的人生，它只把日子还给你。</p>
+      <div class="hero-actions center" data-page-node-id="RDNQlGPDAoHVNH7ID5LIjT">
+        <a href="#" class="btn btn-primary" data-page-node-id="soTWd9hDpA4T6EIi9OjR9M">免费开始</a>
+        <a href="#model" class="btn btn-ghost" data-page-node-id="9GEUBfdDgjFKlfoyIVnXsy">再看一遍指标体系</a>
+      </div>
+      <div class="meta" data-page-node-id="Hh6DDku0E2W2dK4AnDwfhH">无需信用卡 · 14 天 Pro 试用 · 随时可取消</div>
+    </div>
+  </div>
+</section>
+
+<footer data-page-node-id="12HRdFhfQL6Ixkgk0PopTO">
+  <div class="container footer-row" data-page-node-id="AtH6DXZgbVPaBBYshMOxrE">
+    <div data-page-node-id="DawfQBMavAKiTo1mHEUNWr">© 2026 时痕 TimeTrace · 看见你正在经历的时间</div>
+    <div data-page-node-id="b1ZH4veVnId9u63IwcjC0z">
+      <a href="#" style="margin-right:18px" data-page-node-id="XothN8r6vacGwEzuVQG59H">隐私</a>
+      <a href="#" style="margin-right:18px" data-page-node-id="PJyXB7ILxPRaQ3DOZo9Cp0">条款</a>
+      <a href="#" style="margin-right:18px" data-page-node-id="IsQs278DVa9EIsUZKQRyaJ">方法论白皮书</a>
+      <a href="#" data-page-node-id="6srrDYSDnaLKP2hC7VqIdj">联系</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* 1. 滚动揭示 */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { rootMargin: '0px 0px -8% 0px', threshold: 0.04 });
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* 2. Hero 粒子 · 低密度、收口、椭圆遮罩 */
+  (function(){
+    var c = document.getElementById('particleCanvas');
+    if (!c || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var ctx = c.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = 0, h = 0, parts = [];
+    var COUNT = 38;
+
+    function resize(){
+      var r = c.getBoundingClientRect();
+      w = r.width; h = r.height;
+      c.width = w * dpr; c.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    function spawn(initial){
+      return {
+        x: Math.random() * w,
+        y: initial ? Math.random() * h : h + 14,
+        vx: (Math.random() - 0.5) * 0.05,
+        vy: -(0.06 + Math.random() * 0.18),
+        r: 0.5 + Math.random() * 1.1,
+        a: 0.12 + Math.random() * 0.28,
+        hue: Math.random() < 0.72 ? 168 : (Math.random() < 0.5 ? 75 : 50),
+        life: 0, max: 1400 + Math.random() * 1600,
+      };
+    }
+    function step(){
+      ctx.clearRect(0, 0, w, h);
+      for (var i = 0; i < parts.length; i++){
+        var p = parts[i];
+        p.x += p.vx; p.y += p.vy; p.life += 16;
+        var fade = Math.min(1, p.life / 500, (p.max - p.life) / 500);
+        if (fade <= 0){ Object.assign(p, spawn(false)); continue; }
+        ctx.fillStyle = 'oklch(72% 0.08 ' + p.hue + ' / ' + (p.a * fade) + ')';
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2); ctx.fill();
+      }
+      requestAnimationFrame(step);
+    }
+    resize();
+    parts = Array.from({length: COUNT}, function(){ return spawn(true); });
+    requestAnimationFrame(step);
+    addEventListener('resize', resize);
+  })();
+
+  /* 3. D-S-T Tabs */
+  document.querySelectorAll('.model-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var target = tab.dataset.tab;
+      document.querySelectorAll('.model-tab').forEach(function(t){ t.setAttribute('aria-selected', String(t === tab)); });
+      document.querySelectorAll('.model-panel').forEach(function(p){ p.classList.toggle('active', p.dataset.panel === target); });
+    });
+  });
+
+  /* 4. AI 流式抽取 */
+  var spans = document.querySelectorAll('#journal .span');
+  var rows  = document.querySelectorAll('#aiRows .ai-row');
+  var aiDone = false;
+
+  function runAI(){
+    rows.forEach(function(r){ r.classList.remove('show'); });
+    spans.forEach(function(s){ s.classList.remove('hl'); });
+    var i = 0;
+    (function next(){
+      if (i >= spans.length) return;
+      var s = spans[i];
+      s.classList.add('hl');
+      var row = document.querySelector('.ai-row[data-tag="' + s.dataset.tag + '"]');
+      if (row) row.classList.add('show');
+      i++;
+      setTimeout(next, 360);
+    })();
+  }
+  var aiObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting && !aiDone){ aiDone = true; runAI(); }
+    });
+  }, { threshold: 0.3 });
+  var aiRoot = document.getElementById('aiRows');
+  if (aiRoot) aiObs.observe(aiRoot);
+
+  document.getElementById('aiReplay').addEventListener('click', runAI);
+  document.getElementById('aiNext').addEventListener('click', function(){
+    var p = document.getElementById('profile');
+    if (p) p.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+
+  /* 5. Radar + Personas + Window */
+  var DIMS = [
+    { key:'S1', name:'未来导向', cat:'S' },
+    { key:'S2', name:'结果导向', cat:'S' },
+    { key:'S3', name:'主体参与', cat:'S' },
+    { key:'D2', name:'时间重复', cat:'D' },
+    { key:'D3', name:'新事件',   cat:'D' },
+    { key:'T1', name:'体验留痕', cat:'T' },
+    { key:'T2', name:'认知变化', cat:'T' },
+    { key:'T3', name:'关系连接', cat:'T' },
+    { key:'D1', name:'时间投入', cat:'D' },
+  ];
+  var PERSONAS = {
+    balanced: {
+      S1:8.4, S2:7.8, S3:5.5, D2:8.1, D3:3.2, T1:3.8, T2:6.0, T3:5.2, D1:7.2,
+      narrative: '过去 30 天，你的时间主要集中在目标推进与重复性活动；新事件和体验留痕相对较少。你的记录中出现了若干认知变化，但主要集中在工作场景。',
+      prompt: '我是不是一直在推进事情，却没有真正经历这些日子？',
+      win: {7:[6.8,7.0,5.0,7.6,4.0,4.5,5.5,5.0,6.6], 30:[8.4,7.8,5.5,8.1,3.2,3.8,6.0,5.2,7.2], 90:[7.6,7.2,5.2,7.8,4.0,4.6,5.6,5.0,6.8], 365:[6.2,6.8,5.8,7.4,4.8,5.4,6.4,6.0,6.4]}
+    },
+    task: {
+      S1:9.2, S2:9.0, S3:3.4, D2:8.8, D3:2.2, T1:2.6, T2:3.8, T3:3.0, D1:8.4,
+      narrative: '过去 30 天，你的时间被目标和结果高度牵引。重复活动占比偏高，新事件稀缺，体验留痕与认知变化均处于低位。你的记录几乎全部围绕"是否完成"。',
+      prompt: '我是不是正在用"完成度"代替"经历"，把日子过成了清单？',
+      win: {7:[8.6,8.4,3.2,8.4,2.0,2.4,3.6,2.8,8.0], 30:[9.2,9.0,3.4,8.8,2.2,2.6,3.8,3.0,8.4], 90:[8.8,8.6,3.8,8.2,2.6,3.0,4.2,3.4,7.8], 365:[7.8,8.0,4.2,7.6,3.4,3.8,4.8,4.0,7.0]}
+    },
+    explore: {
+      S1:4.0, S2:3.5, S3:8.3, D2:4.2, D3:9.1, T1:8.0, T2:8.6, T3:5.4, D1:5.6,
+      narrative: '过去 30 天，你的时间呈现出强烈的探索性结构。新地点、新体验、新认知高频出现，主体参与度高。但结果交付与稳定关系相对稀薄。',
+      prompt: '我是不是在不断出发，却很少把任何一段经历真正留下？',
+      win: {7:[4.4,4.0,8.0,4.4,8.6,7.6,8.2,5.0,5.4], 30:[4.0,3.5,8.3,4.2,9.1,8.0,8.6,5.4,5.6], 90:[4.6,4.4,7.8,4.8,8.4,7.4,8.0,5.6,6.0], 365:[5.4,5.0,7.4,5.4,7.8,6.8,7.4,6.0,6.2]}
+    },
+    stable: {
+      S1:2.8, S2:3.4, S3:6.2, D2:7.6, D3:3.6, T1:7.2, T2:7.4, T3:8.6, D1:5.4,
+      narrative: '过去 30 天，你处于一种"稳定陪伴"的时间结构。重复度不低，但体验留痕、认知变化与关系连接均处于高位。新事件少，但每天都在被真正经历。',
+      prompt: '我是不是低估了"看起来重复"的日子，其实它正在给我最多？',
+      win: {7:[2.6,3.2,6.0,7.4,3.4,7.0,7.2,8.4,5.2], 30:[2.8,3.4,6.2,7.6,3.6,7.2,7.4,8.6,5.4], 90:[3.0,3.6,6.0,7.2,4.0,6.8,7.0,8.2,5.6], 365:[3.4,4.0,5.8,6.8,4.4,6.4,6.6,7.8,5.8]}
+    },
+  };
+
+  var radarSvg  = document.getElementById('radarSvg');
+  var barsEl   = document.getElementById('bars');
+  var narrEl   = document.getElementById('narrative');
+  var promptEl = document.getElementById('prompt');
+
+  var RADIUS = 200;
+  function ang(i, n){ return -Math.PI/2 + (i * 2 * Math.PI / n); }
+  function pt(i, r){ return [Math.cos(ang(i, DIMS.length)) * r, Math.sin(ang(i, DIMS.length)) * r]; }
+
+  function buildShell(){
+    var rings = [0.25, 0.5, 0.75, 1].map(function(t){
+      var pts = DIMS.map(function(_, i){ return pt(i, RADIUS * t).map(function(n){ return n.toFixed(2); }).join(','); }).join(' ');
+      return '<polygon points="' + pts + '" fill="none" stroke="oklch(89% 0.012 85)" stroke-width="' + (t === 1 ? 1.2 : 0.6) + '"/>';
+    }).join('');
+    var axes = DIMS.map(function(_, i){
+      var p = pt(i, RADIUS);
+      return '<line x1="0" y1="0" x2="' + p[0].toFixed(2) + '" y2="' + p[1].toFixed(2) + '" stroke="oklch(89% 0.012 85)" stroke-width="0.6"/>';
+    }).join('');
+    var labels = DIMS.map(function(d, i){
+      var p = pt(i, RADIUS + 22);
+      var anchor = p[0] < -8 ? 'end' : (p[0] > 8 ? 'start' : 'middle');
+      var color = d.cat === 'D' ? 'oklch(36% 0.072 168)' : (d.cat === 'S' ? 'oklch(36% 0.080 70)' : 'oklch(36% 0.080 280)');
+      return '<text x="' + p[0].toFixed(2) + '" y="' + p[1].toFixed(2) + '" text-anchor="' + anchor + '" dominant-baseline="middle" font-family="JetBrains Mono, monospace" font-size="11.5" fill="' + color + '" font-weight="500" letter-spacing="0.3">' + d.key + ' · ' + d.name + '</text>';
+    }).join('');
+    radarSvg.innerHTML =
+      '<defs>' +
+        '<radialGradient id="radarFill" cx="50%" cy="50%" r="55%">' +
+          '<stop offset="0%" stop-color="oklch(44% 0.072 168)" stop-opacity="0.55"/>' +
+          '<stop offset="100%" stop-color="oklch(70% 0.105 75)" stop-opacity="0.18"/>' +
+        '</radialGradient>' +
+      '</defs>' +
+      rings + axes +
+      '<polygon id="radarData" points="" fill="url(#radarFill)" stroke="oklch(30% 0.070 168)" stroke-width="1.8" stroke-linejoin="round" opacity="0"/>' +
+      '<g id="radarPoints"></g>' +
+      labels;
+  }
+
+  var curPersona = 'balanced';
+  var curWindow  = 30;
+
+  function apply(p){
+    curPersona = p;
+    var data = PERSONAS[p];
+    var values = curWindow === 30
+      ? DIMS.map(function(d){ return data[d.key]; })
+      : DIMS.map(function(d, i){ return data.win[curWindow][i]; });
+
+    var pts = values.map(function(v, i){
+      return pt(i, (v / 10) * RADIUS).map(function(n){ return n.toFixed(2); }).join(',');
+    }).join(' ');
+    var poly = document.getElementById('radarData');
+    poly.setAttribute('points', pts);
+    poly.animate(
+      [{opacity:0, transform:'scale(0.92)'}, {opacity:1, transform:'scale(1)'}],
+      { duration: 650, easing: 'cubic-bezier(.22,.61,.36,1)', fill: 'forwards' }
+    );
+
+    var ptsG = document.getElementById('radarPoints');
+    ptsG.innerHTML = values.map(function(v, i){
+      var pp = pt(i, (v / 10) * RADIUS);
+      return '<circle cx="' + pp[0].toFixed(2) + '" cy="' + pp[1].toFixed(2) + '" r="3.5" fill="oklch(98% 0.010 85)" stroke="oklch(30% 0.070 168)" stroke-width="1.5"/>';
+    }).join('');
+
+    barsEl.innerHTML = DIMS.map(function(d, i){
+      var v = values[i];
+      var cls = v >= 7 ? 't-high' : v >= 4 ? 't-mid' : 't-low';
+      return '<div class="bar-row">' +
+        '<span class="name">' + d.name + '</span>' +
+        '<div class="bar ' + cls + '"><span style="width:' + (v * 10) + '%"></span></div>' +
+        '<span class="val">' + v.toFixed(1) + '</span>' +
+      '</div>';
+    }).join('');
+    requestAnimationFrame(function(){
+      var bs = barsEl.querySelectorAll('.bar');
+      bs.forEach(function(b, i){ setTimeout(function(){ b.classList.add('show'); }, 60 * i); });
+    });
+
+    narrEl.classList.add('fading');
+    setTimeout(function(){
+      narrEl.textContent = (curWindow === 30 ? data.narrative : narrativeFor(curWindow));
+      narrEl.classList.remove('fading');
+      promptEl.textContent = data.prompt;
+    }, 300);
+  }
+  function narrativeFor(w){
+    if (w === 7)  return '过去 7 天，你的画像整体延续近 30 天的趋势。变化主要集中在短期波动层——一些突发事项短暂推高了未来导向与结果导向。';
+    if (w === 90) return '拉长到 90 天看，你的画像比 30 天更平滑。新事件与体验留痕的稀缺不是一周造成的，而是结构性的。';
+    if (w === 365) return '把尺度放到一年，过去 12 个月你的时间结构呈现出明显的"季节性"——某些季度是探索期，某些季度是任务期。';
+    return '';
+  }
+
+  buildShell();
+  apply('balanced');
+
+  document.querySelectorAll('.persona-bar button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.persona-bar button').forEach(function(b){ b.setAttribute('aria-pressed', String(b === btn)); });
+      apply(btn.dataset.persona);
+    });
+  });
+  document.querySelectorAll('.window-pick button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('.window-pick button').forEach(function(b){ b.setAttribute('aria-pressed', String(b === btn)); });
+      curWindow = parseInt(btn.dataset.window, 10);
+      apply(curPersona);
+    });
+  });
+
+  /* 6. View Transitions（渐进增强） */
+  if ('startViewTransition' in document){
+    document.querySelectorAll('a[href^="#"]').forEach(function(a){
+      a.addEventListener('click', function(ev){
+        var id = a.getAttribute('href').slice(1);
+        var tgt = document.getElementById(id);
+        if (!tgt) return;
+        ev.preventDefault();
+        document.startViewTransition(function(){ tgt.scrollIntoView({ behavior:'instant', block:'start' }); });
+      });
+    });
+  }
+})();
+</script>
+</body>
+</html>
