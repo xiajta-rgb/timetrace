@@ -249,6 +249,96 @@
   .ai-signal .src{font-family:var(--serif);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   .ai-signal .conf{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint)}
   .ai-signal .conf b{color:var(--accent-deep)}
+
+  /* ===== 因子信息气泡 (Factor Tooltip) ===== */
+  .factor-info{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:14px;height:14px;border-radius:50%;
+    background:var(--bg-soft);border:1px solid var(--line);
+    color:var(--ink-faint);font-size:10px;font-weight:600;
+    cursor:help;margin-left:6px;flex-shrink:0;
+    transition:all var(--dur-1) var(--ease-out);
+    font-family:var(--mono);
+  }
+  .factor-info:hover{background:var(--accent);color:var(--paper);border-color:var(--accent);transform:scale(1.15)}
+  .factor-popover{
+    position:absolute;z-index:250;
+    width:280px;padding:14px 16px;
+    background:var(--paper);border:1px solid var(--line);
+    border-radius:var(--r-l);box-shadow:var(--shadow-2);
+    font-size:var(--fs-sm);line-height:1.6;color:var(--ink);
+    pointer-events:none;opacity:0;transform:translateY(-4px);
+    transition:opacity .2s var(--ease-out), transform .2s var(--ease-out);
+  }
+  .factor-popover.show{opacity:1;transform:none}
+  .factor-popover .pop-id{
+    font-family:var(--mono);font-size:10px;letter-spacing:1.2px;
+    color:var(--accent);margin-bottom:4px;
+  }
+  .factor-popover .pop-name{font-family:var(--serif);font-size:15px;font-weight:600;margin:0 0 6px;color:var(--ink)}
+  .factor-popover .pop-desc{color:var(--ink-soft);font-size:12.5px;line-height:1.65;margin:0 0 10px}
+  .factor-popover .pop-kws{
+    display:flex;flex-wrap:wrap;gap:4px;
+  }
+  .factor-popover .pop-kws .kw{
+    font-family:var(--mono);font-size:10px;padding:2px 6px;
+    background:var(--bg-soft);border-radius:4px;color:var(--ink-soft);
+  }
+  .factor-popover .pop-intent{
+    margin-top:8px;font-family:var(--mono);font-size:10px;
+    color:var(--ink-faint);text-transform:uppercase;letter-spacing:1px;
+  }
+  .factor-popover .pop-intent.pos{color:var(--accent-deep)}
+  .factor-popover .pop-intent.neg{color:var(--warm)}
+  .factor-popover .pop-intent.neu{color:var(--ink-faint)}
+
+  /* ===== AI 空态 & 无信号兜底 ===== */
+  .ai-empty-state{
+    margin-top:14px;padding:14px 16px;border:1px dashed var(--line);border-radius:var(--r-m);
+    background:var(--bg-soft);
+  }
+  .ai-empty-state .aes-title{font-family:var(--mono);font-size:11px;letter-spacing:1.2px;color:var(--ink-faint);margin-bottom:10px;text-transform:uppercase}
+  .ai-empty-state .aes-examples{display:grid;gap:8px}
+  .ai-empty-state .aes-ex{
+    text-align:left;padding:10px 12px;border:1px solid var(--line);border-radius:var(--r-s);
+    background:var(--paper);cursor:pointer;transition:all var(--dur-1) var(--ease-out);
+    display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;
+    font-family:var(--sans);font-size:13px;color:var(--ink-soft);line-height:1.55;
+  }
+  .ai-empty-state .aes-ex:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 14px -8px oklch(22% 0.018 235 / .2)}
+  .ai-empty-state .aes-ex .tag{
+    font-family:var(--mono);font-size:10px;letter-spacing:.8px;
+    padding:3px 8px;border-radius:4px;color:var(--paper);font-weight:600;white-space:nowrap;
+  }
+  .ai-empty-state .aes-ex .tag.task{background:var(--accent)}
+  .ai-empty-state .aes-ex .tag.explore{background:oklch(70% 0.105 75)}
+  .ai-empty-state .aes-ex .tag.company{background:oklch(50% 0.080 280)}
+  .ai-no-signal{
+    margin-top:14px;padding:14px 16px;
+    background:oklch(94% 0.030 50);border:1px solid oklch(70% 0.105 75 / .3);
+    border-radius:var(--r-m);font-size:13px;color:var(--ink);
+  }
+  .ai-no-signal .ans-title{font-family:var(--mono);font-size:11px;letter-spacing:1.2px;color:var(--warm);margin-bottom:6px;font-weight:600}
+  .ai-no-signal .ans-body{color:var(--ink-soft);margin-bottom:8px}
+  .ai-no-signal .ans-prompts{margin:0;padding-left:18px;color:var(--ink-soft);line-height:1.75}
+  .ai-no-signal .ans-prompts b{color:var(--ink);font-weight:600}
+
+  /* ===== 趋势条 (Workbench Trend) ===== */
+  .wb-trend{
+    display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+    margin-top:14px;padding-top:12px;border-top:1px solid var(--line-soft);
+  }
+  .wb-trend-item{
+    display:inline-flex;align-items:center;gap:4px;
+    padding:4px 8px;border-radius:999px;
+    font-family:var(--mono);font-size:10px;letter-spacing:.5px;
+    background:var(--bg-soft);color:var(--ink-soft);
+  }
+  .wb-trend-item .arr{font-size:11px;font-weight:700}
+  .wb-trend-item.up{background:oklch(94% 0.022 168);color:var(--accent-deep)}
+  .wb-trend-item.down{background:oklch(94% 0.030 50);color:var(--warm)}
+  .wb-trend-item.flat{background:var(--bg-soft);color:var(--ink-faint)}
+  .wb-trend-item .key{font-weight:600;color:var(--ink)}
   .ai-scores{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
   .ai-score{padding:14px;background:var(--bg-soft);border-radius:var(--r-m);text-align:center;border:1px solid var(--line)}
   .ai-score .k{font-family:var(--mono);font-size:10.5px;letter-spacing:1.2px;color:var(--ink-faint)}
@@ -766,85 +856,187 @@ const Domain = (() => {
   // —— 纯函数：信号抽取（从 factors 中抽取 + 兼容老的 signals）
   // 输入：文本 + 规则列表
   // 输出：[{key, cat, src, factorId, factorName, weight}]
+  // 在 text 中找所有 sig 出现的位置；返回 [{index, length, negated, modifier}]
+  // 通过扫描所有出现位置，避免 indexOf 漏检
+  function findOccurrences(text, sig){
+    const out = [];
+    if (!sig) return out;
+    let from = 0;
+    while (true){
+      const idx = text.indexOf(sig, from);
+      if (idx === -1) break;
+      out.push({ index: idx, length: sig.length });
+      from = idx + sig.length;
+    }
+    return out;
+  }
+
+  // 检测 sig 前 2 字符内是否有否定词 / 修饰符
+  function inspectContext(text, idx){
+    const start = Math.max(0, idx - 4); // 给"几乎不"等留 4 字符窗口
+    const before = text.slice(start, idx);
+    let negated = false;
+    let modifier = 1.0;
+    let negatedWord = null;
+    let modifierWord = null;
+
+    // 先匹配 modifier（按长度倒序）
+    for (const m of DEFAULT_MODIFIERS){
+      if (before.endsWith(m.word)){
+        modifier = m.weight;
+        modifierWord = m.word;
+        break;
+      }
+    }
+
+    // 再匹配 negation（看更长的窗口，避免"几乎不"被"不"抢匹配）
+    for (const neg of DEFAULT_NEGATIONS){
+      if (before.endsWith(neg)){
+        negated = true;
+        negatedWord = neg;
+        break;
+      }
+    }
+
+    return { negated, modifier, negatedWord, modifierWord };
+  }
+
+  // 抽取所有信号
+  // v1.1 升级：支持否定识别 + 强度修饰符 + 置信度
   function extractSignals(text, rules){
     if (!text || !Array.isArray(rules)) return [];
     const hits = [];
     rules.forEach(r => {
-      // 优先从 factors 抽取
       const hasFactors = Array.isArray(r.factors) && r.factors.length > 0;
       if (hasFactors){
         r.factors.forEach(f => {
           if (!f.enabled) return;
+          const factorNegs = (f.negations && f.negations.length) ? f.negations : null;
           (f.signals || []).forEach(sig => {
-            if (text.indexOf(sig) !== -1){
+            findOccurrences(text, sig).forEach(occ => {
+              const ctx = inspectContext(text, occ.index);
+              // 因子级否定词覆盖默认
+              let negated = ctx.negated;
+              let negatedWord = ctx.negatedWord;
+              if (!negated && factorNegs){
+                const start = Math.max(0, occ.index - 4);
+                const before = text.slice(start, occ.index);
+                for (const neg of factorNegs){
+                  if (before.endsWith(neg)){
+                    negated = true; negatedWord = neg; break;
+                  }
+                }
+              }
+              // 否定时给一个反向因子时翻转 intent（被否定后意义反转）
+              // 中性 intent 不翻转
+              const baseWeight = (f.weight || 0.5) * (r.weight || 1);
+              const confidence = clamp(ctx.modifier, 0.2, 1.5);
               hits.push({
                 key: r.key,
                 cat: categoryOf(r.key),
                 src: sig,
                 factorId: f.id,
                 factorName: f.name,
-                weight: (f.weight || 0.5) * (r.weight || 1)
+                weight: baseWeight * confidence,
+                confidence,
+                negated,
+                negatedWord,
+                modifierWord: ctx.modifierWord,
+                intent: f.intent || 'neutral',
+                _loc: occ.index
               });
-            }
+            });
           });
         });
       } else {
         // 兼容老数据（无 factors 的情况）
         (r.signals || []).forEach(sig => {
-          if (text.indexOf(sig) !== -1){
+          findOccurrences(text, sig).forEach(occ => {
+            const ctx = inspectContext(text, occ.index);
             hits.push({
               key: r.key,
               cat: categoryOf(r.key),
               src: sig,
               factorId: null,
               factorName: null,
-              weight: r.weight
+              weight: (r.weight || 1) * ctx.modifier,
+              confidence: ctx.modifier,
+              negated: ctx.negated,
+              negatedWord: ctx.negatedWord,
+              modifierWord: ctx.modifierWord,
+              intent: 'neutral',
+              _loc: occ.index
             });
-          }
+          });
         });
       }
     });
-    // 去重
-    const seen = new Set();
-    return hits.filter(h => {
+    // 去重（同一 factor + sig 保留 confidence 最高的一个）
+    const grouped = new Map();
+    hits.forEach(h => {
       const k = h.factorId ? `${h.key}|${h.factorId}|${h.src}` : `${h.key}|${h.src}`;
-      if (seen.has(k)) return false;
-      seen.add(k); return true;
+      const cur = grouped.get(k);
+      if (!cur || h.confidence > cur.confidence) grouped.set(k, h);
     });
+    return Array.from(grouped.values());
   }
 
   function categoryOf(key){ return (key || '').replace(/[0-9]/g,''); }
 
   // —— 纯函数：评分（增强版 · 含因子分）
-  // 输入：信号列表 + 规则列表
-  // 输出：{ dimScore:{D1:7.2,...}, factorScore:{D1-W:8.4, D1-L:3.2, ...} }
+  // v1.1：使用 confidence 调制；否定 + 负向 intent → 翻转为正向分（"没有焦虑"是好事）
   function scoreFromSignals(signals, rules){
-    const dimCounts = {};
-    const factorCounts = {};
+    const dimScores = {};     // 累加 confidence
+    const factorScores = {};
+    const dimNegate = {};     // 累加否定数（用于 dim 维度反向）
+    const factorNegate = {};
     rules.forEach(r => {
-      dimCounts[r.key] = 0;
-      if (Array.isArray(r.factors)){
-        r.factors.forEach(f => { factorCounts[f.id] = 0; });
-      }
-    });
-    signals.forEach(s => {
-      if (dimCounts[s.key] !== undefined) dimCounts[s.key]++;
-      if (s.factorId && factorCounts[s.factorId] !== undefined) factorCounts[s.factorId]++;
-    });
-    const total = signals.length || 1;
-    const dimScore = {};
-    const factorScore = {};
-    rules.forEach(r => {
-      const w = r.weight;
-      dimScore[r.key] = clamp((dimCounts[r.key] / total) * 10 * (w + 0.3), 0, 10);
+      dimScores[r.key] = 0;
+      dimNegate[r.key] = 0;
       if (Array.isArray(r.factors)){
         r.factors.forEach(f => {
-          if (!f.enabled){ factorScore[f.id] = 0; return; }
-          factorScore[f.id] = clamp((factorCounts[f.id] / total) * 10 * (f.weight || 0.5) * (w + 0.2), 0, 10);
+          factorScores[f.id] = 0;
+          factorNegate[f.id] = 0;
         });
       }
     });
-    return { dimScore, factorScore };
+    signals.forEach(s => {
+      const conf = (typeof s.confidence === 'number') ? s.confidence : 1;
+      const w = (typeof s.weight === 'number') ? s.weight : 0.5;
+      const contribution = conf * w;
+      if (dimScores[s.key] !== undefined) dimScores[s.key] += contribution;
+      if (s.factorId && factorScores[s.factorId] !== undefined){
+        factorScores[s.factorId] += contribution;
+        // 负向 intent + 否定 → 视为"良好信号"（不扣分）
+        if (s.negated && s.intent === 'negative'){
+          factorNegate[s.factorId] += contribution;
+        }
+      }
+      if (s.negated) dimNegate[s.key] = (dimNegate[s.key] || 0) + contribution;
+    });
+    // 维度总能量 = 命中贡献总和（0-10）
+    const maxDim = Math.max(1, ...Object.values(dimScores));
+    const dimScore = {};
+    const factorScore = {};
+    rules.forEach(r => {
+      const w = r.weight || 1;
+      dimScore[r.key] = clamp((dimScores[r.key] / maxDim) * 10 * (w + 0.2), 0, 10);
+      if (Array.isArray(r.factors)){
+        r.factors.forEach(f => {
+          if (!f.enabled){ factorScore[f.id] = 0; return; }
+          const base = clamp((factorScores[f.id] / maxDim) * 10 * (f.weight || 0.5) * (w + 0.2), 0, 10);
+          // 负向 intent 因子的命中若被否定，按 (factorNegate / factorScores) 比例回扣
+          if (f.intent === 'negative' && factorScores[f.id] > 0){
+            const positive = factorScores[f.id] - factorNegate[f.id];
+            const ratio = Math.max(0, positive) / factorScores[f.id];
+            factorScore[f.id] = clamp(base * ratio, 0, 10);
+          } else {
+            factorScore[f.id] = base;
+          }
+        });
+      }
+    });
+    return { dimScore, factorScore, _confidences: dimScores };
   }
 
   // —— 纯函数：从日记派生事件
@@ -862,48 +1054,96 @@ const Domain = (() => {
     return Array.from(map.values());
   }
 
-  // —— 纯函数：聚合画像（增强版 · 含因子层）
+  // —— 纯函数：去极值平均（trimmed mean）
+  // 移除上下各 trimRatio（默认 10%）后再求平均，对离群值更稳健
+  function trimmedMean(values, trimRatio){
+    if (!values.length) return 0;
+    const ratio = trimRatio == null ? 0.1 : trimRatio;
+    const sorted = values.slice().sort((a,b) => a-b);
+    const trim = Math.floor(sorted.length * ratio);
+    const trimmed = trim > 0 ? sorted.slice(trim, sorted.length - trim) : sorted;
+    if (trimmed.length === 0) return sorted[Math.floor(sorted.length/2)];
+    return trimmed.reduce((s,v) => s+v, 0) / trimmed.length;
+  }
+
+  // —— 纯函数：聚合画像（v1.1 · 加去极值 + 趋势对比）
+  // period: '7' | '30' | '90' | 'all' | 自定义天数
+  // 返回中多带 prevPeriod 字段，与 period 紧邻的前 N 天聚合，可直接对比
   function aggregateProfile(entries, rules, period){
     let filtered = entries;
+    let prevFiltered = [];
     if (period && period !== 'all'){
       const days = Number(period);
       if (!isNaN(days)){
-        const cutoff = Date.now() - days * 86400000;
-        filtered = entries.filter(e => new Date(e.date).getTime() >= cutoff);
+        const sorted = entries.slice().sort((a,b) => b.date.localeCompare(a.date));
+        if (sorted.length){
+          const latest = new Date(sorted[0].date).getTime();
+          const cutoff = latest - days * 86400000;
+          const prevCutoff = cutoff - days * 86400000;
+          filtered = entries.filter(e => {
+            const t = new Date(e.date).getTime();
+            return t <= latest && t >= cutoff;
+          });
+          prevFiltered = entries.filter(e => {
+            const t = new Date(e.date).getTime();
+            return t < cutoff && t >= prevCutoff;
+          });
+        }
       }
     }
-    const dimSums = {}; const dimCnts = {};
-    const factorSums = {}; const factorCnts = {};
-    rules.forEach(r => {
-      dimSums[r.key] = 0; dimCnts[r.key] = 0;
-      if (Array.isArray(r.factors)) r.factors.forEach(f => { factorSums[f.id] = 0; factorCnts[f.id] = 0; });
-    });
-    filtered.forEach(e => {
+    // 简单聚合（带去极值）
+    const aggregate = (arr) => {
+      const dimVals = {}; const factorVals = {};
       rules.forEach(r => {
-        const v = e.score && typeof e.score[r.key] === 'number' ? e.score[r.key] : null;
-        if (v !== null){ dimSums[r.key] += v * r.weight; dimCnts[r.key] += r.weight; }
-        if (Array.isArray(r.factors) && e.factorScores){
+        dimVals[r.key] = [];
+        if (Array.isArray(r.factors)) r.factors.forEach(f => { factorVals[f.id] = []; });
+      });
+      arr.forEach(e => {
+        rules.forEach(r => {
+          const v = e.score && typeof e.score[r.key] === 'number' ? e.score[r.key] : null;
+          if (v !== null) dimVals[r.key].push(v);
+          if (Array.isArray(r.factors) && e.factorScores){
+            r.factors.forEach(f => {
+              const fv = e.factorScores[f.id];
+              if (typeof fv === 'number') factorVals[f.id].push(fv);
+            });
+          }
+        });
+      });
+      const dimAgg = {}; const factorAgg = {};
+      rules.forEach(r => {
+        dimAgg[r.key] = trimmedMean(dimVals[r.key], 0.1);
+        if (Array.isArray(r.factors)){
           r.factors.forEach(f => {
-            const fv = e.factorScores[f.id];
-            if (typeof fv === 'number'){
-              factorSums[f.id] += fv * (f.weight || 0.5) * r.weight;
-              factorCnts[f.id] += (f.weight || 0.5) * r.weight;
-            }
+            factorAgg[f.id] = trimmedMean(factorVals[f.id], 0.1);
           });
         }
       });
-    });
-    const dimAgg = {};
-    const factorAgg = {};
-    rules.forEach(r => {
-      dimAgg[r.key] = dimCnts[r.key] ? dimSums[r.key] / dimCnts[r.key] : 0;
-      if (Array.isArray(r.factors)){
-        r.factors.forEach(f => {
-          factorAgg[f.id] = factorCnts[f.id] ? factorSums[f.id] / factorCnts[f.id] : 0;
-        });
-      }
-    });
-    return { dimAggregation: dimAgg, factorAggregation: factorAgg, sampleSize: filtered.length, period };
+      return { dimAgg, factorAgg };
+    };
+    const cur = aggregate(filtered);
+    const prev = prevFiltered.length ? aggregate(prevFiltered) : null;
+    const trend = {};
+    if (prev){
+      rules.forEach(r => {
+        const curV = cur.dimAgg[r.key] || 0;
+        const prevV = prev.dimAgg[r.key] || 0;
+        trend[r.key] = {
+          current: curV,
+          previous: prevV,
+          delta: curV - prevV,
+          direction: curV - prevV > 0.5 ? 'up' : (curV - prevV < -0.5 ? 'down' : 'flat')
+        };
+      });
+    }
+    return {
+      dimAggregation: cur.dimAgg,
+      factorAggregation: cur.factorAgg,
+      sampleSize: filtered.length,
+      period,
+      prevPeriod: prev ? { sampleSize: prevFiltered.length, dimAggregation: prev.dimAgg } : null,
+      trend
+    };
   }
 
   // —— 纯函数：扁平化所有因子（用于全量搜索/统计）
@@ -1103,15 +1343,50 @@ const Domain = (() => {
   // ============================================================
   // Schema 版本与数据迁移
   // ============================================================
-  const SCHEMA_VERSION = '1.0';
+  // v1.1 新增：
+  //   1) 因子增加 desc（情绪切点）、negations（否定词集）、modifiers（强度集）、intent（'positive'|'negative'|'neutral'）
+  //   2) extractSignals 支持否定识别与强度调制
+  //   3) 信号对象新增 confidence 字段（0..1.5）
+  const SCHEMA_VERSION = '1.1';
+
+  // 否定词：出现在信号词前 2 字符内的前缀，会取消或反转命中
+  // 注意：JS 的 endsWith 按 UTF-16 code unit 比较（中文 BMP 每字 1 unit）
+  // 这里列出从长到短的所有常见否定前缀，确保长前缀优先匹配
+  const DEFAULT_NEGATIONS = ['不再','不是','不太','从不','从未','绝不','几乎不','永不','没','未','无','不','别'];
+
+  // 强度修饰符：出现在信号词前 2 字符内的前缀，调整置信度
+  // key 越长优先级越高（先匹配长前缀）
+  const DEFAULT_MODIFIERS = [
+    { word:'极其',  weight:1.5 },
+    { word:'非常',  weight:1.4 },
+    { word:'特别',  weight:1.3 },
+    { word:'很',    weight:1.2 },
+    { word:'比较',  weight:1.1 },
+    { word:'稍微',  weight:0.8 },
+    { word:'有点',  weight:0.7 },
+    { word:'几乎',  weight:0.5 },
+    { word:'几乎不', weight:0.3 },
+  ];
 
   // 迁移器：从任意旧版本迁移到当前版本
-  // 每个迁移函数接收旧数据，返回新数据
   const MIGRATIONS = {
     '0.9->1.0': function(data){
-      // 示例迁移：旧版 signals 是字符串数组，新版 signals 改为对象数组
-      // 实际项目里所有数据都是 v1.0 起，这里只是占位
       return { ...data, _migratedFrom: '0.9' };
+    },
+    '1.0->1.1': function(data){
+      // 为旧因子补齐 v1.1 新字段
+      const ensure = f => ({
+        ...f,
+        desc: f.desc || '',
+        negations: Array.isArray(f.negations) ? f.negations : [],
+        modifiers: Array.isArray(f.modifiers) ? f.modifiers : [],
+        intent: f.intent || 'neutral',
+      });
+      const newRules = (data.rules || []).map(r => ({
+        ...r,
+        factors: (r.factors || []).map(ensure),
+      }));
+      return { ...data, rules: newRules, _migratedFrom: '1.0' };
     },
   };
 
@@ -1119,9 +1394,23 @@ const Domain = (() => {
     if (!raw || typeof raw !== 'object') return raw;
     const ver = raw._schemaVersion || '0.9';
     let data = raw;
-    if (ver !== SCHEMA_VERSION){
-      const key = ver + '->' + SCHEMA_VERSION;
-      if (MIGRATIONS[key]) data = MIGRATIONS[key](data);
+    // 链式迁移（多版本跳到最新）
+    let cur = ver;
+    while (cur !== SCHEMA_VERSION){
+      const next = cur + '->' + SCHEMA_VERSION;
+      // 直接跳到 SCHEMA_VERSION（兼容缺中间版本）
+      const directJump = cur + '->' + SCHEMA_VERSION;
+      if (MIGRATIONS[directJump]){
+        data = MIGRATIONS[directJump](data);
+        cur = SCHEMA_VERSION;
+        break;
+      }
+      // 否则逐步
+      const candidates = Object.keys(MIGRATIONS).filter(k => k.startsWith(cur + '->'));
+      if (candidates.length === 0) break;
+      // 选第一个能跑的
+      data = MIGRATIONS[candidates[0]](data);
+      cur = candidates[0].split('->')[1];
     }
     data._schemaVersion = SCHEMA_VERSION;
     data._migratedAt = new Date().toISOString();
@@ -1163,13 +1452,13 @@ const Domain = (() => {
   return {
     createMetricRule, createEntry, createScenario, createFactor,
     extractSignals, scoreFromSignals, deriveEvents, aggregateProfile,
-    flattenFactors,
+    flattenFactors, trimmedMean, findOccurrences, inspectContext,
     deriveTimeCompression, deriveExperienceDensity, deriveResultOrientation,
     deriveLifeParticipation, deriveTimeTrace, deriveAllObservations,
     analyzeTimePattern, correlateDimensions, detectAnomalies,
     classifyProfileStructure, rankFactorHeat,
     migrateData, wrapExport, encryptExport, decryptExport,
-    SCHEMA_VERSION,
+    SCHEMA_VERSION, DEFAULT_NEGATIONS, DEFAULT_MODIFIERS,
     categoryOf, clamp
   };
 })();
@@ -1746,6 +2035,71 @@ const UI = (() => {
     setTimeout(() => el.remove(), 3100);
   }
 
+  // —— 因子信息气泡
+  // 用法：UI.factorInfo(factor) 返回 ⓘ HTML；hover 时弹出情绪切点 + 关键词
+  let factorPopoverEl = null;
+  function ensureFactorPopover(){
+    if (factorPopoverEl) return factorPopoverEl;
+    factorPopoverEl = document.createElement('div');
+    factorPopoverEl.className = 'factor-popover';
+    document.body.appendChild(factorPopoverEl);
+    return factorPopoverEl;
+  }
+  function showFactorPopover(target, factor){
+    const pop = ensureFactorPopover();
+    const intentMap = { positive:'正向 · 越高越好', negative:'反向 · 否定时为好事', neutral:'中性 · 仅反映存在' };
+    const intentClass = (factor.intent || 'neutral').charAt(0) + ((factor.intent || 'neutral') === 'positive' ? 'os' : (factor.intent || 'neutral') === 'negative' ? 'eg' : 'eu');
+    pop.innerHTML = `
+      <div class="pop-id">${esc(factor.id)} · ${esc(factor.dimKey || '')}</div>
+      <div class="pop-name">${esc(factor.name)}</div>
+      <div class="pop-desc">${esc(factor.desc || '（暂无说明）')}</div>
+      <div class="pop-kws">${(factor.signals || []).slice(0,12).map(s => '<span class="kw">'+esc(s)+'</span>').join('')}</div>
+      <div class="pop-intent ${intentClass}">${intentMap[factor.intent || 'neutral']}</div>
+    `;
+    const r = target.getBoundingClientRect();
+    pop.style.left = (window.scrollX + r.left) + 'px';
+    pop.style.top  = (window.scrollY + r.bottom + 6) + 'px';
+    // 防止超出右边界
+    requestAnimationFrame(() => {
+      const pr = pop.getBoundingClientRect();
+      if (pr.right > window.innerWidth - 8){
+        pop.style.left = (window.scrollX + window.innerWidth - pr.width - 12) + 'px';
+      }
+    });
+    pop.classList.add('show');
+  }
+  function hideFactorPopover(){
+    if (factorPopoverEl) factorPopoverEl.classList.remove('show');
+  }
+  // 事件代理：动态绑定 ⓘ 图标的 hover
+  document.addEventListener('mouseover', e => {
+    const t = e.target.closest('.factor-info');
+    if (!t) return;
+    const fid = t.dataset.fid;
+    const rules = Store.getRules();
+    let factor = null;
+    rules.forEach(r => (r.factors || []).forEach(f => { if (f.id === fid) factor = f; }));
+    if (factor) showFactorPopover(t, factor);
+  });
+  document.addEventListener('mouseout', e => {
+    const t = e.target.closest('.factor-info');
+    if (!t) return;
+    hideFactorPopover();
+  });
+  // 移动端：tap 切换
+  document.addEventListener('click', e => {
+    const t = e.target.closest('.factor-info');
+    if (!t) return;
+    if (factorPopoverEl && factorPopoverEl.classList.contains('show')){
+      hideFactorPopover();
+      showFactorPopover(t, Store.getRules().reduce((a,r) => [...a, ...(r.factors||[])], []).find(f => f.id === t.dataset.fid));
+    }
+  });
+
+  function factorInfoHTML(factor){
+    return `<span class="factor-info" data-fid="${esc(factor.id)}" tabindex="0" aria-label="查看因子说明">ⓘ</span>`;
+  }
+
   // —— 入口：构建 App Shell
   function mount(handlers){
     document.getElementById('app-root').innerHTML = `
@@ -1846,6 +2200,32 @@ const UI = (() => {
                 <div id="ai-highlight" class="ai-highlight">
                   <div class="hint">原文实时预览（命中的关键词会高亮）</div>
                 </div>
+                <div id="ai-empty-state" class="ai-empty-state">
+                  <div class="aes-title">不知道写什么？从一段示例开始 ↓</div>
+                  <div class="aes-examples">
+                    <button class="aes-ex" type="button" data-ex="0">
+                      <div class="tag task">任务型</div>
+                      <div class="text">"今天开了三小时的会，完成了项目里程碑，主动选择了 A 方案。下午很累，刷了一个小时短视频有点恍惚。"</div>
+                    </button>
+                    <button class="aes-ex" type="button" data-ex="1">
+                      <div class="tag explore">探索型</div>
+                      <div class="text">"第一次去了一家新开的书店，意外发现了一本很棒的书。意识到我以前对 X 的理解有问题。整个人很激动。"</div>
+                    </button>
+                    <button class="aes-ex" type="button" data-ex="2">
+                      <div class="tag company">陪伴型</div>
+                      <div class="text">"晚上和老朋友吃了个饭，深度聊了一些人生选择。第一次和她说起家里的事，她说她懂我，那一刻很难忘。"</div>
+                    </button>
+                  </div>
+                </div>
+                <div id="ai-no-signal" class="ai-no-signal" style="display:none">
+                  <div class="ans-title">💡 没命中信号怎么办？</div>
+                  <div class="ans-body">试试这样写：</div>
+                  <ul class="ans-prompts">
+                    <li><b>发生了什么</b>："今天做了什么？去了哪里？见了谁？"</li>
+                    <li><b>什么状态</b>："当时是在计划 / 在赶 deadline / 在主动选择？"</li>
+                    <li><b>留下什么</b>："现在的我，还能记起哪些细节 / 想法 / 关系？"</li>
+                  </ul>
+                </div>
                 <div style="display:flex;gap:8px;flex-wrap:wrap">
                   <button class="btn btn-accent btn-sm" id="btn-ai-run">▶ 抽取</button>
                   <button class="btn btn-ghost btn-sm" id="btn-ai-clear">清空</button>
@@ -1902,6 +2282,7 @@ const UI = (() => {
                 </div>
                 <svg viewBox="-260 -260 520 520" id="wbRadar"></svg>
                 <p style="text-align:center;color:var(--ink-faint);font-size:var(--fs-sm);margin-top:10px;font-family:var(--serif);font-style:italic" id="wb-summary">数据不足…</p>
+                <div id="wb-trend" class="wb-trend" style="display:none"></div>
               </div>
               <div class="timeline-card">
                 <div class="card-head" style="margin-bottom:0"><h3>最近条目</h3><span class="sub">从数据库实时同步</span></div>
@@ -1983,7 +2364,7 @@ const UI = (() => {
     }
   }
 
-  return { mount, modal, toast, esc };
+  return { mount, modal, toast, esc, factorInfoHTML, showFactorPopover, hideFactorPopover };
 })();
 
 /* ============================================================
@@ -1998,83 +2379,190 @@ const App = (() => {
   // 二级因子定义：每个因子含 id, name, desc, signals（关键词）, weight, enabled
   const SEED_FACTORS = {
     D1: [
-      { id:'D1-W', name:'工作', desc:'会议、项目、加班等职业活动', signals:['工作','开会','加班','项目','汇报','同步','OKR','日报','周会','例会','deadline'], weight:1.0, enabled:true },
-      { id:'D1-L', name:'学习', desc:'阅读、课程、技能练习', signals:['学习','阅读','读书','上课','课程','培训','练习','背单词','论文'], weight:0.7, enabled:true },
-      { id:'D1-F', name:'家庭', desc:'与家人共度的时间', signals:['家庭','孩子','陪伴','家人','父母','配偶','家务','做饭','接送'], weight:0.9, enabled:true },
-      { id:'D1-S', name:'社交', desc:'朋友聚会、应酬', signals:['社交','朋友','聚会','饭局','应酬','团建','约会'], weight:0.7, enabled:true },
-      { id:'D1-A', name:'独处', desc:'一个人安静地待着', signals:['独处','发呆','一个人','独自','静坐','冥想','散步'], weight:0.8, enabled:true },
-      { id:'D1-Z', name:'睡眠', desc:'睡觉与休息', signals:['睡眠','睡觉','午睡','休息','赖床'], weight:0.6, enabled:true },
-      { id:'D1-T', name:'通勤', desc:'上下班路上的时间', signals:['通勤','路上','地铁','公交','开车','打车'], weight:0.5, enabled:true },
-      { id:'D1-H', name:'杂务', desc:'琐碎事务、跑腿', signals:['杂务','家务','购物','取快递','修理','清洁'], weight:0.4, enabled:true },
-      { id:'D1-X', name:'其他', desc:'未归类的时间', signals:[], weight:0.3, enabled:false },
+      { id:'D1-W', name:'工作', desc:'职业投入的总量与质量。不是问"你勤不勤奋"，而是问"这段时间里你把自己交给了什么"。',
+        signals:['工作','开会','加班','项目','汇报','同步','OKR','日报','周会','例会','deadline'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'neutral' },
+      { id:'D1-L', name:'学习', desc:'主动增长的时间投入。衡量一个人是否在为自己投资未来——不是为了产出，而是为了让自己不同。',
+        signals:['学习','阅读','读书','上课','课程','培训','练习','背单词','论文'],
+        weight:0.7, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D1-F', name:'家庭', desc:'与家人共度的时间。不是共处一室，而是真正的在场。',
+        signals:['家庭','孩子','陪伴','家人','父母','配偶','家务','做饭','接送'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D1-S', name:'社交', desc:'主动维护的关系性时间投入。',
+        signals:['社交','朋友','聚会','饭局','应酬','团建','约会'],
+        weight:0.7, enabled:true, negations:[], modifiers:[], intent:'neutral' },
+      { id:'D1-A', name:'独处', desc:'一个人安静地与自己相处的时间。',
+        signals:['独处','发呆','一个人','独自','静坐','冥想','散步'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D1-Z', name:'睡眠', desc:'睡觉与休息的质量。',
+        signals:['睡眠','睡觉','午睡','休息','赖床','失眠'],
+        weight:0.6, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D1-T', name:'通勤', desc:'上下班路上的时间。',
+        signals:['通勤','路上','地铁','公交','开车','打车'],
+        weight:0.5, enabled:true, negations:[], modifiers:[], intent:'neutral' },
+      { id:'D1-X', name:'闲暇/娱乐', desc:'非功利性的玩耍、看剧、游戏、爱好等为自己充电的时间。',
+        signals:['看剧','追剧','电影','综艺','打游戏','游戏','刷剧','玩','听歌','听音乐','刷抖音','刷微博','健身','运动','跑步','爬山','画画','音乐'],
+        weight:0.6, enabled:true, negations:[], modifiers:[], intent:'positive' },
     ],
     D2: [
-      { id:'D2-SIM', name:'相似日占比', desc:'重复度高的日子占总天数比例', signals:['差不多','又','还是','日常','老样子','重复'], weight:0.8, enabled:true },
-      { id:'D2-ACT', name:'重复活动', desc:'反复做同一件事', signals:['重复','又做','再做','还是做'], weight:0.7, enabled:true },
-      { id:'D2-RT', name:'重复路径', desc:'每天走同样的路、去同样的地方', signals:['老地方','老路','老店','同一家'], weight:0.6, enabled:true },
-      { id:'D2-RP', name:'重复社交', desc:'反复见同一批人', signals:['老朋友','老同事','还是那几个人'], weight:0.6, enabled:true },
-      { id:'D2-RC', name:'重复内容消费', desc:'刷同质化内容', signals:['刷','短视频','追剧','刷手机','看朋友圈'], weight:0.9, enabled:true },
-      { id:'D2-RH', name:'重复作息', desc:'每天差不多的时间表', signals:['早起','晚睡','加班到深夜'], weight:0.5, enabled:true },
+      { id:'D2-SIM', name:'相似日占比', desc:'重复度高的日子占总天数比例。',
+        signals:['差不多','又','还是','日常','老样子','重复'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'neutral' },
+      { id:'D2-ACT', name:'重复活动', desc:'反复做同一件事。',
+        signals:['又做','再做','还是做'],
+        weight:0.7, enabled:true, negations:[], modifiers:[], intent:'neutral' },
+      { id:'D2-RT', name:'重复路径', desc:'每天走同样的路、去同样的地方。',
+        signals:['老地方','老路','老店','同一家'],
+        weight:0.6, enabled:true, negations:[], modifiers:[], intent:'neutral' },
+      { id:'D2-RP', name:'重复社交', desc:'反复见同一批人。',
+        signals:['老朋友','老同事','还是那几个人'],
+        weight:0.6, enabled:true, negations:[], modifiers:[], intent:'neutral' },
+      { id:'D2-RC', name:'重复内容消费', desc:'刷同质化内容（被否定时是好事）。',
+        signals:['刷','短视频','刷手机','看朋友圈'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'negative' },
     ],
     D3: [
-      { id:'D3-NP', name:'新地点', desc:'第一次去到的地方', signals:['第一次去','没去过','新开的','新地方','第一次到'], weight:0.9, enabled:true },
-      { id:'D3-NB', name:'新人物', desc:'新认识的人', signals:['认识','认识了一位','新认识的','第一次见','偶遇'], weight:0.9, enabled:true },
-      { id:'D3-NE', name:'新体验', desc:'第一次尝试的事物', signals:['第一次','尝试','第一次做','第一次吃'], weight:1.0, enabled:true },
-      { id:'D3-NA', name:'新行动', desc:'做了以前没做过的事', signals:['第一次做','第一次去','第一次尝试'], weight:0.8, enabled:true },
-      { id:'D3-UE', name:'意外事件', desc:'计划外的突发状况', signals:['意外','突然','惊喜','惊','突发'], weight:1.0, enabled:true },
-      { id:'D3-ML', name:'完成重要节点', desc:'关键里程碑达成', signals:['完成','达成','上线','发布','毕业','入职'], weight:0.9, enabled:true },
-      { id:'D3-CG', name:'认知变化', desc:'产生了新的理解', signals:['突然明白','想通','意识到','原来'], weight:1.0, enabled:true },
-      { id:'D3-EM', name:'情绪明显变化', desc:'强烈的情绪起伏', signals:['开心','难过','哭','笑','崩溃','兴奋','愤怒'], weight:0.8, enabled:true },
+      { id:'D3-NP', name:'新地点', desc:'第一次去到的地方。',
+        signals:['第一次去','没去过','新开的','新地方','第一次到'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D3-NB', name:'新人物', desc:'新认识的人（注意：与 T3-NK 区分——这里强调"出现"，T3 强调"建立联系"）。',
+        signals:['偶遇','第一次见','新来的'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D3-NE', name:'新体验', desc:'第一次尝试的事物。',
+        signals:['第一次尝试','第一次吃','头一回'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D3-NA', name:'新行动', desc:'主动做了以前没做过的事（强调动作本身的新颖，不一定是体验）。',
+        signals:['破天荒','头一次做','第一次走','第一次约'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D3-UE', name:'意外事件', desc:'计划外的突发状况。',
+        signals:['意外','突然','惊喜','惊','突发'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D3-ML', name:'完成重要节点', desc:'关键里程碑达成。',
+        signals:['毕业','入职','上线','发布','达成','完成'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D3-CG', name:'认知变化', desc:'产生了新的理解（与 T2-UN 区分——这里强调"瞬间的洞察"，T2 强调"沉淀后的理解"）。',
+        signals:['突然明白','想通','意识到','顿悟'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'D3-EM', name:'强烈情绪事件', desc:'情绪大起大落的标志性事件（与 T1-EM 区分——D3 是"事件"，T1 是"被记住的细节"）。',
+        signals:['崩溃','暴怒','狂喜','嚎啕大哭','气炸','心碎'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'positive' },
     ],
     S1: [
-      { id:'S1-PL', name:'计划', desc:'为未来做安排', signals:['计划','打算','规划','安排','预定'], weight:0.7, enabled:true },
-      { id:'S1-GO', name:'目标', desc:'设定或追求目标', signals:['目标','目的','愿景','想成为','要做到'], weight:0.8, enabled:true },
-      { id:'S1-EX', name:'预期', desc:'对未来的想象', signals:['期待','希望','预想','预期','设想'], weight:0.6, enabled:true },
-      { id:'S1-WO', name:'担忧', desc:'对未来不确定性的焦虑', signals:['担心','担忧','忧虑','放心不下'], weight:0.8, enabled:true },
-      { id:'S1-AN', name:'焦虑', desc:'紧张与压力', signals:['焦虑','紧张','压力','焦虑感','喘不过气'], weight:0.9, enabled:true },
-      { id:'S1-PG', name:'规划', desc:'具体的未来规划', signals:['规划','长期','明年','未来五年','十年计划'], weight:0.7, enabled:true },
-      { id:'S1-FP', name:'为未来准备', desc:'为将来做储备', signals:['存钱','储蓄','学习新技能','考证','为了将来','为了以后'], weight:0.7, enabled:true },
+      { id:'S1-PL', name:'计划', desc:'为未来做安排。',
+        signals:['计划','打算','规划','安排','预定'],
+        weight:0.7, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'S1-GO', name:'目标', desc:'设定或追求目标。',
+        signals:['目标','目的','愿景','想成为','要做到'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'S1-EX', name:'预期', desc:'对未来的想象。',
+        signals:['期待','希望','预想','预期','设想'],
+        weight:0.6, enabled:true, negations:[], modifiers:[], intent:'neutral' },
+      { id:'S1-WO', name:'担忧', desc:'对未来不确定性的焦虑（被否定时是好事——"不再担心"）。',
+        signals:['担心','担忧','忧虑','放心不下'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'negative' },
+      { id:'S1-AN', name:'焦虑', desc:'紧张与压力（被否定时是好事——"不焦虑了"）。',
+        signals:['焦虑','紧张','压力','焦虑感','喘不过气'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'negative' },
+      { id:'S1-FP', name:'为未来准备', desc:'为将来做储备。',
+        signals:['存钱','储蓄','考证','为了将来','为了以后'],
+        weight:0.7, enabled:true, negations:[], modifiers:[], intent:'positive' },
     ],
     S2: [
-      { id:'S2-DN', name:'任务完成', desc:'围绕"是否完成"运行', signals:['完成','做完','搞完','搞定','结束'], weight:0.8, enabled:true },
-      { id:'S2-DG', name:'目标达成', desc:'看结果是否达到', signals:['达成','实现','达到','完成目标','达标'], weight:0.9, enabled:true },
-      { id:'S2-OU', name:'产出/交付', desc:'看是否有产出', signals:['产出','交付','发布','输出','做出'], weight:0.9, enabled:true },
-      { id:'S2-KP', name:'KPI/OKR', desc:'量化指标驱动', signals:['KPI','OKR','指标','业绩','数据','业绩考核'], weight:1.0, enabled:true },
-      { id:'S2-EF', name:'效率追求', desc:'追求高效率', signals:['效率','高效','优化','提效','加速'], weight:0.8, enabled:true },
-      { id:'S2-DL', name:'截止驱动', desc:'被 deadline 牵引', signals:['截止','deadline','期限','最后期限','DDL'], weight:1.0, enabled:true },
+      { id:'S2-DG', name:'目标达成', desc:'看结果是否达到（被否定时是好事——"不再追求达成"是放下执念）。',
+        signals:['实现','达到','完成目标','达标'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'negative' },
+      { id:'S2-OU', name:'产出/交付', desc:'看是否有产出（被否定时是好事）。',
+        signals:['产出','交付','输出','做出'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'negative' },
+      { id:'S2-KP', name:'KPI/OKR', desc:'量化指标驱动（被否定时是好事——"不被 KPI 绑架"）。',
+        signals:['KPI','OKR','指标','业绩','数据','业绩考核'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'negative' },
+      { id:'S2-EF', name:'效率追求', desc:'追求高效率（被否定时是好事——"不再卷效率"是放松）。',
+        signals:['效率','高效','优化','提效','加速'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'negative' },
+      { id:'S2-DL', name:'截止驱动', desc:'被 deadline 牵引（被否定时是好事）。',
+        signals:['截止','deadline','期限','最后期限','DDL'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'negative' },
     ],
     S3: [
-      { id:'S3-CH', name:'主动选择', desc:'自己做出决定', signals:['决定','选择','选','挑','决定权'], weight:1.0, enabled:true },
-      { id:'S3-EX', name:'主动探索', desc:'主动去尝试新事物', signals:['探索','尝试','试一试','主动找','去发现'], weight:1.0, enabled:true },
-      { id:'S3-CR', name:'主动创造', desc:'自己设计或创作', signals:['创造','设计','创作','发明','做出来'], weight:1.0, enabled:true },
-      { id:'S3-EP', name:'主动表达', desc:'主动表达自己', signals:['表达','说出','分享','讲述','写下来'], weight:0.8, enabled:true },
-      { id:'S3-CG', name:'主动改变', desc:'主动做出改变', signals:['改变','调整','重新','推翻重来','换一种方式'], weight:1.0, enabled:true },
-      { id:'S3-PE', name:'被动执行', desc:'被任务牵着走', signals:['被安排','被要求','没办法','不得不','只能'], weight:0.9, enabled:true },
-      { id:'S3-PA', name:'被动接受', desc:'被动接收信息', signals:['收到','被告知','被通知','接收','被动'], weight:0.7, enabled:true },
+      { id:'S3-CH', name:'主动选择', desc:'自己做出决定。',
+        signals:['决定','选择','选','挑','决定权'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'S3-EX', name:'主动探索', desc:'主动去尝试新事物。',
+        signals:['探索','试一试','主动找','去发现'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'S3-CR', name:'主动创造', desc:'自己设计或创作。',
+        signals:['创造','设计','创作','发明','做出来'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'S3-EP', name:'主动表达', desc:'主动表达自己。',
+        signals:['表达','说出','分享','讲述','写下来'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'S3-CG', name:'主动改变', desc:'主动做出改变。',
+        signals:['改变','调整','重新','推翻重来','换一种方式'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'S3-PE', name:'被动执行', desc:'被任务牵着走（被否定时是好事）。',
+        signals:['被安排','被要求','没办法','不得不','只能'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'negative' },
+      { id:'S3-PA', name:'被动接受', desc:'被动接收信息（被否定时是好事）。',
+        signals:['被告知','被通知'],
+        weight:0.7, enabled:true, negations:[], modifiers:[], intent:'negative' },
     ],
     T1: [
-      { id:'T1-SE', name:'感官细节', desc:'(味道/触感/声音) 被记住', signals:['味道','触感','声音','气味','好闻','好吃'], weight:0.9, enabled:true },
-      { id:'T1-SC', name:'场景细节', desc:'(天气/地点) 的具体画面', signals:['雨','阳光','下雪','天气','咖啡馆','那条街'], weight:0.9, enabled:true },
-      { id:'T1-EM', name:'情绪峰值', desc:'(喜/悲/静) 的强烈感受', signals:['开心','难过','哭','笑','激动','平静','舒服'], weight:1.0, enabled:true },
-      { id:'T1-TA', name:'时间锚点', desc:'那一刻的清晰回忆', signals:['那一刻','记得','难忘','永远记得','那一瞬间'], weight:1.0, enabled:true },
-      { id:'T1-FR', name:'独特首次', desc:'第一次的鲜明记忆', signals:['第一次','初次','头一回','人生第一次'], weight:1.0, enabled:true },
+      { id:'T1-SE', name:'感官细节', desc:'(味道/触感/声音) 被记住。',
+        signals:['味道','触感','声音','气味','好闻','好吃'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T1-SC', name:'场景细节', desc:'(天气/地点) 的具体画面。',
+        signals:['雨','阳光','下雪','天气','咖啡馆','那条街'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T1-EM', name:'情绪峰值', desc:'(喜/悲/静) 的强烈感受（与 D3-EM 区分——T1 是"被记住"，D3 是"事件本身"）。',
+        signals:['激动','平静','舒服','暖心','失落','窝心'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T1-TA', name:'时间锚点', desc:'那一刻的清晰回忆。',
+        signals:['那一刻','记得','难忘','永远记得','那一瞬间'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T1-FR', name:'独特首次', desc:'第一次的鲜明记忆。',
+        signals:['人生第一次','头一回','初体验'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
     ],
     T2: [
-      { id:'T2-DI', name:'新发现', desc:'新发现了某件事', signals:['发现','找到了','看到','注意到'], weight:0.9, enabled:true },
-      { id:'T2-UN', name:'新理解', desc:'对某事有了新的理解', signals:['理解','明白','搞懂','领悟','恍然大悟'], weight:1.0, enabled:true },
-      { id:'T2-OV', name:'旧观点推翻', desc:'以前的看法被推翻', signals:['推翻','改变看法','不再认为','改观','刷新认知'], weight:1.0, enabled:true },
-      { id:'T2-INT', name:'新兴趣', desc:'产生了新的兴趣点', signals:['感兴趣','爱上','迷上','种草','想试试'], weight:0.8, enabled:true },
-      { id:'T2-VA', name:'新价值排序', desc:'内心优先级重新排列', signals:['更重要','不再重要','重新排序','优先级','放在第一位'], weight:1.0, enabled:true },
-      { id:'T2-SR', name:'自我重新认识', desc:'对自己有了新的认知', signals:['原来我是','我以为','我才知道','发现自己','重新认识自己'], weight:1.0, enabled:true },
+      { id:'T2-DI', name:'新发现', desc:'新发现了某件事。',
+        signals:['发现','找到了','注意到'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T2-UN', name:'新理解', desc:'对某事有了新的理解。',
+        signals:['明白','搞懂','领悟','恍然大悟'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T2-OV', name:'旧观点推翻', desc:'以前的看法被推翻。',
+        signals:['推翻','改变看法','不再认为','改观','刷新认知'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T2-VA', name:'新价值排序', desc:'内心优先级重新排列。',
+        signals:['更重要','不再重要','重新排序','优先级','放在第一位'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T2-SR', name:'自我重新认识', desc:'对自己有了新的认知。',
+        signals:['原来我是','我以为','我才知道','发现自己','重新认识自己'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
     ],
     T3: [
-      { id:'T3-NK', name:'新认识', desc:'新建立了联系', signals:['认识','结识','认识了一位','加好友'], weight:0.8, enabled:true },
-      { id:'T3-DC', name:'深度交流', desc:'与他人深入对话', signals:['深度','深入','长谈','推心置腹','敞开心扉'], weight:1.0, enabled:true },
-      { id:'T3-CR', name:'关系变化', desc:'关系发生转变', signals:['和好','分手','闹翻','关系变化','疏远','走近'], weight:1.0, enabled:true },
-      { id:'T3-CE', name:'共同经历', desc:'一起做了某件事', signals:['一起','共同','一块儿','我们一起','陪伴'], weight:0.9, enabled:true },
-      { id:'T3-EI', name:'情感表达', desc:'表达了真实情感', signals:['表白','说出','拥抱','握手','流泪','哭诉'], weight:1.0, enabled:true },
-      { id:'T3-UD', name:'被理解', desc:'感觉到被理解', signals:['被理解','懂我','你懂','被懂得'], weight:1.0, enabled:true },
-      { id:'T3-UU', name:'理解别人', desc:'理解了他人', signals:['理解他','懂他','我懂你','原来他'], weight:0.9, enabled:true },
+      { id:'T3-NK', name:'新认识', desc:'新建立了联系（与 D3-NB 区分——T3 强调"建立联系"，D3 强调"出现"）。',
+        signals:['结识','认识了一位','加好友'],
+        weight:0.8, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T3-DC', name:'深度交流', desc:'与他人深入对话。',
+        signals:['深度','深入','长谈','推心置腹','敞开心扉'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T3-CR', name:'关系变化', desc:'关系发生转变。',
+        signals:['和好','分手','闹翻','关系变化','疏远','走近'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T3-CE', name:'共同经历', desc:'一起做了某件事。',
+        signals:['一起','共同','一块儿','我们一起','陪伴'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T3-EI', name:'情感表达', desc:'表达了真实情感。',
+        signals:['表白','拥抱','握手','流泪','哭诉'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T3-UD', name:'被理解', desc:'感觉到被理解。',
+        signals:['被理解','懂我','你懂','被懂得'],
+        weight:1.0, enabled:true, negations:[], modifiers:[], intent:'positive' },
+      { id:'T3-UU', name:'理解别人', desc:'理解了他人。',
+        signals:['理解他','懂他','我懂你','原来他'],
+        weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
     ],
   };
 
@@ -2390,7 +2878,7 @@ const App = (() => {
           <div class="left">
             <input type="checkbox" data-fld="enabled" data-i="${idx}" ${f.enabled ? 'checked' : ''}/>
             <input type="text" class="nm" data-fld="name" data-i="${idx}" value="${UI.esc(f.name)}" placeholder="因子名称"/>
-            <span class="id">${UI.esc(f.id)}</span>
+            <span class="id">${UI.esc(f.id)}</span>${UI.factorInfoHTML(f)}
           </div>
           <div class="slider-row">
             <span>权重</span>
@@ -2698,19 +3186,47 @@ const App = (() => {
 
   // —— AI View
   let lastAIRun = null;
+  const AI_EXAMPLES = [
+    { tag:'任务型', cat:'task', text:'今天开了三小时的会，完成了项目里程碑，主动选择了 A 方案。下午很累，刷了一个小时短视频有点恍惚。' },
+    { tag:'探索型', cat:'explore', text:'第一次去了一家新开的书店，意外发现了一本很棒的书。意识到我以前对 X 的理解有问题。整个人很激动。' },
+    { tag:'陪伴型', cat:'company', text:'晚上和老朋友吃了个饭，深度聊了一些人生选择。第一次和她说起家里的事，她说她懂我，那一刻很难忘。' },
+  ];
   function bindAI(){
     const aiInputEl = document.getElementById('ai-input');
+    // 示例点击 → 填入 + 触发
+    document.querySelectorAll('.aes-ex').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const ex = AI_EXAMPLES[Number(btn.dataset.ex)];
+        if (!ex) return;
+        aiInputEl.value = ex.text;
+        aiInputEl.dispatchEvent(new Event('input'));
+        aiInputEl.focus();
+      });
+    });
     // 实时高亮 + 实时抽取（防抖）
     let debounceTimer = null;
     aiInputEl.addEventListener('input', () => {
       const text = aiInputEl.value;
       document.getElementById('ai-charcount').textContent = text.length;
+      // 空态/无信号 prompt 切换
+      const emptyEl = document.getElementById('ai-empty-state');
+      const noSigEl = document.getElementById('ai-no-signal');
+      if (emptyEl) emptyEl.style.display = text.trim() ? 'none' : '';
+      if (!text.trim()){ if (noSigEl) noSigEl.style.display = 'none'; }
       renderHighlight(text);
       // 防抖：300ms 后自动抽取
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(() => {
-        if (text.trim()){ lastAIRun = extractService.run(text); renderAIResults(); }
-        else { lastAIRun = null; renderAIResults(); }
+        if (text.trim()){
+          lastAIRun = extractService.run(text);
+          renderAIResults();
+          // 有文本但 0 信号 → 显示兜底
+          if (noSigEl) noSigEl.style.display = lastAIRun.signals.length === 0 ? '' : 'none';
+        } else {
+          lastAIRun = null;
+          renderAIResults();
+          if (noSigEl) noSigEl.style.display = 'none';
+        }
       }, 300);
     });
     document.getElementById('btn-ai-run').addEventListener('click', () => {
@@ -2800,7 +3316,12 @@ const App = (() => {
       : grouped.map(s => {
           const factorLabel = s.factorName ? s.factorName : s.key;
           const countLabel = s.count > 1 ? ' <span style="color:var(--accent);font-weight:600">×' + s.count + '</span>' : '';
-          return '<div class="ai-signal"><span class="src"><span class="badge ' + s.cat + '" style="margin-right:6px">' + s.key + '</span>' + UI.esc(factorLabel) + ' · ' + UI.esc(s.src) + countLabel + '</span><span class="conf">权 <b>' + (s.weight||1).toFixed(2) + '</b></span></div>';
+          const negBadge = s.negated ? ' <span style="background:oklch(60% 0.140 45 / .12);color:var(--warm);font-family:var(--mono);font-size:10px;padding:1px 5px;border-radius:4px">已否定</span>' : '';
+          const modBadge = s.modifierWord ? ' <span style="background:var(--bg-soft);color:var(--ink-soft);font-family:var(--mono);font-size:10px;padding:1px 5px;border-radius:4px">' + UI.esc(s.modifierWord) + '</span>' : '';
+          const conf = typeof s.confidence === 'number' ? s.confidence : 1;
+          const confLabel = conf >= 1.3 ? '强' : (conf >= 0.9 ? '中' : '弱');
+          const infoIcon = s.factorId ? UI.factorInfoHTML({ id: s.factorId, name: factorLabel }) : '';
+          return '<div class="ai-signal"><span class="src"><span class="badge ' + s.cat + '" style="margin-right:6px">' + s.key + '</span>' + UI.esc(factorLabel) + infoIcon + ' · ' + UI.esc(s.src) + countLabel + negBadge + modBadge + '</span><span class="conf">' + confLabel + ' <b>' + (s.weight||1).toFixed(2) + '</b></span></div>';
         }).join('');
   }
 
@@ -2815,7 +3336,7 @@ const App = (() => {
   }
   function renderWorkbench(){
     const ui = Store.getUI();
-    const { dimAggregation, factorAggregation, sampleSize } = profileService.compute(ui.wbPeriod);
+    const { dimAggregation, factorAggregation, sampleSize, trend, prevPeriod } = profileService.compute(ui.wbPeriod);
     document.getElementById('wb-n').textContent = sampleSize;
     if (sampleSize === 0){
       document.getElementById('wb-summary').textContent = '当前时间窗内暂无数据。';
@@ -2823,7 +3344,31 @@ const App = (() => {
       ['d','s','t'].forEach(k => document.getElementById('wb-' + k).textContent = '—');
       document.getElementById('wb-timeline').innerHTML = '<div class="timeline-day empty">没有最近条目</div>';
       renderFactorBreakdown({});
+      const trendEl = document.getElementById('wb-trend');
+      if (trendEl) trendEl.style.display = 'none';
       return;
+    }
+    // 趋势条
+    if (trend && prevPeriod){
+      const trendEl = document.getElementById('wb-trend');
+      if (trendEl){
+        const dimNames = {D1:'投入',D2:'重复',D3:'新事件',S1:'未来',S2:'结果',S3:'主体',T1:'体验',T2:'认知',T3:'关系'};
+        const items = Object.entries(trend)
+          .filter(([_, v]) => v.direction !== 'flat' && Math.abs(v.delta) >= 0.5)
+          .sort((a,b) => Math.abs(b[1].delta) - Math.abs(a[1].delta))
+          .slice(0, 6);
+        if (items.length > 0){
+          trendEl.innerHTML = '<span style="font-family:var(--mono);font-size:10px;letter-spacing:1px;color:var(--ink-faint);text-transform:uppercase;margin-right:8px">vs 上一周期</span>' +
+            items.map(([k, v]) => {
+              const arr = v.direction === 'up' ? '↑' : '↓';
+              const sign = v.delta > 0 ? '+' : '';
+              return '<span class="wb-trend-item ' + v.direction + '"><span class="key">' + k + '</span> ' + dimNames[k] + ' <span class="arr">' + arr + '</span>' + sign + v.delta.toFixed(1) + '</span>';
+            }).join('');
+          trendEl.style.display = '';
+        } else {
+          trendEl.style.display = 'none';
+        }
+      }
     }
     renderRadar(dimAggregation);
     const avg = keys => { let s=0, c=0; keys.forEach(k => { if (dimAggregation[k]){ s += dimAggregation[k]; c++; } }); return c ? s/c : 0; };
@@ -3563,7 +4108,7 @@ const App = (() => {
             const v = factorAgg[f.id] || 0;
             const cls = v >= 7 ? 't-high' : v >= 4 ? 't-mid' : 't-low';
             return '<div class="factor-bar-row">' +
-              '<span class="nm"><span class="status-dot on"></span>' + UI.esc(f.name) + '</span>' +
+              '<span class="nm"><span class="status-dot on"></span>' + UI.esc(f.name) + UI.factorInfoHTML({id:f.id, name:f.name, desc:f.desc||'', signals:f.signals||[], intent:f.intent||'neutral', dimKey:r.key}) + '</span>' +
               '<div class="bar ' + cls + '"><span style="width:' + (v*10) + '%"></span></div>' +
               '<span class="v">' + v.toFixed(1) + '</span>' +
             '</div>';
@@ -3757,10 +4302,10 @@ const App = (() => {
       return Array.isArray(a);
     });
 
-    // 10. flattenFactors：应含 56 个因子
-    test('flattenFactors ≥ 56', () => {
+    // 10. flattenFactors：应含 56 个因子（精确）
+    test('flattenFactors === 56', () => {
       const f = Domain.flattenFactors(Store.getRules());
-      return f.length >= 56 ? true : { pass:false, detail:'实际 ' + f.length };
+      return f.length === 56 ? true : { pass:false, detail:'实际 ' + f.length + ' 个，应为 56' };
     });
 
     // 11. clamp 函数
@@ -3772,7 +4317,69 @@ const App = (() => {
     test('migrateData 兼容性', () => {
       const old = { rules: [{key:'D1',cat:'D',name:'test',q:'?',desc:'',weight:0.5,threshold:0.3,signals:['test']}], entries: [], scenarios: [] };
       const migrated = Domain.migrateData(old);
-      return migrated._schemaVersion === '1.0' && migrated._migratedAt ? true : { pass:false };
+      return migrated._schemaVersion === '1.1' && migrated._migratedAt ? true : { pass:false };
+    });
+
+    // 13. extractSignals 否定识别
+    test('extractSignals 否定词取消命中', () => {
+      const rules = Store.getRules();
+      const sigs = Domain.extractSignals('今天没工作，休息了一整天', rules);
+      const workHit = sigs.find(s => s.factorId === 'D1-W');
+      return workHit && workHit.negated === true ? true : { pass:false, detail:'未检测到"没工作"的否定' };
+    });
+
+    // 14. extractSignals 强度修饰
+    test('extractSignals 强度修饰符生效', () => {
+      const rules = Store.getRules();
+      const sigs1 = Domain.extractSignals('很焦虑', rules);
+      const sigs2 = Domain.extractSignals('焦虑', rules);
+      const s1 = sigs1.find(s => s.factorId === 'S1-AN');
+      const s2 = sigs2.find(s => s.factorId === 'S1-AN');
+      return s1 && s2 && s1.confidence > s2.confidence ? true : { pass:false, detail:'非常/普通无差异' };
+    });
+
+    // 15. 因子数 === 56（精确）
+    test('flattenFactors === 56', () => {
+      const f = Domain.flattenFactors(Store.getRules());
+      return f.length === 56 ? true : { pass:false, detail:'实际 ' + f.length + ' 个，应为 56' };
+    });
+
+    // 16. clamp 函数
+    test('clamp 边界正确', () => {
+      return Domain.clamp(-5, 0, 10) === 0 && Domain.clamp(15, 0, 10) === 10 && Domain.clamp(5, 0, 10) === 5;
+    });
+
+    // 17. 数据迁移往返
+    test('migrateData 升级到 1.1', () => {
+      const old = { _schemaVersion:'1.0', rules:[{key:'D1',cat:'D',name:'t',q:'?',desc:'',weight:0.5,threshold:0.3,signals:['t'],factors:[{id:'D1-T',name:'t',signals:['t'],weight:1,enabled:true}]}], entries:[], scenarios:[] };
+      const migrated = Domain.migrateData(old);
+      return migrated._schemaVersion === '1.1' && migrated.rules[0].factors[0].intent !== undefined ? true : { pass:false };
+    });
+
+    // 18. trimmedMean 抗离群
+    test('trimmedMean 抗离群值', () => {
+      const vals = [5,5,5,5,5,5,5,100];
+      const mean = vals.reduce((s,v)=>s+v,0)/vals.length;
+      const tm = Domain.trimmedMean(vals, 0.1);
+      return Math.abs(tm - 5) < Math.abs(mean - 5) ? true : { pass:false, detail:'trimmedMean=' + tm.toFixed(2) + ', mean=' + mean.toFixed(2) };
+    });
+
+    // 19. aggregateProfile 含 trend 字段
+    test('aggregateProfile 含 trend', () => {
+      const rules = Store.getRules();
+      const entries = Store.getEntries();
+      const agg = Domain.aggregateProfile(entries, rules, '7');
+      if (agg.sampleSize === 0) return true; // 没数据不强求
+      return agg.trend && typeof agg.trend === 'object' ? true : { pass:false };
+    });
+
+    // 20. S2/S3 负向 intent + 否定 → 不扣分
+    test('负向 intent 否定识别', () => {
+      const rules = Store.getRules();
+      const sigs = Domain.extractSignals('不再焦虑，不再担心，今天不卷效率', rules);
+      const anHit = sigs.find(s => s.factorId === 'S1-AN');
+      const efHit = sigs.find(s => s.factorId === 'S2-EF');
+      return (anHit && anHit.negated) && (efHit && efHit.negated) ? true : { pass:false, detail:'否定信号未识别' };
     });
 
     return results;
