@@ -1,14 +1,14 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="color-scheme" content="light" />
+<html lang="zh-CN" data-page-node-id="Be3JEJgHeibhE0KyqpuZHP">
+<head data-page-node-id="3b7Lt9WI8DNWKqRCCF0cAW">
+<meta charset="utf-8" data-page-node-id="vIvDHYUdjj5kziS0XQJzKB" />
+<meta name="viewport" content="width=device-width,initial-scale=1" data-page-node-id="VDAUKbmanyT587A6YnlUYM" />
+<meta name="color-scheme" content="light" data-page-node-id="Q8k3xRk8qNXw53sGorHKLK" />
 <title>时痕 TimeTrace · 指标规则系统（解耦架构版）</title>
-<meta name="description" content="时痕 TimeTrace · 分层架构：Domain / Repository / Service / State / UI 五层解耦，事件总线驱动。" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;450;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<meta name="description" content="时痕 TimeTrace · 分层架构：Domain / Repository / Service / State / UI 五层解耦，事件总线驱动。" data-page-node-id="eIQ0igDWmQQxH5JKlUwIrS" />
+<link rel="preconnect" href="https://fonts.googleapis.com" data-page-node-id="Fow54hRyGKfpbKR8J1fk9O" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin data-page-node-id="LldUNkcEDSz9wFCH2CuOis" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Inter:wght@400;450;500;600;700&family=Noto+Serif+SC:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" data-page-node-id="Glk5SNMhuRDs79a0oIFFbl" />
 <style>
   /* ============================================================
      DESIGN TOKENS · 单一来源
@@ -926,20 +926,20 @@
   }
 </style>
 </head>
-<body>
+<body data-page-node-id="PUNDYwO4kKI82Ghy9tcO8O">
 
 <!-- ============================================================
      APP SHELL · 由 JS 注入
      ============================================================ -->
-<div id="app-root"></div>
-<div class="modal-back" id="modal-back">
-  <div class="modal">
-    <div class="modal-head"><h3 id="modal-title">编辑</h3><button class="btn btn-ghost btn-sm" id="modal-close">✕</button></div>
-    <div class="modal-body" id="modal-body"></div>
-    <div class="modal-foot"><button class="btn btn-ghost" id="modal-cancel">取消</button><button class="btn btn-primary" id="modal-ok">保存</button></div>
+<div id="app-root" data-page-node-id="qe5uBn5qj7DthsLC79npjt"></div>
+<div class="modal-back" id="modal-back" data-page-node-id="RNx3BW5Dkx3Qn2W4ClODTZ">
+  <div class="modal" data-page-node-id="rFxQywjT1Ym3SjG68m2ZMX">
+    <div class="modal-head" data-page-node-id="bkEqlG4oonKBFxxeqmu7be"><h3 id="modal-title" data-page-node-id="X1ug9fdPRf8acNCZyky829">编辑</h3><button class="btn btn-ghost btn-sm" id="modal-close" data-page-node-id="rQliDqIda7QPQDv1zQVYGM">✕</button></div>
+    <div class="modal-body" id="modal-body" data-page-node-id="mdFRavBh3aH9dfSGoXW89B"></div>
+    <div class="modal-foot" data-page-node-id="gq7YW9odiIewzrsgtSLDD0"><button class="btn btn-ghost" id="modal-cancel" data-page-node-id="NBwEmi4DQKqWCGERhLDDfi">取消</button><button class="btn btn-primary" id="modal-ok" data-page-node-id="RVvlmH4v40QL2aGJDKahmL">保存</button></div>
   </div>
 </div>
-<div class="toast-stack" id="toasts"></div>
+<div class="toast-stack" id="toasts" data-page-node-id="BCa4QUzLMvhQWqR41Vx4TQ"></div>
 
 <!-- ====================  KB LOADER (v1.3)  ====================
  * 知识库从 data/kb/*.json 自动生成（通过 data/build-inline.js）
