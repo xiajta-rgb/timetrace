@@ -1019,33 +1019,52 @@ const Domain = (() => {
         });
       }
     });
-    // 去重 v1.1：同因子 + 位置重叠视为同一事件，只保留 confidence 最高的
-    const byFactor = new Map(); // factorId -> best hit array
+    // 去重 v1.1：同因子 + 位置重叠/相邻视为同一事件，链式扩展合并
+    // 用 Map 按范围 (loc|len) 索引，避免 list 中出现重复项
+    const byFactor = new Map();
     hits.forEach(h => {
       const fk = h.factorId ? `${h.key}|${h.factorId}` : `${h.key}|_legacy_`;
-      const list = byFactor.get(fk) || [];
-      // 寻找位置重叠的已有 hit
-      let overlapIdx = -1;
-      for (let i = 0; i < list.length; i++){
-        const ex = list[i];
+      let rangeMap = byFactor.get(fk);
+      if (!rangeMap){ rangeMap = new Map(); byFactor.set(fk, rangeMap); }
+      // 链式合并
+      const MAX_PASSES = rangeMap.size + 2;
+      for (let pass = 0; pass < MAX_PASSES; pass++){
+        let mergedThisPass = false;
+        for (const [rKey, ex] of rangeMap.entries()){
+          const hStart = h._loc, hEnd = h._loc + (h._len || h.src.length);
+          const eStart = ex._loc, eEnd = ex._loc + (ex._len || ex.src.length);
+          if (hStart <= eEnd && eStart <= hEnd){
+            const newStart = Math.min(eStart, hStart);
+            const newEnd = Math.max(eEnd, hEnd);
+            if (newStart === eStart && newEnd === eEnd) continue;
+            const winner = h.confidence > ex.confidence ? h : ex;
+            const newKey = newStart + '|' + (newEnd - newStart);
+            rangeMap.delete(rKey);
+            rangeMap.set(newKey, { ...winner, _loc: newStart, _len: newEnd - newStart });
+            h._loc = newStart; h._len = newEnd - newStart;
+            mergedThisPass = true;
+            break;
+          }
+        }
+        if (!mergedThisPass) break;
+      }
+      // 加入 h（最终位置），但若 h 完全被某个已有 hit 包含则跳过
+      let isContained = false;
+      const hStart = h._loc, hEnd = h._loc + (h._len || h.src.length);
+      for (const [, ex] of rangeMap.entries()){
         const eStart = ex._loc, eEnd = ex._loc + (ex._len || ex.src.length);
-        const hStart = h._loc, hEnd = h._loc + (h._len || h.src.length);
-        // 重叠：[hStart, hEnd) ∩ [eStart, eEnd) 非空
-        if (hStart < eEnd && eStart < hEnd){
-          overlapIdx = i; break;
+        if (eStart <= hStart && hEnd <= eEnd){
+          isContained = true; break;
         }
       }
-      if (overlapIdx >= 0){
-        // 位置重叠：保留 confidence 更高的
-        if (h.confidence > list[overlapIdx].confidence){
-          list[overlapIdx] = h;
+      if (!isContained){
+        const hKey = h._loc + '|' + (h._len || h.src.length);
+        if (!rangeMap.has(hKey)){
+          rangeMap.set(hKey, h);
         }
-      } else {
-        list.push(h);
       }
-      byFactor.set(fk, list);
     });
-    return Array.from(byFactor.values()).flat();
+    return Array.from(byFactor.values()).map(m => Array.from(m.values())).flat();
   }
 
   function categoryOf(key){ return (key || '').replace(/[0-9]/g,''); }
@@ -4500,6 +4519,42 @@ const App = (() => {
       const f1 = Domain.createFactor({ id:'T1', intent:'positive' });
       const f2 = Domain.createFactor({ id:'T2', intent:'invalid_value' });
       return f1.intent === 'positive' && f2.intent === 'neutral' ? true : { pass:false };
+    });
+
+    // 26. 相邻 / 链式合并
+    test('链式相邻合并', () => {
+      const rules = Store.getRules();
+      const sigs = Domain.extractSignals('工作工作工作', rules);
+      const w = sigs.filter(s => s.factorId === 'D1-W');
+      return w.length === 1 ? true : { pass:false, detail:'工作×3 应合并为 1 hit，实际 ' + w.length };
+    });
+
+    // 27. 跨位置保留多 hit
+    test('跨位置保留多 hit', () => {
+      const rules = Store.getRules();
+      const sigs = Domain.extractSignals('今天工作，明天工作', rules);
+      const w = sigs.filter(s => s.factorId === 'D1-W');
+      return w.length === 2 ? true : { pass:false, detail:'今天工作，明天工作 应为 2 hit，实际 ' + w.length };
+    });
+
+    // 28. 极长文本性能
+    test('极长文本性能 < 500ms', () => {
+      const rules = Store.getRules();
+      const big = '工作'.repeat(2000);
+      const t0 = Date.now();
+      const sigs = Domain.extractSignals(big, rules);
+      const t1 = Date.now();
+      const w = sigs.filter(s => s.factorId === 'D1-W');
+      return (t1-t0) < 500 && w.length < 10 ? true : { pass:false, detail:'耗时 ' + (t1-t0) + 'ms, ' + w.length + ' hits' };
+    });
+
+    // 29. h 被已有 hit 包含则不重复加
+    test('包含检查避免重复', () => {
+      const rules = Store.getRules();
+      const sigs = Domain.extractSignals('我开了一个会议，加了三天班', rules);
+      const w = sigs.filter(s => s.factorId === 'D1-W');
+      // 开会/会议 合并为 1，加班 1，总共 2
+      return w.length === 2 ? true : { pass:false, detail:'实际 ' + w.length + ' hits' };
     });
 
     return results;
