@@ -149,8 +149,8 @@ Object.entries(factorByDim).forEach(([k, arr]) => {
   totalFactors += arr.length;
   info(`  ${k}: ${arr.length} 因子 → ${arr.join(', ')}`);
 });
-if (totalFactors === 56) ok(`总因子数 === 56`);
-else bad('总因子数 ≠ 56', 'actual=' + totalFactors);
+if (totalFactors === 57) ok(`总因子数 === 57`);
+else bad('总因子数 ≠ 57', 'actual=' + totalFactors);
 
 // ============================================================
 console.log(C.bold + '\n═══ 4. 信号使用统计 ═══' + C.reset);

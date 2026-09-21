@@ -1,5 +1,5 @@
 /* AUTO-GENERATED from data/kb/*.json by data/build-inline.js — DO NOT EDIT
- * Generated at: 2026-09-21T07:09:12.688Z
+ * Generated at: 2026-09-21T07:46:16.395Z
  *
  * 包含 12 张 KB 表：dimensions, factors, signals, factor-signals, negations, modifiers, intents, observations, profile-types, scenarios, moods, factor-relations
  * 用法：
@@ -237,6 +237,17 @@ window.TT_KB = {
         "order": 8
       },
       {
+        "id": "D1-H",
+        "dimCode": "D1",
+        "name": "健康/身体",
+        "description": "对身体的投资与维护——就医、体检、吃药、休息、康复等。运动归在 D1-X 闲暇里，但生病/疗愈属于此。",
+        "emotion": "身体觉察",
+        "weight": 0.6,
+        "intent": "positive",
+        "enabled": true,
+        "order": 9
+      },
+      {
         "id": "D2-SIM",
         "dimCode": "D2",
         "name": "相似日占比",
@@ -450,7 +461,7 @@ window.TT_KB = {
         "dimCode": "S2",
         "name": "目标达成",
         "description": "看结果是否达到（被否定时是好事——\"不再追求达成\"是放下执念）。",
-        "emotion": "成就感",
+        "emotion": "被结果绑架",
         "weight": 0.9,
         "intent": "negative",
         "enabled": true,
@@ -461,7 +472,7 @@ window.TT_KB = {
         "dimCode": "S2",
         "name": "产出/交付",
         "description": "看是否有产出（被否定时是好事）。",
-        "emotion": "效率感",
+        "emotion": "忙碌感",
         "weight": 0.9,
         "intent": "negative",
         "enabled": true,
@@ -472,7 +483,7 @@ window.TT_KB = {
         "dimCode": "S2",
         "name": "KPI/OKR",
         "description": "量化指标驱动（被否定时是好事——\"不被 KPI 绑架\"）。",
-        "emotion": "数据焦虑",
+        "emotion": "被指标驱动",
         "weight": 1,
         "intent": "negative",
         "enabled": true,
@@ -1430,6 +1441,118 @@ window.TT_KB = {
         "type": "动作",
         "tone": "正向",
         "domain": "娱乐"
+      },
+      {
+        "id": "sig_medical",
+        "text": "看病",
+        "type": "动作",
+        "tone": "中性",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_see_doctor",
+        "text": "看医生",
+        "type": "动作",
+        "tone": "中性",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_hospital",
+        "text": "医院",
+        "type": "场景",
+        "tone": "中性",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_checkup",
+        "text": "体检",
+        "type": "动作",
+        "tone": "中性",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_take_medicine",
+        "text": "吃药",
+        "type": "动作",
+        "tone": "中性",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_medicine",
+        "text": "药",
+        "type": "对象",
+        "tone": "中性",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_body",
+        "text": "身体",
+        "type": "对象",
+        "tone": "中性",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_recover",
+        "text": "康复",
+        "type": "动作",
+        "tone": "正向",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_sick",
+        "text": "生病",
+        "type": "状态",
+        "tone": "负向",
+        "domain": "健康",
+        "note": "D1-H 健康/反向"
+      },
+      {
+        "id": "sig_sick_alt",
+        "text": "病了",
+        "type": "状态",
+        "tone": "负向",
+        "domain": "健康",
+        "note": "D1-H 健康/反向"
+      },
+      {
+        "id": "sig_fatigue",
+        "text": "疲惫",
+        "type": "状态",
+        "tone": "负向",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_fever",
+        "text": "发烧",
+        "type": "状态",
+        "tone": "负向",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_health",
+        "text": "健康",
+        "type": "对象",
+        "tone": "正向",
+        "domain": "健康",
+        "note": "D1-H 健康"
+      },
+      {
+        "id": "sig_wellness",
+        "text": "养生",
+        "type": "动作",
+        "tone": "正向",
+        "domain": "健康",
+        "note": "D1-H 健康"
       },
       {
         "id": "sig_repeat",
@@ -3242,11 +3365,11 @@ window.TT_KB = {
       },
       {
         "factorId": "D1-F",
-        "signalId": "sig_companion",
+        "signalId": "sig_companion_child",
         "weight": 1,
         "matchType": "exact",
         "negationOverride": null,
-        "note": ""
+        "note": "陪孩子（家庭）"
       },
       {
         "factorId": "D1-F",
@@ -3254,15 +3377,7 @@ window.TT_KB = {
         "weight": 1,
         "matchType": "exact",
         "negationOverride": null,
-        "note": ""
-      },
-      {
-        "factorId": "D1-F",
-        "signalId": "sig_companion_child",
-        "weight": 1,
-        "matchType": "exact",
-        "negationOverride": null,
-        "note": ""
+        "note": "陪了（家庭场景）"
       },
       {
         "factorId": "D1-F",
@@ -3703,6 +3818,126 @@ window.TT_KB = {
         "matchType": "exact",
         "negationOverride": null,
         "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_medical",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_see_doctor",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_hospital",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_checkup",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_take_medicine",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_medicine",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_body",
+        "weight": 0.8,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_recover",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_sick",
+        "weight": 0.6,
+        "matchType": "exact",
+        "negationOverride": "reverse",
+        "note": "negation→0（生病=不算健康投入）"
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_sick_alt",
+        "weight": 0.6,
+        "matchType": "exact",
+        "negationOverride": "reverse",
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_fatigue",
+        "weight": 0.7,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_fever",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_health",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_wellness",
+        "weight": 1,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": ""
+      },
+      {
+        "factorId": "D1-H",
+        "signalId": "sig_insomnia",
+        "weight": 0.5,
+        "matchType": "exact",
+        "negationOverride": null,
+        "note": "D1-Z 睡眠也用"
       },
       {
         "factorId": "D2-SIM",
@@ -5685,11 +5920,11 @@ window.TT_KB = {
       {
         "key": "resultOrientation",
         "name": "结果化程度",
-        "formula": "S1*0.5 + S2*0.5",
-        "description": "当前生活有多大比例被目标和结果牵引",
+        "formula": "S2*0.7 - S3*0.3",
+        "description": "被结果驱动的程度（结果导向 S2 减主体参与 S3 的张力，clamp 至 0-10）",
         "weightByDim": {
-          "S1": 0.5,
-          "S2": 0.5
+          "S2": 0.7,
+          "S3": -0.3
         },
         "range": [
           0,
@@ -5943,9 +6178,9 @@ window.TT_KB = {
       {
         "sourceFactorId": "S3-CH",
         "targetFactorId": "S3-EX",
-        "type": "synonym",
-        "strength": 0.6,
-        "note": "都是主动，CH 是决策，EX 是探索"
+        "type": "antonym",
+        "strength": 0.4,
+        "note": "选择 vs 探索——决策后可执行可不探索；探索后不一定选择"
       },
       {
         "sourceFactorId": "T1-TA",
@@ -6041,9 +6276,9 @@ window.TT_KB = {
       {
         "sourceFactorId": "D3-ML",
         "targetFactorId": "D3-UE",
-        "type": "antonym",
+        "type": "subset",
         "strength": 0.4,
-        "note": "计划内达成 vs 意外事件"
+        "note": "里程碑是计划内事件，意外事件是计划外——两者共同构成人生丰富度"
       }
     ]
   }

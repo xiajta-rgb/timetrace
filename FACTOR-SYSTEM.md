@@ -7,9 +7,9 @@
 | 表 | 记录 |
 |---|---:|
 | dimensions | 9 |
-| factors | 56 |
-| signals | 314 |
-| factor-signals | 299 |
+| factors | 57 |
+| signals | 328 |
+| factor-signals | 313 |
 | negations | 14 |
 | modifiers | 9 |
 | intents | 3 |
@@ -19,7 +19,7 @@
 | moods | 8 |
 | factor-relations | 21 |
 
-**构建时间：** 2026-09-21T07:14:19.532Z
+**构建时间：** 2026-09-21T07:46:16.037Z
 
 
 # 1. 9 个维度（dimensions）
@@ -52,7 +52,7 @@
 
 每个因子含：id / name / emotion 情绪切点 / description / weight / intent / enabled / signals。
 
-### D1 · Duration 发生 · 时间投入（8 个因子）
+### D1 · Duration 发生 · 时间投入（9 个因子）
 
 #### `D1-W` · 工作
 
@@ -107,12 +107,11 @@
 - **权重**：0.9
 - **意图**：`positive`（正向：越高越好）
 - **启用**：✓
-- **关联信号**（11 个）：
+- **关联信号**（10 个）：
   - `sig_family` "家庭" (w=1)
   - `sig_child` "孩子" (w=1)
-  - `sig_companion` "陪伴" (w=1)
-  - `sig_companion_past` "陪了" (w=1)
-  - `sig_companion_child` "陪孩子" (w=1)
+  - `sig_companion_child` "陪孩子" (w=1) _(陪孩子（家庭）)_
+  - `sig_companion_past` "陪了" (w=1) _(陪了（家庭场景）)_
   - `sig_family_member` "家人" (w=1)
   - `sig_parents` "父母" (w=1)
   - `sig_spouse` "配偶" (w=1)
@@ -213,6 +212,30 @@
   - `sig_run` "跑步" (w=1)
   - `sig_hike` "爬山" (w=1)
   - `sig_draw` "画画" (w=1)
+
+#### `D1-H` · 健康/身体
+
+- **情绪切点**：身体觉察
+- **描述**：对身体的投资与维护——就医、体检、吃药、休息、康复等。运动归在 D1-X 闲暇里，但生病/疗愈属于此。
+- **权重**：0.6
+- **意图**：`positive`（正向：越高越好）
+- **启用**：✓
+- **关联信号**（15 个）：
+  - `sig_medical` "看病" (w=1)
+  - `sig_see_doctor` "看医生" (w=1)
+  - `sig_hospital` "医院" (w=1)
+  - `sig_checkup` "体检" (w=1)
+  - `sig_take_medicine` "吃药" (w=1)
+  - `sig_medicine` "药" (w=1)
+  - `sig_body` "身体" (w=0.8)
+  - `sig_recover` "康复" (w=1)
+  - `sig_sick` "生病" (w=0.6) [neg:reverse] _(negation→0（生病=不算健康投入）)_
+  - `sig_sick_alt` "病了" (w=0.6) [neg:reverse]
+  - `sig_fatigue` "疲惫" (w=0.7)
+  - `sig_fever` "发烧" (w=1)
+  - `sig_health` "健康" (w=1)
+  - `sig_wellness` "养生" (w=1)
+  - `sig_insomnia` "失眠" (w=0.5) _(D1-Z 睡眠也用)_
 
 ### D2 · Duration 发生 · 时间重复（5 个因子）
 
@@ -472,7 +495,7 @@
 
 #### `S2-DG` · 目标达成
 
-- **情绪切点**：成就感
+- **情绪切点**：被结果绑架
 - **描述**：看结果是否达到（被否定时是好事——"不再追求达成"是放下执念）。
 - **权重**：0.9
 - **意图**：`negative`（反向：否定时反而加分）
@@ -485,7 +508,7 @@
 
 #### `S2-OU` · 产出/交付
 
-- **情绪切点**：效率感
+- **情绪切点**：忙碌感
 - **描述**：看是否有产出（被否定时是好事）。
 - **权重**：0.9
 - **意图**：`negative`（反向：否定时反而加分）
@@ -498,7 +521,7 @@
 
 #### `S2-KP` · KPI/OKR
 
-- **情绪切点**：数据焦虑
+- **情绪切点**：被指标驱动
 - **描述**：量化指标驱动（被否定时是好事——"不被 KPI 绑架"）。
 - **权重**：1
 - **意图**：`negative`（反向：否定时反而加分）
@@ -960,11 +983,11 @@
 
 ### `resultOrientation` · 结果化程度
 
-- **公式**：`S1*0.5 + S2*0.5`
-- **维度权重**：{"S1":0.5,"S2":0.5}
+- **公式**：`S2*0.7 - S3*0.3`
+- **维度权重**：{"S2":0.7,"S3":-0.3}
 - **范围**：[0, 10]
 - **高分含义**：warning（warning=需要警惕 / good=好事）
-- **描述**：当前生活有多大比例被目标和结果牵引
+- **描述**：被结果驱动的程度（结果导向 S2 减主体参与 S3 的张力，clamp 至 0-10）
 - **建议**：适度放下，享受过程
 
 ### `lifeParticipation` · 生命参与度
@@ -1017,21 +1040,21 @@
 | `S1-WO` | **synonym** | `S1-AN` | 0.7 | 都是负面未来导向，担忧更温和，焦虑更强烈 |
 | `S2-KP` | **synonym** | `S2-DG` | 0.6 | 都是结果导向，KPI/OKR 与目标达成同源 |
 | `S3-PE` | **synonym** | `S3-PA` | 0.7 | 都是被动，PE 是执行，PA 是接收 |
-| `S3-CH` | **synonym** | `S3-EX` | 0.6 | 都是主动，CH 是决策，EX 是探索 |
 | `T1-TA` | **synonym** | `T1-FR` | 0.6 | 都是时间锚点，TA 是任意时刻，FR 是第一次 |
 | `T2-UN` | **synonym** | `T2-OV` | 0.7 | 都是认知升级，UN 是建立，OV 是推翻 |
+| `S3-CH` | **antonym** | `S3-EX` | 0.4 | 选择 vs 探索——决策后可执行可不探索；探索后不一定选择 |
 | `D2-RC` | **antonym** | `D3-NE` | 0.7 | 刷手机 vs 探索新体验 |
 | `S1-WO` | **antonym** | `D3-NE` | 0.6 | 担忧未来 vs 体验当下 |
 | `S3-PE` | **antonym** | `S3-CH` | 0.8 | 被动执行 vs 主动选择 |
 | `D2-SIM` | **antonym** | `D3-NE` | 0.7 | 日子相似 vs 新事件多 |
 | `D1-W` | **antonym** | `D1-F` | 0.5 | 工作时间 vs 家庭时间（资源竞争） |
-| `D3-ML` | **antonym** | `D3-UE` | 0.4 | 计划内达成 vs 意外事件 |
 | `D1-W` | **cause** | `S2-DL` | 0.7 | 工作多 → 截止驱动多 |
 | `S2-DL` | **cause** | `S1-AN` | 0.6 | 截止驱动 → 焦虑 |
 | `T1-FR` | **cause** | `T2-UN` | 0.5 | 第一次 → 引发新理解 |
 | `T3-DC` | **cause** | `T2-UN` | 0.6 | 深度交流 → 引发认知变化 |
 | `T3-UD` | **cause** | `T2-SR` | 0.5 | 被理解 → 重新认识自己 |
 | `D1-X` | **subset** | `D3-NE` | 0.6 | 闲暇娱乐常含新体验元素 |
+| `D3-ML` | **subset** | `D3-UE` | 0.4 | 里程碑是计划内事件，意外事件是计划外——两者共同构成人生丰富度 |
 
 
 # 8. 因子分布
@@ -1039,7 +1062,7 @@
 
 ### 8.1 按维度
 
-- **D1 时间投入**（8）：`D1-W`, `D1-L`, `D1-F`, `D1-S`, `D1-A`, `D1-Z`, `D1-T`, `D1-X`
+- **D1 时间投入**（9）：`D1-W`, `D1-L`, `D1-F`, `D1-S`, `D1-A`, `D1-Z`, `D1-T`, `D1-X`, `D1-H`
 - **D2 时间重复**（5）：`D2-SIM`, `D2-ACT`, `D2-RT`, `D2-RP`, `D2-RC`
 - **D3 新事件**（8）：`D3-NP`, `D3-NB`, `D3-NE`, `D3-NA`, `D3-UE`, `D3-ML`, `D3-CG`, `D3-EM`
 - **S1 未来导向**（6）：`S1-PL`, `S1-GO`, `S1-EX`, `S1-WO`, `S1-AN`, `S1-FP`
@@ -1052,7 +1075,7 @@
 
 ### 8.2 按意图
 
-- **正向（`positive`）**（38）：`D1-L`, `D1-F`, `D1-A`, `D1-Z`, `D1-X`, `D3-NP`, `D3-NB`, `D3-NE`, `D3-NA`, `D3-UE`, `D3-ML`, `D3-CG`, `D3-EM`, `S1-PL`, `S1-GO`, `S1-FP`, `S3-CH`, `S3-EX`, `S3-CR`, `S3-EP`, `S3-CG`, `T1-SE`, `T1-SC`, `T1-EM`, `T1-TA`, `T1-FR`, `T2-DI`, `T2-UN`, `T2-OV`, `T2-VA`, `T2-SR`, `T3-NK`, `T3-DC`, `T3-CR`, `T3-CE`, `T3-EI`, `T3-UD`, `T3-UU`
+- **正向（`positive`）**（39）：`D1-L`, `D1-F`, `D1-A`, `D1-Z`, `D1-X`, `D1-H`, `D3-NP`, `D3-NB`, `D3-NE`, `D3-NA`, `D3-UE`, `D3-ML`, `D3-CG`, `D3-EM`, `S1-PL`, `S1-GO`, `S1-FP`, `S3-CH`, `S3-EX`, `S3-CR`, `S3-EP`, `S3-CG`, `T1-SE`, `T1-SC`, `T1-EM`, `T1-TA`, `T1-FR`, `T2-DI`, `T2-UN`, `T2-OV`, `T2-VA`, `T2-SR`, `T3-NK`, `T3-DC`, `T3-CR`, `T3-CE`, `T3-EI`, `T3-UD`, `T3-UU`
 - **反向（`negative`）**（10）：`D2-RC`, `S1-WO`, `S1-AN`, `S2-DG`, `S2-OU`, `S2-KP`, `S2-EF`, `S2-DL`, `S3-PE`, `S3-PA`
 - **中性（`neutral`）**（8）：`D1-W`, `D1-S`, `D1-T`, `D2-SIM`, `D2-ACT`, `D2-RT`, `D2-RP`, `S1-EX`
 
@@ -1065,7 +1088,7 @@ Top 30 跨因子共享信号：
 |---:|---|---|---:|
 | 1 | `sig_okr` | OKR | ██ 2 |
 | 2 | `sig_deadline` | deadline | ██ 2 |
-| 3 | `sig_companion` | 陪伴 | ██ 2 |
+| 3 | `sig_insomnia` | 失眠 | ██ 2 |
 | 4 | `sig_first_time_alt` | 头一回 | ██ 2 |
 | 5 | `sig_discover` | 发现 | ██ 2 |
 | 6 | `sig_work` | 工作 | █░ 1 |

@@ -29,9 +29,9 @@
     {
       "key": "resultOrientation",
       "name": "结果化程度",
-      "formula": "S1*0.5 + S2*0.5",
-      "description": "当前生活有多大比例被目标和结果牵引",
-      "weightByDim": { "S1": 0.5, "S2": 0.5 },
+      "formula": "S2*0.7 - S3*0.3",
+      "description": "被结果驱动的程度（结果导向 S2 减主体参与 S3 的张力，clamp 至 0-10）",
+      "weightByDim": { "S2": 0.7, "S3": -0.3 },
       "range": [0, 10],
       "highMeans": "warning",
       "advice": "适度放下，享受过程"

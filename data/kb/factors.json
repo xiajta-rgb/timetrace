@@ -15,6 +15,7 @@
     { "id": "D1-Z", "dimCode": "D1", "name": "睡眠",     "description": "睡觉与休息的质量。",                                                                                    "emotion": "身体修复",  "weight": 0.6, "intent": "positive",   "enabled": true, "order": 6 },
     { "id": "D1-T", "dimCode": "D1", "name": "通勤",     "description": "上下班路上的时间。",                                                                                    "emotion": "机械重复",  "weight": 0.5, "intent": "neutral",    "enabled": true, "order": 7 },
     { "id": "D1-X", "dimCode": "D1", "name": "闲暇/娱乐", "description": "非功利性的玩耍、看剧、游戏、爱好等为自己充电的时间。",                                                "emotion": "自我充电",  "weight": 0.6, "intent": "positive",   "enabled": true, "order": 8 },
+    { "id": "D1-H", "dimCode": "D1", "name": "健康/身体",  "description": "对身体的投资与维护——就医、体检、吃药、休息、康复等。运动归在 D1-X 闲暇里，但生病/疗愈属于此。",     "emotion": "身体觉察",  "weight": 0.6, "intent": "positive",   "enabled": true, "order": 9 },
 
     { "id": "D2-SIM", "dimCode": "D2", "name": "相似日占比","description": "重复度高的日子占总天数比例。",                                                                           "emotion": "无差别感",  "weight": 0.8, "intent": "neutral",    "enabled": true, "order": 1 },
     { "id": "D2-ACT", "dimCode": "D2", "name": "重复活动",  "description": "反复做同一件事。",                                                                                       "emotion": "麻木",      "weight": 0.7, "intent": "neutral",    "enabled": true, "order": 2 },
@@ -38,9 +39,9 @@
     { "id": "S1-AN", "dimCode": "S1", "name": "焦虑",     "description": "紧张与压力（被否定时是好事——\"不焦虑了\"）。",                                                          "emotion": "压力感",    "weight": 0.9, "intent": "negative",   "enabled": true, "order": 5 },
     { "id": "S1-FP", "dimCode": "S1", "name": "为未来准备","description": "为将来做储备。",                                                                                        "emotion": "远见",      "weight": 0.7, "intent": "positive",   "enabled": true, "order": 6 },
 
-    { "id": "S2-DG", "dimCode": "S2", "name": "目标达成", "description": "看结果是否达到（被否定时是好事——\"不再追求达成\"是放下执念）。",                                            "emotion": "成就感",    "weight": 0.9, "intent": "negative",   "enabled": true, "order": 1 },
-    { "id": "S2-OU", "dimCode": "S2", "name": "产出/交付","description": "看是否有产出（被否定时是好事）。",                                                                          "emotion": "效率感",    "weight": 0.9, "intent": "negative",   "enabled": true, "order": 2 },
-    { "id": "S2-KP", "dimCode": "S2", "name": "KPI/OKR", "description": "量化指标驱动（被否定时是好事——\"不被 KPI 绑架\"）。",                                                       "emotion": "数据焦虑",  "weight": 1.0, "intent": "negative",   "enabled": true, "order": 3 },
+    { "id": "S2-DG", "dimCode": "S2", "name": "目标达成", "description": "看结果是否达到（被否定时是好事——\"不再追求达成\"是放下执念）。",                                            "emotion": "被结果绑架","weight": 0.9, "intent": "negative",   "enabled": true, "order": 1 },
+    { "id": "S2-OU", "dimCode": "S2", "name": "产出/交付","description": "看是否有产出（被否定时是好事）。",                                                                          "emotion": "忙碌感",    "weight": 0.9, "intent": "negative",   "enabled": true, "order": 2 },
+    { "id": "S2-KP", "dimCode": "S2", "name": "KPI/OKR", "description": "量化指标驱动（被否定时是好事——\"不被 KPI 绑架\"）。",                                                       "emotion": "被指标驱动","weight": 1.0, "intent": "negative",   "enabled": true, "order": 3 },
     { "id": "S2-EF", "dimCode": "S2", "name": "效率追求", "description": "追求高效率（被否定时是好事——\"不再卷效率\"是放松）。",                                                      "emotion": "卷",        "weight": 0.8, "intent": "negative",   "enabled": true, "order": 4 },
     { "id": "S2-DL", "dimCode": "S2", "name": "截止驱动", "description": "被 deadline 牵引（被否定时是好事）。",                                                                     "emotion": "压力",      "weight": 1.0, "intent": "negative",   "enabled": true, "order": 5 },
 

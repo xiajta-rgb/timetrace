@@ -22,7 +22,7 @@
     { "sourceFactorId": "S1-WO", "targetFactorId": "S1-AN", "type": "synonym", "strength": 0.7, "note": "都是负面未来导向，担忧更温和，焦虑更强烈" },
     { "sourceFactorId": "S2-KP", "targetFactorId": "S2-DG", "type": "synonym", "strength": 0.6, "note": "都是结果导向，KPI/OKR 与目标达成同源" },
     { "sourceFactorId": "S3-PE", "targetFactorId": "S3-PA", "type": "synonym", "strength": 0.7, "note": "都是被动，PE 是执行，PA 是接收" },
-    { "sourceFactorId": "S3-CH", "targetFactorId": "S3-EX", "type": "synonym", "strength": 0.6, "note": "都是主动，CH 是决策，EX 是探索" },
+    { "sourceFactorId": "S3-CH", "targetFactorId": "S3-EX", "type": "antonym", "strength": 0.4, "note": "选择 vs 探索——决策后可执行可不探索；探索后不一定选择" },
     { "sourceFactorId": "T1-TA", "targetFactorId": "T1-FR", "type": "synonym", "strength": 0.6, "note": "都是时间锚点，TA 是任意时刻，FR 是第一次" },
     { "sourceFactorId": "T2-UN", "targetFactorId": "T2-OV", "type": "synonym", "strength": 0.7, "note": "都是认知升级，UN 是建立，OV 是推翻" },
 
@@ -38,6 +38,6 @@
     { "sourceFactorId": "T3-DC", "targetFactorId": "T2-UN", "type": "cause", "strength": 0.6, "note": "深度交流 → 引发认知变化" },
     { "sourceFactorId": "T3-UD", "targetFactorId": "T2-SR", "type": "cause", "strength": 0.5, "note": "被理解 → 重新认识自己" },
     { "sourceFactorId": "D1-X",  "targetFactorId": "D3-NE", "type": "subset",  "strength": 0.6, "note": "闲暇娱乐常含新体验元素" },
-    { "sourceFactorId": "D3-ML", "targetFactorId": "D3-UE", "type": "antonym", "strength": 0.4, "note": "计划内达成 vs 意外事件" }
+    { "sourceFactorId": "D3-ML", "targetFactorId": "D3-UE", "type": "subset", "strength": 0.4, "note": "里程碑是计划内事件，意外事件是计划外——两者共同构成人生丰富度" }
   ]
 }

@@ -7,7 +7,7 @@
 [![Stack](https://img.shields.io/badge/stack-vanilla%20JS%20%E2%80%A2%20HTML%20%E2%80%A2%20CSS-ff7849?style=flat-square)](#-技术栈)
 [![Local](https://img.shields.io/badge/data-local--first%20%E2%9C%93-0ea5e9?style=flat-square)](#-本地优先)
 
-时痕 TimeTrace 是一套**为成年人设计的时间体验记录工具**。基于 D-S-T 时间体验指标体系（9 维 × 56 因子），用 AI 自动从日记中抽取结构化信号，构建个人画像，识别"时间被压缩"还是"时间在创造"。
+时痕 TimeTrace 是一套**为成年人设计的时间体验记录工具**。基于 D-S-T 时间体验指标体系（9 维 × 57 因子），用 AI 自动从日记中抽取结构化信号，构建个人画像，识别"时间被压缩"还是"时间在创造"。
 
 🌐 **在线访问**：<https://xiajta-rgb.github.io/timetrace/>（如已开启 Pages）
 
@@ -17,7 +17,7 @@
 
 | 模块 | 能力 |
 |------|------|
-| 📊 **D-S-T 指标体系** | 发生 / 结构 / 留痕 三层，9 个一级维度，56 个二级因子 |
+| 📊 **D-S-T 指标体系** | 发生 / 结构 / 留痕 三层，9 个一级维度，57 个二级因子 |
 | 🤖 **AI 自动抽取** | 写日记自动识别关键词，按因子归类，实时高亮 |
 | 🧠 **上下文感知** | 自动识别否定词（"不焦虑"）、强度修饰符（"非常焦虑"）与反向 intent |
 | 📈 **5 个观察指标** | 时间压缩度 / 体验密度 / 结果化程度 / 生命参与度 / 时间留痕度 |
@@ -78,7 +78,7 @@ timetrace/
 │                     #   · 因子编辑器 / 实时高亮 / 热力图 / 相关性矩阵
 │                     #   · 异常检测 / TOP10 / 暗色主题 / 命令面板
 ├── docs/
-│   └── factors.html  # 因子指标体系白皮书（56 因子 × 6 维）
+│   └── factors.html  # 因子指标体系白皮书（57 因子 × 6 维）
 ├── .gitignore
 └── README.md
 ```
@@ -130,7 +130,7 @@ python -m http.server 8765
 | 生命参与度 | `S3×0.35 + T1×0.3 + T2×0.35` | 真正参与而不是应付 |
 | 时间留痕度 | `T1×0.3 + T2×0.35 + T3×0.35` | 时间是否留下可回看的痕迹 |
 
-完整 56 个因子每个包含 6 维：定义 / 情绪切点 / 典型表达 / 关键词云 / 反面信号 / 引导话术，详见 [`docs/factors.html`](docs/factors.html)。
+完整 57 个因子每个包含 6 维：定义 / 情绪切点 / 典型表达 / 关键词云 / 反面信号 / 引导话术，详见 [`docs/factors.html`](docs/factors.html)。
 
 ---
 
@@ -255,9 +255,9 @@ node tasks/scenario-week-of-life.js
 | 表 | 文件 | 记录数 | 主键 |
 |----|------|--------|------|
 | dimensions | dimensions.json | 9 | code |
-| factors | factors.json | 56 | id |
-| signals | signals.json | 314 | id |
-| factor_signals | factor-signals.json | 299 | (factorId, signalId) |
+| factors | factors.json | 57 | id |
+| signals | signals.json | 328 | id |
+| factor_signals | factor-signals.json | 313 | (factorId, signalId) |
 | negations | negations.json | 14 | id |
 | modifiers | modifiers.json | 9 | id |
 | intents | intents.json | 3 | code |

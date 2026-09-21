@@ -1412,7 +1412,8 @@ const Domain = (() => {
 
   // ③ 结果化程度 · S1 + S2（越高 = 生活越被目标和结果牵引）
   function deriveResultOrientation(dimAgg){
-    return clamp((dimAgg.S1 || 0) * 0.5 + (dimAgg.S2 || 0) * 0.5, 0, 10);
+    // v1.3：结果导向 - 主体参与的差值（S2*0.7 - S3*0.3），最低 0
+    return clamp((dimAgg.S2 || 0) * 0.7 - (dimAgg.S3 || 0) * 0.3, 0, 10);
   }
 
   // ④ 生命参与度 · S3 + T1 + T2（越高 = 真正参与了正在发生的事）
@@ -2636,7 +2637,7 @@ const UI = (() => {
           <div class="arch-banner">
             <b>🏛 五层解耦</b>
             <span>UI</span><code>→</code><span>Store</span><code>→</code><span>Service</span><code>→</code><span>Repository</span><code>→</code><span>Domain</span>
-            <span style="color:var(--ink-faint);margin-left:8px">⌘K 打开命令面板 · 9 维 × 56 因子 · 5 个观察指标</span>
+            <span style="color:var(--ink-faint);margin-left:8px">⌘K 打开命令面板 · 9 维 × 57 因子 · 5 个观察指标</span>
             <span style="color:var(--ink-faint);margin-left:auto">事件总线驱动</span>
           </div>
 
@@ -4608,7 +4609,7 @@ const App = (() => {
         desc:'这是一套为成年人设计的时间体验记录工具。你只需要写下今天发生的事，AI 会自动构建你的「时间经历画像」。',
         items:[
           { ic:'1', t:'5 大模块 · 指标规则 / 数据库 / AI 抽取 / 画像工作台 / 导入导出' },
-          { ic:'2', t:'9 个一级维度 × 56 个二级因子 · D-S-T 完整体系' },
+          { ic:'2', t:'9 个一级维度 × 57 个二级因子 · D-S-T 完整体系' },
           { ic:'3', t:'5 个观察指标 · 时间压缩度 / 体验密度 / 结果化程度 / 生命参与度 / 时间留痕度' },
         ]
       },
@@ -4972,10 +4973,10 @@ const App = (() => {
       return Array.isArray(a);
     });
 
-    // 10. flattenFactors：应含 56 个因子（精确）
-    test('flattenFactors === 56', () => {
+    // 10. flattenFactors：应含 57 个因子（精确）
+    test('flattenFactors === 57', () => {
       const f = Domain.flattenFactors(Store.getRules());
-      return f.length === 56 ? true : { pass:false, detail:'实际 ' + f.length + ' 个，应为 56' };
+      return f.length === 57 ? true : { pass:false, detail:'实际 ' + f.length + ' 个，应为 57' };
     });
 
     // 11. clamp 函数
@@ -5008,10 +5009,10 @@ const App = (() => {
       return s1 && s2 && s1.confidence > s2.confidence ? true : { pass:false, detail:'非常/普通无差异' };
     });
 
-    // 15. 因子数 === 56（精确）
-    test('flattenFactors === 56', () => {
+    // 15. 因子数 === 57（精确）
+    test('flattenFactors === 57', () => {
       const f = Domain.flattenFactors(Store.getRules());
-      return f.length === 56 ? true : { pass:false, detail:'实际 ' + f.length + ' 个，应为 56' };
+      return f.length === 57 ? true : { pass:false, detail:'实际 ' + f.length + ' 个，应为 57' };
     });
 
     // 16. clamp 函数
@@ -5173,10 +5174,10 @@ const App = (() => {
     });
 
     // 36. KB 加载并派生规则
-    test('KB 派生规则数 = 9 + 因子数 = 56', () => {
+    test('KB 派生规则数 = 9 + 因子数 = 57', () => {
       const rules = Domain.getRulesFromKB();
       const flat = rules.flatMap(r => r.factors);
-      return rules.length === 9 && flat.length === 56 ? true : { pass:false, detail:'rules=' + rules.length + ' factors=' + flat.length };
+      return rules.length === 9 && flat.length === 57 ? true : { pass:false, detail:'rules=' + rules.length + ' factors=' + flat.length };
     });
 
     // 37. KB 因子有 desc/negations/modifiers/intent
@@ -5191,7 +5192,7 @@ const App = (() => {
     // 38. KBStats 可用
     test('KBStats 返回非空统计', () => {
       const s = Domain.KBStats();
-      return s && s.factors === 56 && s.signals > 0 ? true : { pass:false };
+      return s && s.factors === 57 && s.signals > 0 ? true : { pass:false };
     });
 
     return results;
