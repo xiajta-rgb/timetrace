@@ -267,10 +267,10 @@
     background:var(--paper);border:1px solid var(--line);
     border-radius:var(--r-l);box-shadow:var(--shadow-2);
     font-size:var(--fs-sm);line-height:1.6;color:var(--ink);
-    pointer-events:none;opacity:0;transform:translateY(-4px);
+    pointer-events:auto;opacity:0;transform:translateY(-4px);
     transition:opacity .2s var(--ease-out), transform .2s var(--ease-out);
   }
-  .factor-popover.show{opacity:1;transform:none}
+  .factor-popover.show{opacity:1;transform:none;pointer-events:auto}
   .factor-popover .pop-id{
     font-family:var(--mono);font-size:10px;letter-spacing:1.2px;
     color:var(--accent);margin-bottom:4px;
@@ -817,7 +817,11 @@ const Domain = (() => {
     desc: String(data.desc || ''),
     signals: Array.isArray(data.signals) ? data.signals.map(String) : [],
     weight: clamp(data.weight ?? 0.5, 0, 1),
-    enabled: data.enabled !== false
+    enabled: data.enabled !== false,
+    // v1.1 字段
+    negations: Array.isArray(data.negations) ? data.negations.map(String) : [],
+    modifiers: Array.isArray(data.modifiers) ? data.modifiers.map(String) : [],
+    intent: ['positive','negative','neutral'].includes(data.intent) ? data.intent : 'neutral'
   });
 
   const createMetricRule = (data) => Object.freeze({
@@ -857,16 +861,58 @@ const Domain = (() => {
   // 输入：文本 + 规则列表
   // 输出：[{key, cat, src, factorId, factorName, weight}]
   // 在 text 中找所有 sig 出现的位置；返回 [{index, length, negated, modifier}]
-  // 通过扫描所有出现位置，避免 indexOf 漏检
+  // v1.1 增强：1 字信号走精确；≥2 字信号先精确再宽松（looseMatch）
+  // 精确匹配优先；宽松匹配作为补充（解决「开会」vs「开了一个会」）
   function findOccurrences(text, sig){
     const out = [];
-    if (!sig) return out;
+    if (!sig || !text) return out;
+    // 1) 精确匹配（substring）
     let from = 0;
     while (true){
       const idx = text.indexOf(sig, from);
       if (idx === -1) break;
-      out.push({ index: idx, length: sig.length });
+      out.push({ index: idx, length: sig.length, kind:'exact' });
       from = idx + sig.length;
+    }
+    // 2) 宽松匹配（仅对 ≥2 字信号，避免漏掉「了/的/一/个」等被助词隔开的情况）
+    if (sig.length >= 2){
+      const loose = looseMatch(text, sig);
+      loose.forEach(l => {
+        // 去重：如果已经存在 exact 命中则跳过（exact 永远优先）
+        const dup = out.some(o => o.index === l.index || (l.index >= o.index && l.index < o.index + o.length));
+        if (!dup) out.push({ index: l.index, length: l.length, kind:'loose' });
+      });
+    }
+    return out;
+  }
+
+  // 宽松匹配：当信号被助词（了/的/一/个/下）隔开时也能命中
+  // 例如「开会」可匹配「开了一个会议」「开了个会」
+  // 算法：sig 的每个字依次在 text 中按顺序出现，且总跨度 ≤ sig.length + maxGap
+  // 返回 [{index, length}] 或 []
+  function looseMatch(text, sig){
+    const out = [];
+    if (!sig || !text || sig.length < 2) return out;
+    // 2 字信号允许 3 字间隔；3+ 字信号按比例放宽
+    const maxGap = sig.length === 2 ? 3 : Math.min(sig.length + 1, 4);
+    const maxSpan = sig.length + maxGap * (sig.length - 1);
+    const first = sig[0];
+    let from = 0;
+    while (true){
+      const startIdx = text.indexOf(first, from);
+      if (startIdx === -1) break;
+      // 从 startIdx 起依次找 sig[1..]
+      let pos = startIdx;
+      let ok = true;
+      for (let j = 1; j < sig.length; j++){
+        const next = text.indexOf(sig[j], pos + 1);
+        if (next === -1 || next - startIdx > maxSpan){ ok = false; break; }
+        pos = next;
+      }
+      if (ok){
+        out.push({ index: startIdx, length: pos - startIdx + 1 });
+      }
+      from = startIdx + 1;
     }
     return out;
   }
@@ -943,7 +989,8 @@ const Domain = (() => {
                 negatedWord,
                 modifierWord: ctx.modifierWord,
                 intent: f.intent || 'neutral',
-                _loc: occ.index
+                _loc: occ.index,
+                _len: occ.length
               });
             });
           });
@@ -965,20 +1012,40 @@ const Domain = (() => {
               negatedWord: ctx.negatedWord,
               modifierWord: ctx.modifierWord,
               intent: 'neutral',
-              _loc: occ.index
+              _loc: occ.index,
+              _len: occ.length
             });
           });
         });
       }
     });
-    // 去重（同一 factor + sig 保留 confidence 最高的一个）
-    const grouped = new Map();
+    // 去重 v1.1：同因子 + 位置重叠视为同一事件，只保留 confidence 最高的
+    const byFactor = new Map(); // factorId -> best hit array
     hits.forEach(h => {
-      const k = h.factorId ? `${h.key}|${h.factorId}|${h.src}` : `${h.key}|${h.src}`;
-      const cur = grouped.get(k);
-      if (!cur || h.confidence > cur.confidence) grouped.set(k, h);
+      const fk = h.factorId ? `${h.key}|${h.factorId}` : `${h.key}|_legacy_`;
+      const list = byFactor.get(fk) || [];
+      // 寻找位置重叠的已有 hit
+      let overlapIdx = -1;
+      for (let i = 0; i < list.length; i++){
+        const ex = list[i];
+        const eStart = ex._loc, eEnd = ex._loc + (ex._len || ex.src.length);
+        const hStart = h._loc, hEnd = h._loc + (h._len || h.src.length);
+        // 重叠：[hStart, hEnd) ∩ [eStart, eEnd) 非空
+        if (hStart < eEnd && eStart < hEnd){
+          overlapIdx = i; break;
+        }
+      }
+      if (overlapIdx >= 0){
+        // 位置重叠：保留 confidence 更高的
+        if (h.confidence > list[overlapIdx].confidence){
+          list[overlapIdx] = h;
+        }
+      } else {
+        list.push(h);
+      }
+      byFactor.set(fk, list);
     });
-    return Array.from(grouped.values());
+    return Array.from(byFactor.values()).flat();
   }
 
   function categoryOf(key){ return (key || '').replace(/[0-9]/g,''); }
@@ -1352,7 +1419,7 @@ const Domain = (() => {
   // 否定词：出现在信号词前 2 字符内的前缀，会取消或反转命中
   // 注意：JS 的 endsWith 按 UTF-16 code unit 比较（中文 BMP 每字 1 unit）
   // 这里列出从长到短的所有常见否定前缀，确保长前缀优先匹配
-  const DEFAULT_NEGATIONS = ['不再','不是','不太','从不','从未','绝不','几乎不','永不','没','未','无','不','别'];
+  const DEFAULT_NEGATIONS = ['不再','不是','不太','从不','从未','绝不','几乎不','永不','不卷','没','未','无','不','别'];
 
   // 强度修饰符：出现在信号词前 2 字符内的前缀，调整置信度
   // key 越长优先级越高（先匹配长前缀）
@@ -2038,14 +2105,18 @@ const UI = (() => {
   // —— 因子信息气泡
   // 用法：UI.factorInfo(factor) 返回 ⓘ HTML；hover 时弹出情绪切点 + 关键词
   let factorPopoverEl = null;
+  let factorPopoverTimer = null;
   function ensureFactorPopover(){
     if (factorPopoverEl) return factorPopoverEl;
     factorPopoverEl = document.createElement('div');
     factorPopoverEl.className = 'factor-popover';
+    factorPopoverEl.addEventListener('mouseenter', () => clearTimeout(factorPopoverTimer));
+    factorPopoverEl.addEventListener('mouseleave', () => scheduleHideFactorPopover());
     document.body.appendChild(factorPopoverEl);
     return factorPopoverEl;
   }
   function showFactorPopover(target, factor){
+    clearTimeout(factorPopoverTimer);
     const pop = ensureFactorPopover();
     const intentMap = { positive:'正向 · 越高越好', negative:'反向 · 否定时为好事', neutral:'中性 · 仅反映存在' };
     const intentClass = (factor.intent || 'neutral').charAt(0) + ((factor.intent || 'neutral') === 'positive' ? 'os' : (factor.intent || 'neutral') === 'negative' ? 'eg' : 'eu');
@@ -2065,10 +2136,21 @@ const UI = (() => {
       if (pr.right > window.innerWidth - 8){
         pop.style.left = (window.scrollX + window.innerWidth - pr.width - 12) + 'px';
       }
+      // 防止超出底部
+      if (pr.bottom > window.innerHeight - 8){
+        pop.style.top = (window.scrollY + r.top - pr.height - 6) + 'px';
+      }
     });
     pop.classList.add('show');
   }
+  function scheduleHideFactorPopover(){
+    clearTimeout(factorPopoverTimer);
+    factorPopoverTimer = setTimeout(() => {
+      if (factorPopoverEl) factorPopoverEl.classList.remove('show');
+    }, 200);
+  }
   function hideFactorPopover(){
+    clearTimeout(factorPopoverTimer);
     if (factorPopoverEl) factorPopoverEl.classList.remove('show');
   }
   // 事件代理：动态绑定 ⓘ 图标的 hover
@@ -2084,7 +2166,7 @@ const UI = (() => {
   document.addEventListener('mouseout', e => {
     const t = e.target.closest('.factor-info');
     if (!t) return;
-    hideFactorPopover();
+    scheduleHideFactorPopover();
   });
   // 移动端：tap 切换
   document.addEventListener('click', e => {
@@ -2380,28 +2462,28 @@ const App = (() => {
   const SEED_FACTORS = {
     D1: [
       { id:'D1-W', name:'工作', desc:'职业投入的总量与质量。不是问"你勤不勤奋"，而是问"这段时间里你把自己交给了什么"。',
-        signals:['工作','开会','加班','项目','汇报','同步','OKR','日报','周会','例会','deadline'],
+        signals:['工作','开会','加班','项目','汇报','同步','OKR','日报','周会','例会','deadline','会议','开了个会','加了班','开了会','工作了'],
         weight:1.0, enabled:true, negations:[], modifiers:[], intent:'neutral' },
       { id:'D1-L', name:'学习', desc:'主动增长的时间投入。衡量一个人是否在为自己投资未来——不是为了产出，而是为了让自己不同。',
-        signals:['学习','阅读','读书','上课','课程','培训','练习','背单词','论文'],
+        signals:['学习','阅读','读书','上课','课程','培训','练习','背单词','论文','学了','学到','读过','看了书','看了本书','读了点','看了点'],
         weight:0.7, enabled:true, negations:[], modifiers:[], intent:'positive' },
       { id:'D1-F', name:'家庭', desc:'与家人共度的时间。不是共处一室，而是真正的在场。',
-        signals:['家庭','孩子','陪伴','家人','父母','配偶','家务','做饭','接送'],
+        signals:['家庭','孩子','陪伴','家人','父母','配偶','家务','做饭','接送','陪了','陪孩子','陪爸妈'],
         weight:0.9, enabled:true, negations:[], modifiers:[], intent:'positive' },
       { id:'D1-S', name:'社交', desc:'主动维护的关系性时间投入。',
-        signals:['社交','朋友','聚会','饭局','应酬','团建','约会'],
+        signals:['社交','朋友','聚会','饭局','应酬','团建','约会','见了','见朋友','去吃饭'],
         weight:0.7, enabled:true, negations:[], modifiers:[], intent:'neutral' },
       { id:'D1-A', name:'独处', desc:'一个人安静地与自己相处的时间。',
         signals:['独处','发呆','一个人','独自','静坐','冥想','散步'],
         weight:0.8, enabled:true, negations:[], modifiers:[], intent:'positive' },
       { id:'D1-Z', name:'睡眠', desc:'睡觉与休息的质量。',
-        signals:['睡眠','睡觉','午睡','休息','赖床','失眠'],
+        signals:['睡眠','睡觉','午睡','休息','赖床','失眠','睡了','睡了觉'],
         weight:0.6, enabled:true, negations:[], modifiers:[], intent:'positive' },
       { id:'D1-T', name:'通勤', desc:'上下班路上的时间。',
         signals:['通勤','路上','地铁','公交','开车','打车'],
         weight:0.5, enabled:true, negations:[], modifiers:[], intent:'neutral' },
       { id:'D1-X', name:'闲暇/娱乐', desc:'非功利性的玩耍、看剧、游戏、爱好等为自己充电的时间。',
-        signals:['看剧','追剧','电影','综艺','打游戏','游戏','刷剧','玩','听歌','听音乐','刷抖音','刷微博','健身','运动','跑步','爬山','画画','音乐'],
+        signals:['看剧','追剧','电影','综艺','打游戏','游戏','刷剧','玩','听歌','听音乐','刷抖音','刷微博','健身','运动','跑步','爬山','画画','音乐','看了剧','玩了游戏'],
         weight:0.6, enabled:true, negations:[], modifiers:[], intent:'positive' },
     ],
     D2: [
@@ -4380,6 +4462,44 @@ const App = (() => {
       const anHit = sigs.find(s => s.factorId === 'S1-AN');
       const efHit = sigs.find(s => s.factorId === 'S2-EF');
       return (anHit && anHit.negated) && (efHit && efHit.negated) ? true : { pass:false, detail:'否定信号未识别' };
+    });
+
+    // 21. 复合词宽松匹配（looseMatch）：开会 vs 开了一个会议
+    test('looseMatch 复合词被助词隔开', () => {
+      const rules = Store.getRules();
+      const sigs = Domain.extractSignals('我开了一个会议，加了三天班', rules);
+      const w = sigs.find(s => s.factorId === 'D1-W');
+      return w ? true : { pass:false, detail:'复合词未命中' };
+    });
+
+    // 22. 否定不卷 + 工作
+    test('「不卷工作」触发否定', () => {
+      const rules = Store.getRules();
+      const sigs = Domain.extractSignals('今天不卷工作了', rules);
+      const w = sigs.find(s => s.factorId === 'D1-W');
+      return w && w.negated && w.negatedWord === '不卷' ? true : { pass:false, detail:'否定未识别' };
+    });
+
+    // 23. 同一因子不被双重 hit（loose + exact）
+    test('同因子 loose+exact 不重复', () => {
+      const rules = Store.getRules();
+      const sigs = Domain.extractSignals('今天开了个会', rules);
+      const w = sigs.filter(s => s.factorId === 'D1-W');
+      return w.length === 1 ? true : { pass:false, detail:'命中了 ' + w.length + ' 次' };
+    });
+
+    // 24. createFactor 工厂包含 v1.1 字段
+    test('createFactor 字段完整', () => {
+      const f = Domain.createFactor({ id:'TEST', name:'t', signals:['a','b'], weight:0.5, enabled:true });
+      const ok = f.id === 'TEST' && f.intent === 'neutral' && Array.isArray(f.negations) && Array.isArray(f.modifiers);
+      return ok ? true : { pass:false, detail:'缺 v1.1 字段' };
+    });
+
+    // 25. createFactor intent 校验
+    test('createFactor intent 校验', () => {
+      const f1 = Domain.createFactor({ id:'T1', intent:'positive' });
+      const f2 = Domain.createFactor({ id:'T2', intent:'invalid_value' });
+      return f1.intent === 'positive' && f2.intent === 'neutral' ? true : { pass:false };
     });
 
     return results;
