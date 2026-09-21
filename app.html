@@ -941,6 +941,13 @@
 </div>
 <div class="toast-stack" id="toasts"></div>
 
+<!-- ====================  KB LOADER (v1.3)  ====================
+ * 知识库从 data/kb/*.json 自动生成（通过 data/build-inline.js）
+ * 运行时挂载到 window.TT_KB / window.TT_KB_INDEX
+ * 让 Domain 层可从 KB 派生 rules/factors，无需硬编码 SEED
+-->
+<script src="data/kb-inline.js"></script>
+
 <script>
 "use strict";
 
@@ -1846,6 +1853,80 @@ const Domain = (() => {
     }
   }
 
+  // ============================================================
+  // v1.3 · KB 访问器（运行时从 window.TT_KB / TT_KB_INDEX 读取）
+  // ============================================================
+  function getKB(){
+    return (typeof window !== 'undefined' && window.TT_KB) || null;
+  }
+  function getKBIndex(){
+    return (typeof window !== 'undefined' && window.TT_KB_INDEX) || null;
+  }
+  function buildRulesFromKB(kb){
+    // 从 KB.factors 派生 SEED_RULES（每维一个 rule）
+    if (!kb || !kb.factors || !kb.dimensions) return null;
+    const rules = [];
+    kb.dimensions.records.forEach(dim => {
+      const factors = kb.factors.records.filter(f => f.dimCode === dim.code);
+      rules.push({
+        key: dim.code,
+        cat: dim.layer,
+        name: dim.name,
+        q: dim.question,
+        desc: dim.description,
+        weight: dim.weight || 1.0,
+        threshold: dim.threshold || 0.4,
+        signals: [],
+        factors: factors.map(f => ({
+          id: f.id,
+          name: f.name,
+          desc: f.description,
+          signals: [],  // 实际信号从 KB.factor-signals 派生
+          weight: f.weight || 0.5,
+          enabled: f.enabled !== false,
+          negations: f.negations || [],
+          modifiers: f.modifiers || [],
+          intent: f.intent || 'neutral',
+          emotion: f.emotion || '',
+        })),
+      });
+    });
+    // 为每个因子附加它对应的 signals（从 factor-signals.json）
+    if (kb['factor-signals'] && kb.signals){
+      rules.forEach(rule => {
+        rule.factors.forEach(f => {
+          const fs = kb['factor-signals'].records.filter(r => r.factorId === f.id);
+          f.signals = fs.map(r => {
+            const sig = kb.signals.records.find(s => s.id === r.signalId);
+            return sig ? sig.text : null;
+          }).filter(Boolean);
+        });
+      });
+    }
+    return rules;
+  }
+  function getRulesFromKB(){
+    // 优先使用 KB，fallback 为内联 SEED_RULES
+    const kb = getKB();
+    if (kb){
+      const built = buildRulesFromKB(kb);
+      if (built) return built;
+    }
+    return SEED_RULES;
+  }
+  function KBStats(){
+    const kb = getKB();
+    if (!kb) return null;
+    return {
+      version: kb._meta?.version || 'unknown',
+      tables: Object.keys(kb).filter(k => k !== '_meta').length,
+      factors: kb.factors?.records?.length || 0,
+      signals: kb.signals?.records?.length || 0,
+      associations: kb['factor-signals']?.records?.length || 0,
+      observations: kb.observations?.records?.length || 0,
+    };
+  }
+
   return {
     createMetricRule, createEntry, createScenario, createFactor,
     extractSignals, scoreFromSignals, deriveEvents, aggregateProfile,
@@ -1857,6 +1938,7 @@ const Domain = (() => {
     computeStreak, deriveFactorContributions, buildCalendarData, searchEntries,
     migrateData, wrapExport, encryptExport, decryptExport,
     SCHEMA_VERSION, DEFAULT_NEGATIONS, DEFAULT_MODIFIERS,
+    getKB, getKBIndex, getRulesFromKB, KBStats,
     categoryOf, clamp
   };
 })();
@@ -3149,8 +3231,8 @@ const App = (() => {
   const entryRepo = new Repository.SafeLocalStorageRepository('tt_entries_v1');
   const scenarioRepo = new Repository.SafeLocalStorageRepository('tt_scenarios_v1');
 
-  // 服务层：注入仓储 + 依赖
-  const ruleService = new Service.RuleService(ruleRepo, SEED_RULES);
+  // 服务层：注入仓储 + 依赖（v1.3：优先使用 KB 派生的 rules，fallback 到 SEED）
+  const ruleService = new Service.RuleService(ruleRepo, Domain.getRulesFromKB());
   const entryService = new Service.EntryService(entryRepo, ruleService);
   const scenarioService = new Service.ScenarioService(scenarioRepo, SEED_SCENARIOS);
   const extractService = new Service.ExtractService(ruleService);
@@ -4383,6 +4465,7 @@ const App = (() => {
       { id:'v:ie', title:'前往 · 导入导出', icon:'↕', scope:'视图', action: () => switchView('ie') },
       { id:'v:cal', title:'前往 · 时间日历', icon:'▦', scope:'视图', action: () => switchView('calendar') },
       { id:'a:search', title:'操作 · 搜索日记', icon:'⌕', scope:'操作', action: () => openSearchModal() },
+      { id:'a:kb', title:'查看 · 知识库统计 (v1.3)', icon:'ⓘ', scope:'系统', action: () => showKBStats() },
       { id:'a:add', title:'操作 · 新增日记', icon:'+', scope:'操作', action: () => { switchView('db'); setTimeout(() => addEntry(), 100); } },
       { id:'a:export', title:'操作 · 快速导出 JSON', icon:'↓', scope:'操作', action: () => {
           const { text, format } = ieService.export({});
@@ -5089,6 +5172,28 @@ const App = (() => {
       return Domain.searchEntries([], '').length === 0 ? true : { pass:false };
     });
 
+    // 36. KB 加载并派生规则
+    test('KB 派生规则数 = 9 + 因子数 = 56', () => {
+      const rules = Domain.getRulesFromKB();
+      const flat = rules.flatMap(r => r.factors);
+      return rules.length === 9 && flat.length === 56 ? true : { pass:false, detail:'rules=' + rules.length + ' factors=' + flat.length };
+    });
+
+    // 37. KB 因子有 desc/negations/modifiers/intent
+    test('KB 因子含 v1.1 字段', () => {
+      const rules = Domain.getRulesFromKB();
+      const flat = rules.flatMap(r => r.factors);
+      const sample = flat[0];
+      const ok = sample.intent !== undefined && Array.isArray(sample.negations) && Array.isArray(sample.modifiers) && sample.desc;
+      return ok ? true : { pass:false, detail:'缺字段' };
+    });
+
+    // 38. KBStats 可用
+    test('KBStats 返回非空统计', () => {
+      const s = Domain.KBStats();
+      return s && s.factors === 56 && s.signals > 0 ? true : { pass:false };
+    });
+
     return results;
   }
 
@@ -5161,6 +5266,79 @@ const App = (() => {
       searchTimer = setTimeout(doSearch, 150);
     });
     input.focus();
+  }
+
+  // —— v1.3 · KB 统计展示
+  function showKBStats(){
+    const stats = Domain.KBStats();
+    const idx = Domain.getKBIndex();
+    const kb = Domain.getKB();
+    let html = '';
+    if (!stats){
+      html = '<div class="cal-day-detail"><div class="date">KB 未加载</div><div style="margin-top:14px;color:var(--ink-soft)">请确保 <code>data/kb-inline.js</code> 已被加载。</div></div>';
+    } else {
+      // 维度分布
+      const dimStats = {};
+      if (kb.factors){
+        kb.factors.records.forEach(f => {
+          dimStats[f.dimCode] = (dimStats[f.dimCode] || 0) + 1;
+        });
+      }
+      // 意图分布
+      const intentStats = {};
+      if (kb.factors){
+        kb.factors.records.forEach(f => {
+          intentStats[f.intent] = (intentStats[f.intent] || 0) + 1;
+        });
+      }
+      // 信号使用 top 5
+      const usage = {};
+      if (kb['factor-signals']){
+        kb['factor-signals'].records.forEach(r => {
+          usage[r.signalId] = (usage[r.signalId] || 0) + 1;
+        });
+      }
+      const topSignals = Object.entries(usage).sort((a,b) => b[1] - a[1]).slice(0, 5);
+      const topSignalNames = topSignals.map(([id, n]) => {
+        const s = kb.signals.records.find(x => x.id === id);
+        return s ? `<li>${s.text} (${id}) → ${n} 因子</li>` : `<li>${id} → ${n}</li>`;
+      }).join('');
+
+      html = `
+        <div style="padding:8px 4px">
+          <div style="font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:1.2px;margin-bottom:14px">v${stats.version} / 共 ${stats.tables} 张表 / ${stats.factors} 因子 / ${stats.signals} 信号</div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px">
+            <div style="padding:14px;background:var(--bg-soft);border-radius:var(--r-m)">
+              <div style="font-family:var(--serif);font-size:14px;font-weight:600;margin-bottom:8px">因子维度分布</div>
+              ${Object.entries(dimStats).map(([k, n]) =>
+                `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0"><span>${k}</span><b>${n}</b></div>`
+              ).join('')}
+            </div>
+            <div style="padding:14px;background:var(--bg-soft);border-radius:var(--r-m)">
+              <div style="font-family:var(--serif);font-size:14px;font-weight:600;margin-bottom:8px">因子意图分布</div>
+              ${Object.entries(intentStats).map(([k, n]) =>
+                `<div style="display:flex;justify-content:space-between;font-size:12px;padding:3px 0"><span>${k}</span><b>${n}</b></div>`
+              ).join('')}
+            </div>
+          </div>
+
+          <div style="padding:14px;background:var(--bg-soft);border-radius:var(--r-m);margin-bottom:14px">
+            <div style="font-family:var(--serif);font-size:14px;font-weight:600;margin-bottom:8px">Top 5 高频信号</div>
+            <ul style="margin:0;padding-left:18px;font-size:12px;line-height:1.8">${topSignalNames}</ul>
+          </div>
+
+          <div style="padding:12px 14px;background:oklch(94% 0.030 168);border-radius:var(--r-m);font-size:12px;color:var(--ink-soft);line-height:1.7">
+            <b style="color:var(--ink-deep)">解耦架构：</b>所有数据来自 <code>data/kb/*.json</code>，运行时通过 <code>window.TT_KB</code> 访问。
+            修改 JSON → 重新运行 <code>node data/build-inline.js</code> → 刷新页面 即可生效。
+            校验脚本：<code>node data/validate.js</code>
+          </div>
+        </div>
+      `;
+    }
+    UI.modal.open('知识库统计 (KB v1.3)', html, null);
+    document.getElementById('modal-ok').style.display = 'none';
+    setTimeout(() => document.getElementById('modal-cancel').textContent = '关闭', 0);
   }
 
   function showTestResults(){

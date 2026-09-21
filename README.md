@@ -240,6 +240,76 @@ node tasks/scenario-week-of-life.js
 - [ ] 因子贡献度可解释（SHAP-like）
 - [ ] PWA 离线安装
 - [ ] 用户自定义否定词 / 修饰符 / intent
+- [ ] KB 编辑器 UI（让用户在浏览器里编辑 signals/factors/negations）
+- [ ] entry_segments 时间段切片 UI
+- [ ] audit_log 可视化界面
+
+---
+
+## 🗄️ 数据架构（v1.3 解耦）
+
+### 知识库（KB · 11 张静态参考表）
+
+数据文件在 `data/kb/`：
+
+| 表 | 文件 | 记录数 | 主键 |
+|----|------|--------|------|
+| dimensions | dimensions.json | 9 | code |
+| factors | factors.json | 56 | id |
+| signals | signals.json | 314 | id |
+| factor_signals | factor-signals.json | 299 | (factorId, signalId) |
+| negations | negations.json | 14 | id |
+| modifiers | modifiers.json | 9 | id |
+| intents | intents.json | 3 | code |
+| observations | observations.json | 5 | key |
+| profile_types | profile-types.json | 3 | code |
+| scenarios | scenarios.json | 5 | code |
+| moods | moods.json | 8 | code |
+| factor_relations | factor-relations.json | 21 | (sourceFactorId, targetFactorId, type) |
+
+### 用户数据（10 张动态表）
+
+定义在 `data/schema/users.json`：
+
+| 表 | 用途 |
+|----|------|
+| entries | 日记主表（score/factorScores 缓存）|
+| entry_signals | 抽取明细（独立存储便于聚合）|
+| entry_segments | 一条日记多段（timeOfDay）|
+| entry_moods | 一条日记多情绪（带 intensity）|
+| entry_tags | 自定义标签 |
+| scenarios_custom | 用户自定义场景 |
+| observation_snapshots | 每日观察快照（趋势计算）|
+| audit_log | 审计日志（before/after 快照）|
+| user_preferences | 偏好设置 |
+| schema_version | 数据 schema 版本追踪 |
+
+### 工具脚本
+
+```bash
+# 验证 KB 和用户数据 schema 完整性（30 项校验）
+node data/validate.js
+
+# 从 data/kb/*.json 生成 data/kb-inline.js（运行时 KB）
+node data/build-inline.js
+
+# 演示运行时从 KB 加载 + 抽取
+node data/kb-loader.js
+
+# 测试 KB-driven 抽取
+node data/test-kb-runtime.js
+
+# 跑所有 in-app Domain 单元测试（含 KB 集成测试）
+node data/test-unit.js
+```
+
+### 解耦原则
+
+1. **KB 与用户数据严格分离**（`data/kb/` vs `data/schema/`）
+2. **每张表独立 JSON + `_meta`** 描述 primaryKey/foreignKeys/version
+3. **修改 KB 不影响已存在的 user data**（向后兼容）
+4. **Domain / App 层只通过 ID 外键引用**，从不硬编码"工作"等字符串
+5. **运行时加载** `data/kb-inline.js`（自动生成）→ `window.TT_KB_INDEX`
 
 ---
 
