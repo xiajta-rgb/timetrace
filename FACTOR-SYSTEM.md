@@ -19,7 +19,7 @@
 | moods | 8 |
 | factor-relations | 21 |
 
-**构建时间：** 2026-09-21T07:46:16.037Z
+**构建时间：** 2026-09-21T07:48:17.558Z
 
 
 # 1. 9 个维度（dimensions）
@@ -48,7 +48,7 @@
 - `T3` **关系连接**：新认识、深度交流、关系变化
 
 
-# 2. 56 个因子（factors）
+# 2. 57 个因子（factors）
 
 每个因子含：id / name / emotion 情绪切点 / description / weight / intent / enabled / signals。
 
