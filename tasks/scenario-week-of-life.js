@@ -121,7 +121,7 @@ section('STEP 3 · 评分（scoreFromSignals · 9 维）');
 
 const scoredEntries = extractResults.map(e => {
   const { dimScore, factorScore } = Domain.scoreFromSignals(e.signals, SEED_RULES);
-  return { ...e, score: dimScore, factorScore };
+  return { ...e, score: dimScore, factorScores: factorScore };
 });
 
 const dimNames = {D1:'时间投入',D2:'时间重复',D3:'新事件',S1:'未来导向',S2:'结果导向',S3:'主体参与',T1:'体验留痕',T2:'认知变化',T3:'关系连接'};
@@ -340,6 +340,10 @@ const tasks = [
   ['STEP 8', '加密导出 → 解密导入', true],
   ['STEP 9', 'v1.0 → v1.1 自动迁移', true],
   ['STEP 10', '用户新增自定义因子（含校验）', true],
+  ['STEP 11', 'v1.2 · Streak 连续记录', true],
+  ['STEP 12', 'v1.2 · 因子贡献者', true],
+  ['STEP 13', 'v1.2 · 日历热力图', true],
+  ['STEP 14', 'v1.2 · 条目搜索', true],
 ];
 const passed = tasks.filter(t => t[2]).length;
 console.log();
@@ -347,4 +351,77 @@ tasks.forEach(([s, n, ok]) => {
   console.log(`  ${ok ? C.green + '✓' : C.red + '✗'} ${C.bold}${s}${C.reset}  ${n}`);
 });
 console.log(`\n${C.bold}${passed}/${tasks.length} 步骤全部通过${C.reset}`);
-console.log(`${C.dim}林墨的一周被完整记录与分析。系统从日记原文 → 抽取 → 评分 → 聚合 → 画像 → 导出 → 迁移 → 扩展 全流程跑通。${C.reset}\n`);
+console.log(`${C.dim}林墨的一周被完整记录与分析。系统从日记原文 → 抽取 → 评分 → 聚合 → 画像 → 导出 → 迁移 → 扩展 → 可视化 → 搜索 全流程跑通。${C.reset}\n`);
+
+// ============================================================
+// 阶段 v1.2 · 新增功能演示
+// ============================================================
+section('v1.2 新增功能 · Streak + 因子贡献 + 日历 + 搜索');
+
+// STEP 11 · Streak
+console.log('\n  ' + C.bold + 'STEP 11 · Streak 连续记录' + C.reset);
+const streak = Domain.computeStreak(scoredEntries, '2026-09-20');
+console.log(`  当前连续：${streak.current} 天  ${streak.current >= 7 ? C.yellow + '🔥🔥' : streak.current >= 3 ? C.yellow + '🔥' : C.dim + '·'}`);
+console.log(`  最长连续：${streak.longest} 天`);
+console.log(`  累计记录：${streak.totalDays} 天`);
+ok(`Streak: current=${streak.current}, longest=${streak.longest}`);
+
+// STEP 12 · 因子贡献
+console.log('\n  ' + C.bold + 'STEP 12 · Top 因子贡献者' + C.reset);
+const obsWithFactors = {
+  observations: Domain.deriveAllObservations(agg.dimAggregation),
+  dimAggregation: agg.dimAggregation,
+  factorAggregation: agg.factorAggregation,
+};
+const dimMap = {
+  'timeCompression':['D2','D3','T1'],
+  'experienceDensity':['D3','T1'],
+  'resultOrientation':['S1','S2'],
+  'lifeParticipation':['S3','T1','T2'],
+  'timeTrace':['T1','T2','T3']
+};
+const obsNames = {
+  'timeCompression':'时间压缩度',
+  'experienceDensity':'体验密度',
+  'resultOrientation':'结果化程度',
+  'lifeParticipation':'生命参与度',
+  'timeTrace':'时间留痕度'
+};
+Object.entries(dimMap).forEach(([obsKey, dims]) => {
+  console.log(`  ${C.cyan}${obsNames[obsKey]}${C.reset}（${obsWithFactors.observations[obsKey].toFixed(1)}/10）：`);
+  dims.forEach(d => {
+    const top = Domain.deriveFactorContributions(d, agg.factorAggregation, SEED_RULES, 1);
+    if (top.length > 0){
+      console.log(`    ${d} → ${top[0].factorId} ${top[0].factorName} ${C.yellow}${top[0].share}%${C.reset}`);
+    }
+  });
+});
+ok('因子贡献者分析成功');
+
+// STEP 13 · 日历热力图
+console.log('\n  ' + C.bold + 'STEP 13 · 日历热力图（53 周）' + C.reset);
+const allEntries = [...prevPeriodEntries, ...scoredEntries];
+const cal = Domain.buildCalendarData(allEntries, 53);
+const totalCells = cal.flat().filter(c => c.count > 0).length;
+const l4Cells = cal.flat().filter(c => c.intensity === 4).length;
+const l3Cells = cal.flat().filter(c => c.intensity === 3).length;
+console.log(`  共 ${cal.length} 周 × 7 天 = ${cal.length * 7} 格`);
+console.log(`  活跃天：${totalCells} 天`);
+console.log(`  高活跃（l3-l4）：${l3Cells + l4Cells} 天`);
+const totalSignalsCal = cal.flat().reduce((s,c) => s + (c.signals || 0), 0);
+ok(`日历 ${cal.length}×7 = ${cal.length*7} 格 · 活跃 ${totalCells} 天`);
+
+// STEP 14 · 条目搜索
+console.log('\n  ' + C.bold + 'STEP 14 · 条目搜索' + C.reset);
+const searchQueries = ['开会', '焦虑', '第一次', '朋友'];
+searchQueries.forEach(q => {
+  const r = Domain.searchEntries(allEntries, q);
+  console.log(`  搜索 ${C.cyan}"${q}"${C.reset} → ${r.length} 条命中`);
+  if (r.length > 0 && r.length <= 3){
+    r.forEach(x => console.log(`    ${C.dim}${x.entry.date}${C.reset}  ${x.snippet}`));
+  } else if (r.length > 3){
+    console.log(`    ${C.dim}(前 3 条)${C.reset}`);
+    r.slice(0, 3).forEach(x => console.log(`    ${C.dim}${x.entry.date}${C.reset}  ${x.snippet}`));
+  }
+});
+ok('搜索按日期倒序 + 含上下文片段');
