@@ -1,0 +1,24 @@
+{
+  "_meta": {
+    "table": "modifiers",
+    "purpose": "强度修饰符表（影响 confidence）",
+    "version": "1.3.0",
+    "primaryKey": "id",
+    "notes": [
+      "confidence = factor.weight × rule.weight × modifier.confidence",
+      "priority 越大越优先匹配",
+      "scope: 'global' 全局；'per-factor' 需 factors.modifiers 显式声明"
+    ]
+  },
+  "records": [
+    { "id": "mod_extreme",   "text": "极其",   "confidence": 1.5, "priority": 95, "scope": "global", "language": "zh-CN" },
+    { "id": "mod_very",      "text": "非常",   "confidence": 1.4, "priority": 90, "scope": "global", "language": "zh-CN" },
+    { "id": "mod_especial",  "text": "特别",   "confidence": 1.3, "priority": 85, "scope": "global", "language": "zh-CN" },
+    { "id": "mod_pretty",    "text": "很",     "confidence": 1.2, "priority": 80, "scope": "global", "language": "zh-CN" },
+    { "id": "mod_relatively","text": "比较",   "confidence": 1.1, "priority": 75, "scope": "global", "language": "zh-CN" },
+    { "id": "mod_slightly",  "text": "稍微",   "confidence": 0.8, "priority": 70, "scope": "global", "language": "zh-CN" },
+    { "id": "mod_a_bit",     "text": "有点",   "confidence": 0.7, "priority": 65, "scope": "global", "language": "zh-CN" },
+    { "id": "mod_almost",    "text": "几乎",   "confidence": 0.5, "priority": 60, "scope": "global", "language": "zh-CN" },
+    { "id": "mod_almost_not","text": "几乎不", "confidence": 0.3, "priority": 100, "scope": "global", "language": "zh-CN", "note": "复合修饰，优先匹配" }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "_meta": {
+    "table": "profile_types",
+    "purpose": "用户画像分类定义（criteria 是 Domain 表达式）",
+    "version": "1.3.0",
+    "primaryKey": "code"
+  },
+  "records": [
+    {
+      "code": "task",
+      "name": "任务化",
+      "emoji": "📅",
+      "criteria": {
+        "formula": "D2*0.3 + S1*0.25 + S2*0.25 + (10-D3)*0.2",
+        "description": "重复度高 + 关注未来 + 关注结果 + 新事件少",
+        "intervention": "试着增加无目的的体验"
+      }
+    },
+    {
+      "code": "explore",
+      "name": "探索型",
+      "emoji": "🧭",
+      "criteria": {
+        "formula": "D3*0.3 + T2*0.3 + S3*0.2 + (10-D2)*0.2",
+        "description": "新事件多 + 认知变化 + 主动参与 + 重复少",
+        "intervention": "保持好奇心，警惕迷失方向"
+      }
+    },
+    {
+      "code": "stable",
+      "name": "稳定陪伴",
+      "emoji": "🌿",
+      "criteria": {
+        "formula": "T1*0.25 + T3*0.35 + (10-S1)*0.2 + (10-S2)*0.2",
+        "description": "体验留痕 + 关系连接 + 不焦虑未来 + 不卷结果",
+        "intervention": "记得持续保持"
+      }
+    }
+  ]
+}

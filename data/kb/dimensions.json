@@ -1,0 +1,128 @@
+{
+  "_meta": {
+    "table": "dimensions",
+    "purpose": "D-S-T 三层 9 个维度的元数据",
+    "version": "1.3.0",
+    "primaryKey": "code",
+    "foreignKeys": {}
+  },
+  "records": [
+    {
+      "code": "D1",
+      "layer": "D",
+      "layerName": "Duration 发生",
+      "name": "时间投入",
+      "question": "我的时间去了哪里？",
+      "description": "流向 9 大类生活场景",
+      "weight": 1.0,
+      "threshold": 0.6,
+      "color": "oklch(44% 0.072 168)",
+      "icon": "→",
+      "order": 1
+    },
+    {
+      "code": "D2",
+      "layer": "D",
+      "layerName": "Duration 发生",
+      "name": "时间重复",
+      "question": "多少日子是相似的？",
+      "description": "相似日占比、重复活动",
+      "weight": 0.8,
+      "threshold": 0.5,
+      "color": "oklch(50% 0.080 168)",
+      "icon": "↻",
+      "order": 2
+    },
+    {
+      "code": "D3",
+      "layer": "D",
+      "layerName": "Duration 发生",
+      "name": "新事件",
+      "question": "出现了多少区分度事件？",
+      "description": "新地点、新人物、新体验",
+      "weight": 1.0,
+      "threshold": 0.3,
+      "color": "oklch(56% 0.085 168)",
+      "icon": "✦",
+      "order": 3
+    },
+    {
+      "code": "S1",
+      "layer": "S",
+      "layerName": "State 结构",
+      "name": "未来导向",
+      "question": "我的意识有多少在围绕未来？",
+      "description": "计划、目标、预期、担忧",
+      "weight": 0.9,
+      "threshold": 0.4,
+      "color": "oklch(70% 0.105 75)",
+      "icon": "→",
+      "order": 4
+    },
+    {
+      "code": "S2",
+      "layer": "S",
+      "layerName": "State 结构",
+      "name": "结果导向",
+      "question": "我是否只在结果里找意义？",
+      "description": "做完了吗？达成了吗？",
+      "weight": 0.85,
+      "threshold": 0.4,
+      "color": "oklch(72% 0.110 75)",
+      "icon": "✓",
+      "order": 5
+    },
+    {
+      "code": "S3",
+      "layer": "S",
+      "layerName": "State 结构",
+      "name": "主体参与",
+      "question": "是我在生活，还是事情带着我走？",
+      "description": "主动选择 / 探索 / 创造",
+      "weight": 1.0,
+      "threshold": 0.4,
+      "color": "oklch(74% 0.115 75)",
+      "icon": "✋",
+      "order": 6
+    },
+    {
+      "code": "T1",
+      "layer": "T",
+      "layerName": "Trace 留痕",
+      "name": "体验痕迹",
+      "question": "是否形成可回忆的具体节点？",
+      "description": "具体、独特的记忆节点",
+      "weight": 0.95,
+      "threshold": 0.3,
+      "color": "oklch(56% 0.080 280)",
+      "icon": "◆",
+      "order": 7
+    },
+    {
+      "code": "T2",
+      "layer": "T",
+      "layerName": "Trace 留痕",
+      "name": "认知变化",
+      "question": "我有没有变得不一样？",
+      "description": "新发现、新理解、旧观点被推翻",
+      "weight": 1.0,
+      "threshold": 0.25,
+      "color": "oklch(58% 0.085 280)",
+      "icon": "↑",
+      "order": 8
+    },
+    {
+      "code": "T3",
+      "layer": "T",
+      "layerName": "Trace 留痕",
+      "name": "关系连接",
+      "question": "人与人之间是否留下了痕迹？",
+      "description": "新认识、深度交流、关系变化",
+      "weight": 0.9,
+      "threshold": 0.3,
+      "color": "oklch(60% 0.090 280)",
+      "icon": "⇄",
+      "order": 9
+    }
+  ]
+}

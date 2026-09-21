@@ -1,0 +1,75 @@
+{
+  "_meta": {
+    "table": "factors",
+    "purpose": "56 个二级因子的元数据（不含 signals，signals 在 factor_signals 关联表）",
+    "version": "1.3.0",
+    "primaryKey": "id",
+    "foreignKeys": { "dimCode": "dimensions.code" }
+  },
+  "records": [
+    { "id": "D1-W", "dimCode": "D1", "name": "工作",     "description": "职业投入的总量与质量。不是问\"你勤不勤奋\"，而是问\"这段时间里你把自己交给了什么\"。",            "emotion": "身份表达",  "weight": 1.0, "intent": "neutral",    "enabled": true, "order": 1 },
+    { "id": "D1-L", "dimCode": "D1", "name": "学习",     "description": "主动增长的时间投入。衡量一个人是否在为自己投资未来——不是为了产出，而是为了让自己不同。",            "emotion": "自我增值",  "weight": 0.7, "intent": "positive",   "enabled": true, "order": 2 },
+    { "id": "D1-F", "dimCode": "D1", "name": "家庭",     "description": "与家人共度的时间。不是共处一室，而是真正的在场。",                                                       "emotion": "情感归位",  "weight": 0.9, "intent": "positive",   "enabled": true, "order": 3 },
+    { "id": "D1-S", "dimCode": "D1", "name": "社交",     "description": "主动维护的关系性时间投入。",                                                                              "emotion": "归属感",    "weight": 0.7, "intent": "neutral",    "enabled": true, "order": 4 },
+    { "id": "D1-A", "dimCode": "D1", "name": "独处",     "description": "一个人安静地与自己相处的时间。",                                                                          "emotion": "自我对话",  "weight": 0.8, "intent": "positive",   "enabled": true, "order": 5 },
+    { "id": "D1-Z", "dimCode": "D1", "name": "睡眠",     "description": "睡觉与休息的质量。",                                                                                    "emotion": "身体修复",  "weight": 0.6, "intent": "positive",   "enabled": true, "order": 6 },
+    { "id": "D1-T", "dimCode": "D1", "name": "通勤",     "description": "上下班路上的时间。",                                                                                    "emotion": "机械重复",  "weight": 0.5, "intent": "neutral",    "enabled": true, "order": 7 },
+    { "id": "D1-X", "dimCode": "D1", "name": "闲暇/娱乐", "description": "非功利性的玩耍、看剧、游戏、爱好等为自己充电的时间。",                                                "emotion": "自我充电",  "weight": 0.6, "intent": "positive",   "enabled": true, "order": 8 },
+
+    { "id": "D2-SIM", "dimCode": "D2", "name": "相似日占比","description": "重复度高的日子占总天数比例。",                                                                           "emotion": "无差别感",  "weight": 0.8, "intent": "neutral",    "enabled": true, "order": 1 },
+    { "id": "D2-ACT", "dimCode": "D2", "name": "重复活动",  "description": "反复做同一件事。",                                                                                       "emotion": "麻木",      "weight": 0.7, "intent": "neutral",    "enabled": true, "order": 2 },
+    { "id": "D2-RT", "dimCode": "D2", "name": "重复路径",  "description": "每天走同样的路、去同样的地方。",                                                                        "emotion": "惯性",      "weight": 0.6, "intent": "neutral",    "enabled": true, "order": 3 },
+    { "id": "D2-RP", "dimCode": "D2", "name": "重复社交",  "description": "反复见同一批人。",                                                                                       "emotion": "舒适圈",    "weight": 0.6, "intent": "neutral",    "enabled": true, "order": 4 },
+    { "id": "D2-RC", "dimCode": "D2", "name": "重复内容消费","description": "刷同质化内容（被否定时是好事）。",                                                                       "emotion": "信息茧房",  "weight": 0.9, "intent": "negative",   "enabled": true, "order": 5 },
+
+    { "id": "D3-NP", "dimCode": "D3", "name": "新地点",   "description": "第一次去到的地方。",                                                                                     "emotion": "探索欲",    "weight": 0.9, "intent": "positive",   "enabled": true, "order": 1 },
+    { "id": "D3-NB", "dimCode": "D3", "name": "新人物",   "description": "新认识的人（注意：与 T3-NK 区分——这里强调\"出现\"，T3 强调\"建立联系\"）。",                                  "emotion": "新鲜感",    "weight": 0.9, "intent": "positive",   "enabled": true, "order": 2 },
+    { "id": "D3-NE", "dimCode": "D3", "name": "新体验",   "description": "第一次尝试的事物。",                                                                                     "emotion": "冒险",      "weight": 1.0, "intent": "positive",   "enabled": true, "order": 3 },
+    { "id": "D3-NA", "dimCode": "D3", "name": "新行动",   "description": "主动做了以前没做过的事（强调动作本身的新颖，不一定是体验）。",                                            "emotion": "突破",      "weight": 0.8, "intent": "positive",   "enabled": true, "order": 4 },
+    { "id": "D3-UE", "dimCode": "D3", "name": "意外事件", "description": "计划外的突发状况。",                                                                                     "emotion": "刺激",      "weight": 1.0, "intent": "positive",   "enabled": true, "order": 5 },
+    { "id": "D3-ML", "dimCode": "D3", "name": "完成重要节点","description": "关键里程碑达成。",                                                                                     "emotion": "成就感",    "weight": 0.9, "intent": "positive",   "enabled": true, "order": 6 },
+    { "id": "D3-CG", "dimCode": "D3", "name": "认知变化", "description": "产生了新的理解（与 T2-UN 区分——这里强调\"瞬间的洞察\"，T2 强调\"沉淀后的理解\"）。",                       "emotion": "啊哈时刻",  "weight": 1.0, "intent": "positive",   "enabled": true, "order": 7 },
+    { "id": "D3-EM", "dimCode": "D3", "name": "强烈情绪事件","description": "情绪大起大落的标志性事件（与 T1-EM 区分——D3 是\"事件\"，T1 是\"被记住的细节\"）。",                          "emotion": "情绪过载",  "weight": 0.8, "intent": "positive",   "enabled": true, "order": 8 },
+
+    { "id": "S1-PL", "dimCode": "S1", "name": "计划",     "description": "为未来做安排。",                                                                                          "emotion": "主动权",    "weight": 0.7, "intent": "positive",   "enabled": true, "order": 1 },
+    { "id": "S1-GO", "dimCode": "S1", "name": "目标",     "description": "设定或追求目标。",                                                                                      "emotion": "方向感",    "weight": 0.8, "intent": "positive",   "enabled": true, "order": 2 },
+    { "id": "S1-EX", "dimCode": "S1", "name": "预期",     "description": "对未来的想象。",                                                                                          "emotion": "希望感",    "weight": 0.6, "intent": "neutral",    "enabled": true, "order": 3 },
+    { "id": "S1-WO", "dimCode": "S1", "name": "担忧",     "description": "对未来不确定性的焦虑（被否定时是好事——\"不再担心\"）。",                                                 "emotion": "隐性不安",  "weight": 0.8, "intent": "negative",   "enabled": true, "order": 4 },
+    { "id": "S1-AN", "dimCode": "S1", "name": "焦虑",     "description": "紧张与压力（被否定时是好事——\"不焦虑了\"）。",                                                          "emotion": "压力感",    "weight": 0.9, "intent": "negative",   "enabled": true, "order": 5 },
+    { "id": "S1-FP", "dimCode": "S1", "name": "为未来准备","description": "为将来做储备。",                                                                                        "emotion": "远见",      "weight": 0.7, "intent": "positive",   "enabled": true, "order": 6 },
+
+    { "id": "S2-DG", "dimCode": "S2", "name": "目标达成", "description": "看结果是否达到（被否定时是好事——\"不再追求达成\"是放下执念）。",                                            "emotion": "成就感",    "weight": 0.9, "intent": "negative",   "enabled": true, "order": 1 },
+    { "id": "S2-OU", "dimCode": "S2", "name": "产出/交付","description": "看是否有产出（被否定时是好事）。",                                                                          "emotion": "效率感",    "weight": 0.9, "intent": "negative",   "enabled": true, "order": 2 },
+    { "id": "S2-KP", "dimCode": "S2", "name": "KPI/OKR", "description": "量化指标驱动（被否定时是好事——\"不被 KPI 绑架\"）。",                                                       "emotion": "数据焦虑",  "weight": 1.0, "intent": "negative",   "enabled": true, "order": 3 },
+    { "id": "S2-EF", "dimCode": "S2", "name": "效率追求", "description": "追求高效率（被否定时是好事——\"不再卷效率\"是放松）。",                                                      "emotion": "卷",        "weight": 0.8, "intent": "negative",   "enabled": true, "order": 4 },
+    { "id": "S2-DL", "dimCode": "S2", "name": "截止驱动", "description": "被 deadline 牵引（被否定时是好事）。",                                                                     "emotion": "压力",      "weight": 1.0, "intent": "negative",   "enabled": true, "order": 5 },
+
+    { "id": "S3-CH", "dimCode": "S3", "name": "主动选择", "description": "自己做出决定。",                                                                                          "emotion": "掌控感",    "weight": 1.0, "intent": "positive",   "enabled": true, "order": 1 },
+    { "id": "S3-EX", "dimCode": "S3", "name": "主动探索", "description": "主动去尝试新事物。",                                                                                      "emotion": "好奇心",    "weight": 1.0, "intent": "positive",   "enabled": true, "order": 2 },
+    { "id": "S3-CR", "dimCode": "S3", "name": "主动创造", "description": "自己设计或创作。",                                                                                       "emotion": "创造力",    "weight": 1.0, "intent": "positive",   "enabled": true, "order": 3 },
+    { "id": "S3-EP", "dimCode": "S3", "name": "主动表达", "description": "主动表达自己。",                                                                                          "emotion": "自我呈现",  "weight": 0.8, "intent": "positive",   "enabled": true, "order": 4 },
+    { "id": "S3-CG", "dimCode": "S3", "name": "主动改变", "description": "主动做出改变。",                                                                                          "emotion": "能动性",    "weight": 1.0, "intent": "positive",   "enabled": true, "order": 5 },
+    { "id": "S3-PE", "dimCode": "S3", "name": "被动执行", "description": "被任务牵着走（被否定时是好事）。",                                                                          "emotion": "无力感",    "weight": 0.9, "intent": "negative",   "enabled": true, "order": 6 },
+    { "id": "S3-PA", "dimCode": "S3", "name": "被动接受", "description": "被动接收信息（被否定时是好事）。",                                                                          "emotion": "被动",      "weight": 0.7, "intent": "negative",   "enabled": true, "order": 7 },
+
+    { "id": "T1-SE", "dimCode": "T1", "name": "感官细节", "description": "(味道/触感/声音) 被记住。",                                                                                "emotion": "通感",      "weight": 0.9, "intent": "positive",   "enabled": true, "order": 1 },
+    { "id": "T1-SC", "dimCode": "T1", "name": "场景细节", "description": "(天气/地点) 的具体画面。",                                                                                  "emotion": "画面感",    "weight": 0.9, "intent": "positive",   "enabled": true, "order": 2 },
+    { "id": "T1-EM", "dimCode": "T1", "name": "情绪峰值", "description": "(喜/悲/静) 的强烈感受（与 D3-EM 区分——T1 是\"被记住\"，D3 是\"事件本身\"）。",                                   "emotion": "情感印记",  "weight": 1.0, "intent": "positive",   "enabled": true, "order": 3 },
+    { "id": "T1-TA", "dimCode": "T1", "name": "时间锚点", "description": "那一刻的清晰回忆。",                                                                                       "emotion": "珍藏感",    "weight": 1.0, "intent": "positive",   "enabled": true, "order": 4 },
+    { "id": "T1-FR", "dimCode": "T1", "name": "独特首次", "description": "第一次的鲜明记忆。",                                                                                       "emotion": "人生高光",  "weight": 1.0, "intent": "positive",   "enabled": true, "order": 5 },
+
+    { "id": "T2-DI", "dimCode": "T2", "name": "新发现",   "description": "新发现了某件事。",                                                                                       "emotion": "好奇心",    "weight": 0.9, "intent": "positive",   "enabled": true, "order": 1 },
+    { "id": "T2-UN", "dimCode": "T2", "name": "新理解",   "description": "对某事有了新的理解。",                                                                                    "emotion": "成长感",    "weight": 1.0, "intent": "positive",   "enabled": true, "order": 2 },
+    { "id": "T2-OV", "dimCode": "T2", "name": "旧观点推翻","description": "以前的看法被推翻。",                                                                                       "emotion": "认知重构",  "weight": 1.0, "intent": "positive",   "enabled": true, "order": 3 },
+    { "id": "T2-VA", "dimCode": "T2", "name": "新价值排序","description": "内心优先级重新排列。",                                                                                    "emotion": "价值观升级","weight": 1.0, "intent": "positive",   "enabled": true, "order": 4 },
+    { "id": "T2-SR", "dimCode": "T2", "name": "自我重新认识","description": "对自己有了新的认知。",                                                                                   "emotion": "自我觉醒",  "weight": 1.0, "intent": "positive",   "enabled": true, "order": 5 },
+
+    { "id": "T3-NK", "dimCode": "T3", "name": "新认识",   "description": "新建立了联系（与 D3-NB 区分——T3 强调\"建立联系\"，D3 强调\"出现\"）。",                                       "emotion": "社交扩展",  "weight": 0.8, "intent": "positive",   "enabled": true, "order": 1 },
+    { "id": "T3-DC", "dimCode": "T3", "name": "深度交流", "description": "与他人深入对话。",                                                                                       "emotion": "灵魂共振",  "weight": 1.0, "intent": "positive",   "enabled": true, "order": 2 },
+    { "id": "T3-CR", "dimCode": "T3", "name": "关系变化", "description": "关系发生转变。",                                                                                          "emotion": "关系重构",  "weight": 1.0, "intent": "positive",   "enabled": true, "order": 3 },
+    { "id": "T3-CE", "dimCode": "T3", "name": "共同经历", "description": "一起做了某件事。",                                                                                       "emotion": "连接感",    "weight": 0.9, "intent": "positive",   "enabled": true, "order": 4 },
+    { "id": "T3-EI", "dimCode": "T3", "name": "情感表达", "description": "表达了真实情感。",                                                                                       "emotion": "情感流动",  "weight": 1.0, "intent": "positive",   "enabled": true, "order": 5 },
+    { "id": "T3-UD", "dimCode": "T3", "name": "被理解",   "description": "感觉到被理解。",                                                                                          "emotion": "被看见",    "weight": 1.0, "intent": "positive",   "enabled": true, "order": 6 },
+    { "id": "T3-UU", "dimCode": "T3", "name": "理解别人", "description": "理解了他人。",                                                                                            "emotion": "共情",      "weight": 0.9, "intent": "positive",   "enabled": true, "order": 7 }
+  ]
+}

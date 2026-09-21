@@ -1,0 +1,43 @@
+{
+  "_meta": {
+    "table": "factor_relations",
+    "purpose": "因子之间的语义关系（同义/反义/因果）",
+    "version": "1.3.0",
+    "primaryKey": ["sourceFactorId", "targetFactorId", "type"],
+    "foreignKeys": {
+      "sourceFactorId": "factors.id",
+      "targetFactorId": "factors.id"
+    },
+    "notes": [
+      "type: 'synonym' 同义 / 'antonym' 反义 / 'cause' 因果 / 'subset' 子集",
+      "strength: 0-1，越大关系越强",
+      "用于聚合洞察：用户某对因子强相关时给提示"
+    ]
+  },
+  "records": [
+    { "sourceFactorId": "D3-NB", "targetFactorId": "T3-NK", "type": "synonym", "strength": 0.6, "note": "都是\"遇见新的人\"，D3 强调出现，T3 强调建立联系" },
+    { "sourceFactorId": "D3-CG", "targetFactorId": "T2-UN", "type": "synonym", "strength": 0.7, "note": "都是\"认知变化\"，D3 强调瞬间洞察，T2 强调沉淀理解" },
+    { "sourceFactorId": "T1-EM", "targetFactorId": "D3-EM", "type": "synonym", "strength": 0.5, "note": "都是\"情绪强度\"，T1 强调被记住，D3 强调事件本身" },
+
+    { "sourceFactorId": "S1-WO", "targetFactorId": "S1-AN", "type": "synonym", "strength": 0.7, "note": "都是负面未来导向，担忧更温和，焦虑更强烈" },
+    { "sourceFactorId": "S2-KP", "targetFactorId": "S2-DG", "type": "synonym", "strength": 0.6, "note": "都是结果导向，KPI/OKR 与目标达成同源" },
+    { "sourceFactorId": "S3-PE", "targetFactorId": "S3-PA", "type": "synonym", "strength": 0.7, "note": "都是被动，PE 是执行，PA 是接收" },
+    { "sourceFactorId": "S3-CH", "targetFactorId": "S3-EX", "type": "synonym", "strength": 0.6, "note": "都是主动，CH 是决策，EX 是探索" },
+    { "sourceFactorId": "T1-TA", "targetFactorId": "T1-FR", "type": "synonym", "strength": 0.6, "note": "都是时间锚点，TA 是任意时刻，FR 是第一次" },
+    { "sourceFactorId": "T2-UN", "targetFactorId": "T2-OV", "type": "synonym", "strength": 0.7, "note": "都是认知升级，UN 是建立，OV 是推翻" },
+
+    { "sourceFactorId": "D2-RC", "targetFactorId": "D3-NE", "type": "antonym", "strength": 0.7, "note": "刷手机 vs 探索新体验" },
+    { "sourceFactorId": "S1-WO", "targetFactorId": "D3-NE", "type": "antonym", "strength": 0.6, "note": "担忧未来 vs 体验当下" },
+    { "sourceFactorId": "S3-PE", "targetFactorId": "S3-CH", "type": "antonym", "strength": 0.8, "note": "被动执行 vs 主动选择" },
+    { "sourceFactorId": "D2-SIM", "targetFactorId": "D3-NE", "type": "antonym", "strength": 0.7, "note": "日子相似 vs 新事件多" },
+    { "sourceFactorId": "D1-W",  "targetFactorId": "D1-F", "type": "antonym", "strength": 0.5, "note": "工作时间 vs 家庭时间（资源竞争）" },
+
+    { "sourceFactorId": "D1-W",  "targetFactorId": "S2-DL", "type": "cause", "strength": 0.7, "note": "工作多 → 截止驱动多" },
+    { "sourceFactorId": "S2-DL", "targetFactorId": "S1-AN", "type": "cause", "strength": 0.6, "note": "截止驱动 → 焦虑" },
+    { "sourceFactorId": "T1-FR", "targetFactorId": "T2-UN", "type": "cause", "strength": 0.5, "note": "第一次 → 引发新理解" },
+    { "sourceFactorId": "T3-DC", "targetFactorId": "T2-UN", "type": "cause", "strength": 0.6, "note": "深度交流 → 引发认知变化" },
+    { "sourceFactorId": "T3-UD", "targetFactorId": "T2-SR", "type": "cause", "strength": 0.5, "note": "被理解 → 重新认识自己" },
+    { "sourceFactorId": "D1-X",  "targetFactorId": "D3-NE", "type": "subset",  "strength": 0.6, "note": "闲暇娱乐常含新体验元素" },
+    { "sourceFactorId": "D3-ML", "targetFactorId": "D3-UE", "type": "antonym", "strength": 0.4, "note": "计划内达成 vs 意外事件" }
+  ]
+}

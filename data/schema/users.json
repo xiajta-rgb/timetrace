@@ -1,0 +1,173 @@
+{
+  "_meta": {
+    "schema": "TimeTrace 用户数据 schema",
+    "version": "1.3.0",
+    "note": "所有用户数据表，与 KB 严格分离。每张表都有 createdAt/updatedAt 审计字段。",
+    "tables": [
+      {
+        "name": "entries",
+        "purpose": "日记条目主表",
+        "primaryKey": "id",
+        "fields": [
+          { "name": "id",          "type": "string",  "format": "e_<timestamp>_<rand>", "required": true, "note": "主键" },
+          { "name": "date",        "type": "date",    "format": "YYYY-MM-DD", "required": true, "indexed": true },
+          { "name": "text",        "type": "string",  "maxLength": 10000, "required": true },
+          { "name": "mood",        "type": "enum",    "ref": "moods.code", "default": "mixed" },
+          { "name": "scenario",    "type": "enum",    "ref": "scenarios.code", "default": null },
+          { "name": "score",       "type": "object",  "schema": "{ D1: number, D2: number, ..., T3: number }", "note": "9 维分数缓存" },
+          { "name": "factorScores","type": "object",  "schema": "{ 'D1-W': number, ... }", "note": "56 因子分数缓存" },
+          { "name": "createdAt",   "type": "datetime","format": "ISO8601", "default": "now" },
+          { "name": "updatedAt",   "type": "datetime","format": "ISO8601", "default": "now" },
+          { "name": "isDeleted",   "type": "boolean", "default": false, "note": "软删除" }
+        ],
+        "indexes": ["date", "createdAt", "isDeleted"]
+      },
+      {
+        "name": "entry_signals",
+        "purpose": "日记抽取出的信号明细（独立存储，方便聚合查询）",
+        "primaryKey": "id",
+        "foreignKeys": { "entryId": "entries.id", "factorId": "factors.id", "signalId": "signals.id" },
+        "fields": [
+          { "name": "id",          "type": "string",  "format": "s_<timestamp>_<rand>" },
+          { "name": "entryId",     "type": "string",  "required": true, "indexed": true },
+          { "name": "dimCode",     "type": "string",  "ref": "dimensions.code", "required": true },
+          { "name": "factorId",    "type": "string",  "ref": "factors.id", "required": true },
+          { "name": "signalId",    "type": "string",  "ref": "signals.id" },
+          { "name": "src",         "type": "string",  "required": true, "note": "匹配到的信号词文本" },
+          { "name": "position",    "type": "integer", "required": true, "note": "在 entry.text 中的字符位置" },
+          { "name": "length",      "type": "integer", "note": "匹配范围长度" },
+          { "name": "confidence",  "type": "number",  "range": [0, 1.5], "default": 1 },
+          { "name": "weight",      "type": "number",  "note": "实际权重 = confidence × factor.weight × rule.weight" },
+          { "name": "negated",     "type": "boolean", "default": false },
+          { "name": "negatedWord", "type": "string",  "ref": "negations.id" },
+          { "name": "modifierWord","type": "string",  "ref": "modifiers.id" },
+          { "name": "matchType",   "type": "enum",    "values": ["exact","loose"] },
+          { "name": "intent",      "type": "enum",    "ref": "intents.code" },
+          { "name": "createdAt",   "type": "datetime","format": "ISO8601", "default": "now" }
+        ],
+        "indexes": ["entryId", "factorId", "dimCode"]
+      },
+      {
+        "name": "entry_segments",
+        "purpose": "日记段落（一条日记可有多个时间段 / 多场景）",
+        "primaryKey": "id",
+        "foreignKeys": { "entryId": "entries.id", "scenarioCode": "scenarios.code" },
+        "fields": [
+          { "name": "id",          "type": "string", "format": "seg_<timestamp>" },
+          { "name": "entryId",     "type": "string", "indexed": true },
+          { "name": "order",       "type": "integer", "default": 0 },
+          { "name": "startOffset", "type": "integer", "required": true },
+          { "name": "endOffset",   "type": "integer", "required": true },
+          { "name": "text",        "type": "string",  "required": true },
+          { "name": "scenarioCode","type": "string", "ref": "scenarios.code" },
+          { "name": "timeOfDay",   "type": "enum",    "values": ["morning","noon","afternoon","evening","night","unknown"] },
+          { "name": "createdAt",   "type": "datetime" }
+        ],
+        "indexes": ["entryId", "scenarioCode"]
+      },
+      {
+        "name": "entry_moods",
+        "purpose": "一条日记可标记多个情绪（强度独立）",
+        "primaryKey": "id",
+        "foreignKeys": { "entryId": "entries.id", "moodCode": "moods.code" },
+        "fields": [
+          { "name": "id",        "type": "string", "format": "m_<timestamp>" },
+          { "name": "entryId",   "type": "string", "indexed": true },
+          { "name": "moodCode",  "type": "string", "ref": "moods.code" },
+          { "name": "intensity", "type": "number", "range": [0, 10], "default": 5 },
+          { "name": "source",    "type": "enum",    "values": ["user","auto"], "default": "user" },
+          { "name": "createdAt", "type": "datetime" }
+        ],
+        "indexes": ["entryId", "moodCode"]
+      },
+      {
+        "name": "entry_tags",
+        "purpose": "自定义标签（不限情绪/场景）",
+        "primaryKey": "id",
+        "foreignKeys": { "entryId": "entries.id" },
+        "fields": [
+          { "name": "id",        "type": "string", "format": "t_<timestamp>" },
+          { "name": "entryId",   "type": "string", "indexed": true },
+          { "name": "tag",       "type": "string", "maxLength": 30, "required": true, "indexed": true },
+          { "name": "category",  "type": "string", "default": "general", "note": "用户自定义分类" },
+          { "name": "createdAt", "type": "datetime" }
+        ],
+        "indexes": ["entryId", "tag"]
+      },
+      {
+        "name": "scenarios_custom",
+        "purpose": "用户自定义场景",
+        "primaryKey": "id",
+        "foreignKeys": {},
+        "fields": [
+          { "name": "id",          "type": "string", "format": "sc_<timestamp>" },
+          { "name": "code",        "type": "string", "required": true, "unique": true },
+          { "name": "name",        "type": "string", "required": true },
+          { "name": "description", "type": "string" },
+          { "name": "color",       "type": "string" },
+          { "name": "icon",        "type": "string" },
+          { "name": "isCustom",    "type": "boolean", "default": true },
+          { "name": "createdAt",   "type": "datetime" },
+          { "name": "usageCount",  "type": "integer", "default": 0, "note": "缓存，被选择次数" }
+        ],
+        "indexes": ["code"]
+      },
+      {
+        "name": "observation_snapshots",
+        "purpose": "每日观察指标快照（用于趋势计算，不依赖回扫历史数据）",
+        "primaryKey": "id",
+        "foreignKeys": { "observationKey": "observations.key" },
+        "fields": [
+          { "name": "id",              "type": "string", "format": "obs_<date>_<key>" },
+          { "name": "date",            "type": "date", "indexed": true },
+          { "name": "observationKey",  "type": "string", "ref": "observations.key", "indexed": true },
+          { "name": "value",           "type": "number", "range": [0, 10] },
+          { "name": "sampleSize",      "type": "integer", "note": "计算时使用的日记条数" },
+          { "name": "periodDays",      "type": "integer", "note": "聚合窗口（7/30/90/all）" },
+          { "name": "computedAt",      "type": "datetime" },
+          { "name": "createdAt",       "type": "datetime", "default": "now" }
+        ],
+        "indexes": ["date", "observationKey"]
+      },
+      {
+        "name": "audit_log",
+        "purpose": "审计日志（记录每次修改/删除/导出/迁移）",
+        "primaryKey": "id",
+        "fields": [
+          { "name": "id",          "type": "string", "format": "log_<timestamp>_<rand>" },
+          { "name": "action",      "type": "enum",    "values": ["create","update","delete","extract","export","import","migrate","login","logout"] },
+          { "name": "entity",      "type": "string", "note": "entries/factors/rules/etc" },
+          { "name": "entityId",    "type": "string" },
+          { "name": "before",      "type": "json",    "note": "变更前的快照" },
+          { "name": "after",       "type": "json",    "note": "变更后的快照" },
+          { "name": "actor",       "type": "string", "default": "user" },
+          { "name": "timestamp",   "type": "datetime", "indexed": true },
+          { "name": "createdAt",   "type": "datetime", "default": "now" },
+          { "name": "metadata",    "type": "json",    "note": "额外信息（如 IP、userAgent、reason）" }
+        ],
+        "indexes": ["timestamp", "action", "entity"]
+      },
+      {
+        "name": "user_preferences",
+        "purpose": "用户偏好设置（暗色主题、默认周期、阈值等）",
+        "primaryKey": "key",
+        "fields": [
+          { "name": "key",         "type": "string", "primaryKey": true },
+          { "name": "value",       "type": "json",   "required": true },
+          { "name": "updatedAt",   "type": "datetime" }
+        ]
+      },
+      {
+        "name": "schema_version",
+        "purpose": "用户数据 schema 版本追踪",
+        "primaryKey": "id",
+        "fields": [
+          { "name": "id",          "type": "string", "default": "current" },
+          { "name": "version",     "type": "string", "required": true },
+          { "name": "appliedAt",   "type": "datetime" },
+          { "name": "migrationLog","type": "json" }
+        ]
+      }
+    ]
+  }
+}

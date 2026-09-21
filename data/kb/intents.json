@@ -1,0 +1,13 @@
+{
+  "_meta": {
+    "table": "intents",
+    "purpose": "因子意图枚举（决定评分方向）",
+    "version": "1.3.0",
+    "primaryKey": "code"
+  },
+  "records": [
+    { "code": "positive", "name": "正向", "description": "分数越高越好（否定时反而扣分）", "color": "oklch(44% 0.072 168)", "reverseOnNegate": false },
+    { "code": "negative", "name": "反向", "description": "分数越低越好（否定时反而加分）", "color": "oklch(60% 0.140 45)",  "reverseOnNegate": true },
+    { "code": "neutral",  "name": "中性", "description": "仅反映存在与否",                    "color": "oklch(70% 0.105 75)",   "reverseOnNegate": false }
+  ]
+}

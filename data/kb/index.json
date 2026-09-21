@@ -1,0 +1,34 @@
+{
+  "_meta": {
+    "knowledge_base": "TimeTrace v1.3 KB",
+    "version": "1.3.0",
+    "description": "所有静态参考数据的索引 + 表间关系",
+    "tables": [
+      { "name": "dimensions",        "file": "dimensions.json",       "records": 9,   "fk": null },
+      { "name": "factors",           "file": "factors.json",          "records": 56,  "fk": "dimCode → dimensions.code" },
+      { "name": "signals",           "file": "signals.json",          "records": "~250","fk": null },
+      { "name": "factor_signals",    "file": "factor-signals.json",   "records": "~300","fk": "(factorId, signalId) → (factors.id, signals.id)" },
+      { "name": "negations",         "file": "negations.json",        "records": 14,  "fk": null },
+      { "name": "modifiers",         "file": "modifiers.json",        "records": 9,   "fk": null },
+      { "name": "intents",           "file": "intents.json",          "records": 3,   "fk": null },
+      { "name": "observations",      "file": "observations.json",     "records": 5,   "fk": null },
+      { "name": "profile_types",     "file": "profile-types.json",    "records": 3,   "fk": null },
+      { "name": "scenarios",         "file": "scenarios.json",        "records": 5,   "fk": null },
+      { "name": "moods",             "file": "moods.json",            "records": 8,   "fk": null },
+      { "name": "factor_relations",  "file": "factor-relations.json", "records": 30,  "fk": "(sourceFactorId, targetFactorId) → factors.id" }
+    ],
+    "relationships": [
+      "factor.dimCode 必须存在于 dimensions.code",
+      "factor_signals.factorId 必须存在于 factors.id",
+      "factor_signals.signalId 必须存在于 signals.id",
+      "factor_relations.sourceFactorId/targetFactorId 必须存在于 factors.id",
+      "observations.weightByDim 的 key 必须存在于 dimensions.code"
+    ],
+    "principles": [
+      "所有 KB 表都是 immutable reference data，运行时通过 Domain.KB 缓存",
+      "每个表 _meta 包含 version/primaryKey/foreignKeys 描述",
+      "用户数据（entries/entries_signals 等）在 data/schema/users.json 单独定义",
+      "修改 KB 不影响已存在的 user data（向后兼容）"
+    ]
+  }
+}

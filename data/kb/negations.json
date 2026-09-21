@@ -1,0 +1,29 @@
+{
+  "_meta": {
+    "table": "negations",
+    "purpose": "否定词表（影响抽取逻辑）",
+    "version": "1.3.0",
+    "primaryKey": "id",
+    "notes": [
+      "priority 越大越优先匹配",
+      "scope: 'global' 作用于所有因子；'per-factor' 需在 factors.negations 显式声明",
+      "intentOverride: 'reverse' 把 negative intent 翻转为正向得分；'cancel' 直接取消命中"
+    ]
+  },
+  "records": [
+    { "id": "neg_no_more",  "text": "不再",   "priority": 100, "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_not",      "text": "不是",   "priority": 95,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_not_too",  "text": "不太",   "priority": 90,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_never",    "text": "从不",   "priority": 85,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_never2",   "text": "从未",   "priority": 85,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_never3",   "text": "绝不",   "priority": 80,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_almost_not","text": "几乎不", "priority": 75,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_never_ever","text": "永不",   "priority": 70,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_not_roll",  "text": "不卷",   "priority": 65,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN", "note": "互联网 slang" },
+    { "id": "neg_no_have",  "text": "没",     "priority": 60,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_not_yet",  "text": "未",     "priority": 55,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_none",     "text": "无",     "priority": 50,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_no",       "text": "不",     "priority": 40,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" },
+    { "id": "neg_dont",     "text": "别",     "priority": 35,  "scope": "global", "intentOverride": "reverse", "language": "zh-CN" }
+  ]
+}
